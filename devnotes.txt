@@ -1,0 +1,5 @@
+Starting with version 1.4.0b2, Meteorologist began using CURLHandler instead of NSURLHandler.
+
+You must download the CURLHandler framework from: http://curlhandle.sourceforge.net/ in order to compile.
+
+Joe Crobak
