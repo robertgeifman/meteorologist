@@ -42,6 +42,23 @@
 						<string>name</string>
 					</array>
 				</dict>
+                <dict>
+					<key>codeEnd</key>
+					<string>'</string>
+					<key>codeStart</key>
+					<string>search_city" onClick="setRecentSearch('</string> 
+					<key>multipleMatchString</key>
+					<string>&gt;1.</string>
+					<key>nameEnd</key>
+					<string>&lt;/B&gt;&lt;/A&gt;</string> 
+					<key>nameStart</key>
+					<string> &lt;B&gt;</string> 
+					<key>parseOrder</key>
+					<array>
+						<string>code</string>
+						<string>name</string>
+					</array>
+				</dict>
 			</array>
             <key>notFound</key>
 			<array>
