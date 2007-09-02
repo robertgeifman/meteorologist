@@ -445,10 +445,10 @@ NSImage *imageForName(NSString *name, BOOL inDock)
     Class class = [self class];
 	
 	if (debug)														//JRC
-		NSLog(@"Weather.com URL: http://www.weather.com/weather/local/%@", code);
+	NSLog(@"Weather.com URL: http://www.weather.com/outlook/travel/businesstraveler/local/%@", code);
 									  //JRC
     url = [NSURL URLWithString:(NSString*)CFURLCreateStringByAddingPercentEscapes(NULL,
-																				  (CFStringRef)[NSString stringWithFormat:@"http://www.weather.com/weather/local/%@",code],NULL,NULL,kCFStringEncodingUTF8)];
+	(CFStringRef)[NSString stringWithFormat:@"http://www.weather.com/outlook/travel/businesstraveler/local/%@",code],NULL,NULL,kCFStringEncodingUTF8)];
 	
 	if(!url)
 	{
@@ -480,6 +480,7 @@ NSImage *imageForName(NSString *name, BOOL inDock)
     
     [weatherData setObject:[url absoluteString] forKey:@"Weather Link"];
     
+/* OHL 29 Aug 2007 1:18:01 -- Dead code. "Current Location" isn't used anywhere else.
     //get the location
     temp = [class getStringWithLeftBound:@"Current Conditions for  "
 							  rightBound:@" ("
@@ -499,6 +500,7 @@ NSImage *imageForName(NSString *name, BOOL inDock)
     if(temp && ![temp hasPrefix:@"N/A"])
         [weatherData setObject:temp forKey:@"Current Location"];
     //end getting location
+*/
     
     //get weather alert info
     temp = [class getStringWithLeftBound:@"<!-- if svr ex alerts, use code below -->"
@@ -560,36 +562,44 @@ NSImage *imageForName(NSString *name, BOOL inDock)
 			[weatherData setObject:weatherAlerts forKey:@"Weather Alert"];
 		
 }
-
 //just move us down towards the right location
+/* OHL Comment out useless (and silly) pattern:
 temp = [class getStringWithLeftBound:@"padding:0px 0px 10px 0px;"
 				   rightBound:@">"
 					   string:string
 					   length:stringLength
 					lastRange:&lastRange];
+*/
+    // OHL 29 Aug 2007: Replacement for the above with a little bit
+    // better chance at lasting more than a few days...
+    temp = [class getStringWithLeftBound:@"<div class=\"currentCon\">"
+			      rightBound:@"\n"
+				  string:string
+				  length:stringLength
+			       lastRange:&lastRange];
 
 //Checking for a weather icon
-temp = [class getStringWithLeftBound:@"<IMG SRC="
-						  rightBound:@" "
+    temp = [class getStringWithLeftBound:@"src=\""
+			      rightBound:@"\""
 							  string:string
 							  length:stringLength
 						   lastRange:&lastRange];
 if(temp && ![temp hasPrefix:@"N/A"])
-[weatherData setObject:temp forKey:@"Weather Image"];
+    [weatherData setObject:temp forKey:@"Weather Image"];
 //end weather icon checking
 
 //get the current temp
-temp = [class getStringWithLeftBound:@"obsTempTextA>"
+    temp = [class getStringWithLeftBound:@"obsTempTextA\">"
 						  rightBound:@"&"
 							  string:string
 							  length:stringLength
 						   lastRange:&lastRange];
 if(temp && ![temp hasPrefix:@"N/A"])
-[weatherData setObject:temp forKey:@"Temperature"];
+    [weatherData setObject:temp forKey:@"Temperature"];
 //end getting current temp
 
 //get the current feels-like
-temp = [class getStringWithLeftBound:@"Feels Like<BR> "
+    temp = [class getStringWithLeftBound:@"Feels Like<br/>"
 						  rightBound:@"&"
 							  string:string
 							  length:stringLength
@@ -619,29 +629,28 @@ if(temp && ![temp hasPrefix:@"N/A"])
 //    //end getting current uv index
 
 //get the current wind
-temp = [class getStringWithLeftBound:@"obsTextA" // dummy
+    temp = [class getStringWithLeftBound:@"<div class=\"crowli\">" // dummy
 						  rightBound:@"Wind:"
 							  string:string
 							  length:stringLength
 						   lastRange:&lastRange];
-temp = [class getStringWithLeftBound:@"obsTextA\">"
-						  rightBound:@"</td>"
+    temp = [class getStringWithLeftBound:@"<div class=\"crowval\">"
+			      rightBound:@"</div>"
 							  string:string
 							  length:stringLength
 						   lastRange:&lastRange];
-
 if(temp && ![temp hasPrefix:@"N/A"])
 [weatherData setObject:[class replaceString:@" <BR> " withString:@" " forString:[class replaceString:@"&nbsp;" withString:@" " forString:temp]] forKey:@"Wind"];
 //end getting current pressure
 
 //get the current humidity
-temp = [class getStringWithLeftBound:@"obsTextA" // dummy
+    temp = [class getStringWithLeftBound:@"<div class=\"crowli\">" // dummy
 						  rightBound:@"Humidity:"
 							  string:string
 							  length:stringLength
 						   lastRange:&lastRange];
-temp = [class getStringWithLeftBound:@"obsTextA\">"
-						  rightBound:@"</td>"
+    temp = [class getStringWithLeftBound:@"<div class=\"crowval\">"
+			      rightBound:@"</div>"
 							  string:string
 							  length:stringLength
 						   lastRange:&lastRange];
@@ -650,12 +659,12 @@ if(temp && ![temp hasPrefix:@"N/A"])
 //end getting current humidity
 
 //get the current pressure
-temp = [class getStringWithLeftBound:@"obsTextA" // dummy
+    temp = [class getStringWithLeftBound:@"<div class=\"crowli\">" // dummy
 						  rightBound:@"Pressure:"
 							  string:string
 							  length:stringLength
 						   lastRange:&lastRange];
-temp = [class getStringWithLeftBound:@"obsTextA\">"
+    temp = [class getStringWithLeftBound:@"<div class=\"crowval\">"
 						  rightBound:@"&nbsp;"
 							  string:string
 							  length:stringLength
@@ -666,13 +675,13 @@ if(temp && ![temp hasPrefix:@"N/A"])
 //end getting current pressure
 
 //get the current dew point
-temp = [class getStringWithLeftBound:@"obsTextA" // dummy
+    temp = [class getStringWithLeftBound:@"<div class=\"crowli\">" // dummy
 						  rightBound:@"Dew Point:"
 							  string:string
 							  length:stringLength
 						   lastRange:&lastRange];
-temp = [class getStringWithLeftBound:@"obsTextA\">"
-						  rightBound:@"&"
+    temp = [class getStringWithLeftBound:@"<div class=\"crowval\">"
+			      rightBound:@"&deg;"
 							  string:string
 							  length:stringLength
 						   lastRange:&lastRange];
@@ -680,18 +689,51 @@ if(temp && ![temp hasPrefix:@"N/A"])
 [weatherData setObject:temp forKey:@"Dew Point"];
 //end getting current dew point
 
+    //get the current visibility
+    temp = [class getStringWithLeftBound:@"<div class=\"crowli\">" // dummy
+			      rightBound:@"Visibility:"
+				  string:string
+				  length:stringLength
+			       lastRange:&lastRange];
+    temp = [class getStringWithLeftBound:@"<div class=\"crowval\">"
+			      rightBound:@"</div>"
+				  string:string
+				  length:stringLength
+			       lastRange:&lastRange];
+    if(temp && ![temp hasPrefix:@"N/A"])
+	[weatherData setObject:temp forKey:@"Visibility"];
+    //end getting current visibility
 
+    //get the current sunrise
+    temp = [class getStringWithLeftBound:@"<div class=\"crowli\">" // dummy
+			      rightBound:@"Sunrise:"
+				  string:string
+				  length:stringLength
+			       lastRange:&lastRange];
+    temp = [class getStringWithLeftBound:@"<div class=\"crowval\">"
+			      rightBound:@"</div>"
+				  string:string
+				  length:stringLength
+			       lastRange:&lastRange];
+    if(temp && ![temp hasPrefix:@"N/A"])
+	[weatherData setObject:temp forKey:@"Sunrise"];
+    //end getting current sunrise
 
-//    //get the current visibility
-//    temp = [class getStringWithLeftBound:@"obsInfo2>"
-//                  rightBound:@"</TD>"
-//                  string:string
-//                  length:stringLength
-//                  lastRange:&lastRange];
-//    if(temp && ![temp hasPrefix:@"N/A"])
-//        [weatherData setObject:temp forKey:@"Visibility"];
-//    //end getting current visibility
-//    
+    //get the current sunset
+    temp = [class getStringWithLeftBound:@"<div class=\"crowli\">" // dummy
+			      rightBound:@"Sunset:"
+				  string:string
+				  length:stringLength
+			       lastRange:&lastRange];
+    temp = [class getStringWithLeftBound:@"<div class=\"crowval\">"
+			      rightBound:@"</div>"
+				  string:string
+				  length:stringLength
+			       lastRange:&lastRange];
+    if(temp && ![temp hasPrefix:@"N/A"])
+	[weatherData setObject:temp forKey:@"Sunset"];
+    //end getting current sunset
+
 
 
 
