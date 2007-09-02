@@ -27,6 +27,7 @@
 		514F3E750A4E0ECA00378165 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		514F3EDE0A4E281C00378165 /* Message.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B4B4ECE0422F083009A2FD0 /* Message.framework */; };
 		514F3EDF0A4E288800378165 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
+		519894300C83CA7500B0526F /* CURLHandle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 51093BAB0C06847600202293 /* CURLHandle.framework */; };
 		51D7CFCC0B13D79C006F376D /* MoonPhase-1.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 51D7CF770B13D79C006F376D /* MoonPhase-1.tiff */; };
 		51D7CFCD0B13D79C006F376D /* MoonPhase-10.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 51D7CF780B13D79C006F376D /* MoonPhase-10.tiff */; };
 		51D7CFCE0B13D79C006F376D /* MoonPhase-11.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 51D7CF790B13D79C006F376D /* MoonPhase-11.tiff */; };
@@ -117,15 +118,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		51D7D0400B13DCF2006F376D /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 7;
-			files = (
+				519894300C83CA7500B0526F /* CURLHandle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -530,7 +523,6 @@
 				514F3E050A4E075B00378165 /* Sources */,
 				514F3E060A4E075B00378165 /* Frameworks */,
 				514F3E110A4E077500378165 /* CopyFiles */,
-				51D7D0400B13DCF2006F376D /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -769,25 +761,20 @@
 				PREBINDING = YES;
 				PRODUCT_NAME = Meteorologist;
 				WRAPPER_EXTENSION = app;
-				ZERO_LINK = YES;
+				ZERO_LINK = NO;
 			};
 			name = Development;
 		};
 		514F3E0D0A4E075C00378165 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
+				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 4;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(FRAMEWORK_SEARCH_PATHS)",
-					"$(SRCROOT)/../CURLHandle/CURLHandleSource/build/",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/frameworks";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../AGRegex/build/Release\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/frameworks\"";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
