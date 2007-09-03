@@ -441,7 +441,7 @@ void catchException(NSException *exception)
 	if ([NSApp isHidden]) // fixes a bug where Meteo wasn't selected if it was a hidden startup item
 		[NSApp unhideWithoutActivation];
         
-    [versionTF setStringValue:[NSString stringWithFormat:@"Version %@ (build %@)",[[[NSBundle bundleForClass:[self class]] infoDictionary] objectForKey:@"CFBundleShortVersionString"],[[[NSBundle bundleForClass:[self class]] infoDictionary] objectForKey:@"CFBundleVersion"]]];
+    [versionTF setStringValue:[NSString stringWithFormat:@"%@ %@ (%@ %@)",NSLocalizedString(@"Version",@"Version as displayed in \"About\""),[[[NSBundle bundleForClass:[self class]] infoDictionary] objectForKey:@"CFBundleShortVersionString"],NSLocalizedString(@"build",@"build as displayed in \"About\""),[[[NSBundle bundleForClass:[self class]] infoDictionary] objectForKey:@"CFBundleVersion"]]];
 		
 }
 
@@ -894,7 +894,7 @@ void catchException(NSException *exception)
         MECity *city = mainCity;
         NSMenuItem *theCityItem;
         
-        NSString *weatherFor = NSLocalizedString(@"Weather For",@"");
+        NSString *weatherFor = NSLocalizedString(@"Weather For",@"Will be used as \"Weather for <city name>\"");
         
         theCityItem = (NSMenuItem *)[menu addItemWithTitle:[NSString stringWithFormat:@"%@ %@",weatherFor,[city cityName]] 
                                       action:@selector(dummy) 
@@ -1034,7 +1034,7 @@ void catchException(NSException *exception)
 
     if([prefsController embedControls]) // Controls in submenu?
     {        
-        NSMenuItem *controlMenuItem = [menu addItemWithTitle:NSLocalizedString(@"Controls",@"") 
+        NSMenuItem *controlMenuItem = [menu addItemWithTitle:NSLocalizedString(@"Controls",@"Controls MenuItem") 
                                                       action:nil 
                                                keyEquivalent:@""];
         submenu = [[[NSMenu alloc] init] autorelease];
@@ -1048,12 +1048,12 @@ void catchException(NSException *exception)
 							keyEquivalent:@""];
 	[refreshMI setTarget:self];
 	[refreshMI performSelectorOnMainThread:@selector(setEnabled:) withObject:nil waitUntilDone:YES];
-	showCityEditorMI = (NSMenuItem *)[submenu addItemWithTitle:NSLocalizedString(@"Show City Editor",@"") 
+	showCityEditorMI = (NSMenuItem *)[submenu addItemWithTitle:NSLocalizedString(@"Show City Editor",@"Show City Editor MenuItem") 
 										  action:@selector(showCityController:) 
 								   keyEquivalent:@""];
 	[showCityEditorMI setTarget:self];
     
-    citySwitcherMI = (NSMenuItem*)[submenu addItemWithTitle:NSLocalizedString(@"City Switcher",@"")
+    citySwitcherMI = (NSMenuItem*)[submenu addItemWithTitle:NSLocalizedString(@"City Switcher",@"City Switcher MenuItem")
                                         action:@selector(showCityController:) 
                                  keyEquivalent:@""];
     citySwitcherMenu = [[[NSMenu alloc] init] autorelease];

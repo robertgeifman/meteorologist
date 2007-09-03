@@ -63,6 +63,7 @@
                 prefsWindow = NSWindow; 
                 removeCity = NSButton; 
                 updateMenu = NSButton; 
+                versionTF = NSTextField; 
             }; 
             SUPERCLASS = NSObject; 
         }, 

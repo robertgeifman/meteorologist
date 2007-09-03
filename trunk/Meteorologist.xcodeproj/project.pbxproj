@@ -109,6 +109,7 @@
 		51D7D1230B13E048006F376D /* MB-Rain.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 51D7D1120B13E048006F376D /* MB-Rain.tiff */; };
 		51D7D1240B13E048006F376D /* MB-Hazy.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 51D7D1130B13E048006F376D /* MB-Hazy.tiff */; };
 		51D7D1250B13E048006F376D /* MB-Flurries.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 51D7D1140B13E048006F376D /* MB-Flurries.tiff */; };
+		51F25A100C8B656800A7B3F1 /* Meteo-Spanish.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 51F25A0F0C8B656800A7B3F1 /* Meteo-Spanish.tiff */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -136,7 +137,7 @@
 		51093BAB0C06847600202293 /* CURLHandle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CURLHandle.framework; path = frameworks/CURLHandle.framework; sourceTree = "<group>"; };
 		5127356707BC713E00ED0B3D /* German */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = German; path = German.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		5127356B07BC717700ED0B3D /* English */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
-		514F3E080A4E075B00378165 /* Meteorologist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Meteorologist.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		514F3E080A4E075B00378165 /* Meteorologist.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Meteorologist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		514F3E0A0A4E075B00378165 /* Meteorologist-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Meteorologist-Info.plist"; sourceTree = "<group>"; };
 		5179D43E0897528900C4AE2D /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5179D43F0897529C00C4AE2D /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -226,6 +227,12 @@
 		51D7D1120B13E048006F376D /* MB-Rain.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "MB-Rain.tiff"; sourceTree = "<group>"; };
 		51D7D1130B13E048006F376D /* MB-Hazy.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "MB-Hazy.tiff"; sourceTree = "<group>"; };
 		51D7D1140B13E048006F376D /* MB-Flurries.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "MB-Flurries.tiff"; sourceTree = "<group>"; };
+		51F25A090C8B41D300A7B3F1 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
+		51F25A0A0C8B41E800A7B3F1 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Spanish; path = Spanish.lproj/Localizable.strings; sourceTree = "<group>"; };
+		51F25A0B0C8B41FE00A7B3F1 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Spanish; path = Spanish.lproj/MainMenu.nib; sourceTree = "<group>"; };
+		51F25A0C0C8B421400A7B3F1 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		51F25A0D0C8B422500A7B3F1 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Spanish; path = Spanish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		51F25A0F0C8B656800A7B3F1 /* Meteo-Spanish.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "Meteo-Spanish.tiff"; sourceTree = "<group>"; };
 		8B0F8CB3047B1A3D0050035E /* MEWeatherModuleParser.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = MEWeatherModuleParser.m; sourceTree = "<group>"; };
 		8B0F8CB4047B1A3D0050035E /* MEWeatherModuleParser.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MEWeatherModuleParser.h; sourceTree = "<group>"; };
 		8B47F0400410469E00809258 /* meteo.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = meteo.icns; sourceTree = "<group>"; };
@@ -356,6 +363,7 @@
 				8BF0FD24044A606C00D1B4D2 /* Problems.txt */,
 				8BF0FD26044A606C00D1B4D2 /* WhatsNew.txt */,
 				8BE3F8770425778A001ED9CA /* Meteo-Logo.tiff */,
+				51F25A0F0C8B656800A7B3F1 /* Meteo-Spanish.tiff */,
 				8B47F0400410469E00809258 /* meteo.icns */,
 				5127356D07BC718000ED0B3D /* Localizable.strings */,
 				510939BE0BFFCBB000202293 /* weather.xml */,
@@ -540,6 +548,13 @@
 			isa = PBXProject;
 			buildConfigurationList = 513F63620A462EF60021F891 /* Build configuration list for PBXProject "Meteorologist" */;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+				Spanish,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Meteorologist */;
 			projectDirPath = "";
 			targets = (
@@ -639,6 +654,7 @@
 				51D7D1240B13E048006F376D /* MB-Hazy.tiff in Resources */,
 				51D7D1250B13E048006F376D /* MB-Flurries.tiff in Resources */,
 				510939BF0BFFCBB000202293 /* weather.xml in Resources */,
+				51F25A100C8B656800A7B3F1 /* Meteo-Spanish.tiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -672,6 +688,8 @@
 			children = (
 				089C165DFE840E0CC02AAC07 /* English */,
 				5179D43E0897528900C4AE2D /* French */,
+				51F25A0C0C8B421400A7B3F1 /* German */,
+				51F25A0D0C8B422500A7B3F1 /* Spanish */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -682,6 +700,7 @@
 				29B97319FDCFA39411CA2CEA /* English */,
 				5127356707BC713E00ED0B3D /* German */,
 				5179D440089752B500C4AE2D /* French */,
+				51F25A0B0C8B41FE00A7B3F1 /* Spanish */,
 			);
 			name = MainMenu.nib;
 			sourceTree = "<group>";
@@ -691,6 +710,8 @@
 			children = (
 				5127356B07BC717700ED0B3D /* English */,
 				5179D43F0897529C00C4AE2D /* French */,
+				51F25A090C8B41D300A7B3F1 /* German */,
+				51F25A0A0C8B41E800A7B3F1 /* Spanish */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -701,7 +722,7 @@
 		513F63630A462EF60021F891 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
@@ -717,7 +738,7 @@
 					ppc,
 					i386,
 				);
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				GCC_VERSION_i386 = 4.0;
 				GCC_VERSION_ppc = 3.3;
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
@@ -733,7 +754,7 @@
 		513F63650A462EF60021F891 /* Default */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
@@ -746,7 +767,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/frameworks/";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../AGRegex/build/Release\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/frameworks\"";
@@ -769,7 +790,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/frameworks";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../AGRegex/build/Release\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/frameworks\"";
@@ -796,7 +817,7 @@
 		514F3E0E0A4E075C00378165 /* Default */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(FRAMEWORK_SEARCH_PATHS)",
 					"$(SRCROOT)/../CURLHandle/CURLHandleSource/build/",
