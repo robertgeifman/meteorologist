@@ -1,0 +1,160 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {
+                addWeatherGroup = id; 
+                applyOtherCityPreferences = id; 
+                cancelEditing = id; 
+                confirmEditing = id; 
+                performSearch = id; 
+                removeWeatherGroup = id; 
+                weatherInfoChanged = id; 
+                weatherSourceActivenessChanged = id; 
+                weatherSourceChanged = id; 
+            }; 
+            CLASS = MECityEditor; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                applyCityPreferences = NSButton; 
+                cancelButton = NSButton; 
+                cityName = NSTextField; 
+                cityPopUpButton = NSPopUpButton; 
+                cityTable = NSTableView; 
+                confirmButton = NSButton; 
+                forecastPropertyTable = NSTableView; 
+                progress = NSProgressIndicator; 
+                search = NSButton; 
+                searchTerm = NSTextField; 
+                serverIsActive = NSButton; 
+                tabView = NSTabView; 
+                weatherInfos = NSPopUpButton; 
+                weatherModules = NSPopUpButton; 
+                weatherPropertyTable = NSOutlineView; 
+                window = NSWindow; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {
+                editCity = id; 
+                newCity = id; 
+                refreshCallback = id; 
+                removeCity = id; 
+                showCityController = id; 
+                showPrefsController = id; 
+                updateMenuNow = id; 
+            }; 
+            CLASS = MEController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                addCity = NSButton; 
+                alertManager = MFAlertManager; 
+                cityEditor = MECityEditor; 
+                cityTable = NSTableView; 
+                downloadWindow = NSWindow; 
+                downloadWindowImage = NSImageView; 
+                downloadWindowName = NSTextField; 
+                downloadWindowProgress = NSProgressIndicator; 
+                downloadWindowSize = NSTextField; 
+                editCity = NSButton; 
+                prefTab = NSTabView; 
+                prefsController = MEPrefs; 
+                prefsWindow = NSWindow; 
+                removeCity = NSButton; 
+                updateMenu = NSButton; 
+                versionTF = NSTextField; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {
+                applyPrefs = id; 
+                checkNewServerErrorsNow = id; 
+                checkNewVersionsNow = id; 
+                chooseAlertSong = id; 
+                displayLocationClicked = id; 
+                openDonatation = id; 
+                openEmail = id; 
+                openGroupPage = id; 
+                openHomePage = id; 
+                outletAction = id; 
+                resetPrefs = id; 
+                revertPrefs = id; 
+            }; 
+            CLASS = MEPrefs; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                alertEmail = NSTextField; 
+                alertOptions = NSMatrix; 
+                alertSong = NSTextField; 
+                applyButton = NSButton; 
+                autoUpdateTime = NSTextField; 
+                changeUpdateTime = NSTextField; 
+                checkNewServerErrors = NSButton; 
+                checkNewServerErrorsNow = NSButton; 
+                checkNewVersions = NSButton; 
+                checkNewVersionsNow = NSButton; 
+                checkProgress = NSProgressIndicator; 
+                checkResult = NSTextView; 
+                cycleMode = NSMatrix; 
+                cycleUpdateTime = NSTextField; 
+                degreeUnits = NSPopUpButton; 
+                displayCityName = NSButton; 
+                displayDayImage = NSButton; 
+                displayLocation = NSMatrix; 
+                displayMenuIcon = NSButton; 
+                displayTemp = NSButton; 
+                displayTodayInSubmenu = NSButton; 
+                distanceUnits = NSPopUpButton; 
+                embedControls = NSButton; 
+                forecastDaysNumber = NSPopUpButton; 
+                forecastDaysOn = NSButton; 
+                forecastInline = NSButton; 
+                hideCF = NSButton; 
+                imageOpacity = NSSlider; 
+                killOtherMeteo = NSButton; 
+                menuColor = NSColorWell; 
+                menuFontName = NSPopUpButton; 
+                menuFontSize = NSPopUpButton; 
+                prefsWindow = NSWindow; 
+                pressureUnits = NSPopUpButton; 
+                resetButton = NSButton; 
+                revertButton = NSButton; 
+                speedUnits = NSPopUpButton; 
+                tempColor = NSColorWell; 
+                tempFont = NSPopUpButton; 
+                updateProgress = NSProgressIndicator; 
+                useGlobalUnits = NSButton; 
+                viewForecastInSubmenu = NSButton; 
+                whereToDisplay = NSMatrix; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {kill = id; }; 
+            CLASS = MFAlertManager; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                beeper = MFBeeper; 
+                displayer = MFMessageDisplay; 
+                emailer = MFEmailer; 
+                player = MFSongPlayer; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {CLASS = MFBeeper; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = MFEmailer; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {clearLog = id; }; 
+            CLASS = MFMessageDisplay; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {message = NSTextView; }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {CLASS = MFSongPlayer; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = NSMutableArray; LANGUAGE = ObjC; SUPERCLASS = NSArray; }, 
+        {CLASS = NSTableColumn; LANGUAGE = ObjC; SUPERCLASS = NSObject; }
+    ); 
+    IBVersion = 1; 
+}
