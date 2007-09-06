@@ -146,7 +146,7 @@ BOOL validRange(NSRange range, int len)
     rightSum = rightRange.location+rightRange.length;
 	
 	
-    if(rightRange.location-leftSum <= 0)
+    if(rightRange.location-leftSum < 0)
         return nil;
     
     temp = [string substringWithRange:NSMakeRange(leftSum,rightRange.location-leftSum)];
