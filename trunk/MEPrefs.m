@@ -953,7 +953,7 @@
 
 - (BOOL)checkNewVersions
 {
-    return [[defaults objectForKey:@"checkNewServerErrors"] boolValue];
+    return [[defaults objectForKey:@"checkNewVersions"] boolValue];
 }
 
 - (BOOL)useGlobalUnits
