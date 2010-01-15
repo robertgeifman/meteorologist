@@ -1,7 +1,0 @@
-/* Localized versions of Info.plist keys */
-
-CFBundleName = "Meteorologist";
-CFBundleShortVersionString = "1.4.6";
-CFBundleVersion = "1";
-CFBundleGetInfoString = "Meteorologist version 1.4.6, Copyright 2007 Meteorologist Group.";
-NSHumanReadableCopyright = "Copyright 2007 Meteorologist Group.";
