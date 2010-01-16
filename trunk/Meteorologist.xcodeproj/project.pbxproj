@@ -138,7 +138,7 @@
 		5127356707BC713E00ED0B3D /* German */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = German; path = German.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		5127356B07BC717700ED0B3D /* English */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		514F3E080A4E075B00378165 /* Meteorologist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Meteorologist.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		514F3E0A0A4E075B00378165 /* Meteorologist-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Meteorologist-Info.plist"; sourceTree = "<group>"; };
+		514F3E0A0A4E075B00378165 /* Meteorologist-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Meteorologist-Info.plist"; sourceTree = "<group>"; };
 		5179D43E0897528900C4AE2D /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5179D43F0897529C00C4AE2D /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5179D440089752B500C4AE2D /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/MainMenu.nib; sourceTree = "<group>"; };
@@ -547,6 +547,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = 513F63620A462EF60021F891 /* Build configuration list for PBXProject "Meteorologist" */;
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -557,6 +558,7 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Meteorologist */;
 			projectDirPath = "";
+			projectRoot = "";
 			targets = (
 				514F3E070A4E075B00378165 /* Meteorologist */,
 			);
@@ -778,6 +780,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_VERSION = 4.0;
 				INFOPLIST_FILE = "Meteorologist-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PREBINDING = YES;

@@ -8,7 +8,6 @@
 
 #import "MECityEditor.h"
 #import "MEWeatherModuleParser.h"
-#import </System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSDebug.h>
 
 @implementation MECityEditor
 
