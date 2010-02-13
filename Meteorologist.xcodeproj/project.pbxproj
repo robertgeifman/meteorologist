@@ -736,35 +736,16 @@
 		513F63640A462EF60021F891 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "x86_64 i386 ppc";
 				CURRENT_PROJECT_VERSION = 6;
 				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/frameworks\"";
-				GCC_VERSION_i386 = 4.0;
-				GCC_VERSION_ppc = 3.3;
-				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
-				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
-				SDKROOT = "";
-				SDKROOT_i386 = /Developer/SDKs/MacOSX10.4u.sdk;
-				SDKROOT_ppc = /Developer/SDKs/MacOSX10.3.9.sdk;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = ME;
-			};
-			name = Deployment;
-		};
-		513F63650A462EF60021F891 /* Default */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CURRENT_PROJECT_VERSION = 6;
-				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
-				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
+				GCC_VERSION = 4.0;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = ME;
 			};
-			name = Default;
+			name = Deployment;
 		};
 		514F3E0C0A4E075C00378165 /* Development */ = {
 			isa = XCBuildConfiguration;
@@ -785,6 +766,7 @@
 				INSTALL_PATH = "$(HOME)/Applications";
 				PREBINDING = YES;
 				PRODUCT_NAME = Meteorologist;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
 			};
@@ -793,6 +775,8 @@
 		514F3E0D0A4E075C00378165 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "x86_64 i386 ppc";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 6;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -803,6 +787,7 @@
 				GCC_MODEL_TUNING = G4;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_VERSION = 4.0;
 				INFOPLIST_FILE = "Meteorologist-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				OTHER_LDFLAGS = (
@@ -813,27 +798,49 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = Meteorologist;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
 			};
 			name = Deployment;
 		};
-		514F3E0E0A4E075C00378165 /* Default */ = {
+		D857218B1127548D009FE2EB /* Deployment-10.3 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 6;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(FRAMEWORK_SEARCH_PATHS)",
-					"$(SRCROOT)/../CURLHandle/CURLHandleSource/build/",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
-					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
+				ARCHS = (
+					ppc,
+					i386,
 				);
+				CURRENT_PROJECT_VERSION = 6;
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/frameworks\"";
+				GCC_VERSION_i386 = 4.0;
+				GCC_VERSION_ppc = 3.3;
+				MACOSX_DEPLOYMENT_TARGET_i386 = 10.4;
+				MACOSX_DEPLOYMENT_TARGET_ppc = 10.3;
+				SDKROOT = "";
+				SDKROOT_i386 = /Developer/SDKs/MacOSX10.4u.sdk;
+				SDKROOT_ppc = /Developer/SDKs/MacOSX10.3.9.sdk;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = ME;
+			};
+			name = "Deployment-10.3";
+		};
+		D857218C1127548D009FE2EB /* Deployment-10.3 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "x86_64 i386 ppc";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 6;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../AGRegex/build/Release\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/frameworks\"";
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_TUNING = G4;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				GCC_VERSION = 4.0;
 				INFOPLIST_FILE = "Meteorologist-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				OTHER_LDFLAGS = (
@@ -844,10 +851,11 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = Meteorologist;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				WRAPPER_EXTENSION = app;
-				ZERO_LINK = YES;
+				ZERO_LINK = NO;
 			};
-			name = Default;
+			name = "Deployment-10.3";
 		};
 /* End XCBuildConfiguration section */
 
@@ -857,20 +865,20 @@
 			buildConfigurations = (
 				513F63630A462EF60021F891 /* Development */,
 				513F63640A462EF60021F891 /* Deployment */,
-				513F63650A462EF60021F891 /* Default */,
+				D857218B1127548D009FE2EB /* Deployment-10.3 */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Default;
+			defaultConfigurationName = Development;
 		};
 		514F3E0B0A4E075C00378165 /* Build configuration list for PBXNativeTarget "Meteorologist" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				514F3E0C0A4E075C00378165 /* Development */,
 				514F3E0D0A4E075C00378165 /* Deployment */,
-				514F3E0E0A4E075C00378165 /* Default */,
+				D857218C1127548D009FE2EB /* Deployment-10.3 */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Default;
+			defaultConfigurationName = Development;
 		};
 /* End XCConfigurationList section */
 	};
