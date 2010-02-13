@@ -338,8 +338,11 @@
         }
     }
     if (foundAll) {
-        NSLog(@"All images found inside of the Meteorologist resources folder");
-    }
+		if([[MEPrefs sharedInstance] logMessagesToConsole])
+		{
+     	   NSLog(@"All images found inside of the Meteorologist resources folder");
+		}
+	}
     else {
         NSRunAlertPanel(@"Missing Icons",@"Meteorologist is missing some icons.  Please download Meteorologist again.",nil,nil,nil);
         //NSAlert(@"Meteorologist is missing some icons.  Please download");
@@ -383,12 +386,18 @@ void catchException(NSException *exception)
     isInMenubar = [prefsController displayInMenubar];
     
     if(isInDock) {
-        NSLog(@"Meteo configured to load in dock");
+		if([[MEPrefs sharedInstance] logMessagesToConsole])
+		{
+			NSLog(@"Meteo configured to load in dock");
+		}
     }
     
     if(isInMenubar)
     {
-        NSLog(@"Meteo configured to load in menubar");
+		if([[MEPrefs sharedInstance] logMessagesToConsole])
+		{
+			NSLog(@"Meteo configured to load in menubar");
+		}
         statusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength] retain];
         [statusItem setTitle:@"Loading..."];
         [statusItem setHighlightMode:YES];
@@ -1278,6 +1287,7 @@ void catchException(NSException *exception)
                     if(dat)
                     {
                         NSImage *img = [[[NSImage alloc] initWithData:dat] autorelease];
+						[img setSize:NSMakeSize(400,300)];
                         if(img)
                         {
                             nextProp = NSLocalizedString(nextProp,@"");
@@ -1370,7 +1380,7 @@ void catchException(NSException *exception)
             tempMenu = subMenu;
         }
         else if(![prefsController displayTodayInSubmenu])
-            [tempMenu addItemWithTitle:@"" action:nil keyEquivalent:@""];
+			[tempMenu addItem:[NSMenuItem separatorItem]];
         
         int i = 0;
         

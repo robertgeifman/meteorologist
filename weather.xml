@@ -14,7 +14,7 @@
 					<key>codeStart</key>
 					<string>. &lt;A HREF="/weather/local/</string>
                     <key>codeEnd</key>
-					<string>?</string>
+					<string>"</string>
 					<key>nameStart</key>
 					<string>;"&gt;</string>
 					<key>nameEnd</key>
@@ -33,9 +33,9 @@
 					<key>multipleMatchString</key>
 					<string>&gt;1.</string>
 					<key>nameEnd</key>
-					<string>&lt;/B&gt;</string> 
+					<string>&lt;/B&gt;&lt;/A&gt;</string> 
 					<key>nameStart</key>
-					<string>)&#59;"&gt;&lt;B&gt;</string> 
+					<string>)&lt;B&gt;</string> 
 					<key>parseOrder</key>
 					<array>
 						<string>code</string>
@@ -52,7 +52,7 @@
 					<key>nameEnd</key>
 					<string>&lt;/B&gt;&lt;/A&gt;</string> 
 					<key>nameStart</key>
-					<string> &lt;B&gt;</string> 
+					<string>&lt;B&gt;</string> 
 					<key>parseOrder</key>
 					<array>
 						<string>code</string>

@@ -55,7 +55,10 @@
 */
 - (NSString *)fetchURLtoString:(NSURL *)url withTimeout:(int)secs
 {
-    NSLog(@"Fetching URL: %@",[url absoluteString]);
+	if([[MEPrefs sharedInstance] logMessagesToConsole])
+	{
+		NSLog(@"Fetching URL: %@",[url absoluteString]);
+	}
 	NSData *urlData     = [self fetchURLtoData:url withTimeout:secs];
 	NSString *urlString = [[[NSString alloc] initWithData:urlData encoding:NSASCIIStringEncoding] autorelease];
 	
@@ -88,7 +91,8 @@
 	
 	[mURLHandle setFailsOnError:NO];	   // don't fail on >= 300 code; I want to see real results.
 	[mURLHandle setFollowsRedirects:YES];  // Follow Location: headers in HTML docs.
-	[mURLHandle setUserAgent: @"Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O; en-US; rv:1.7.5)"];
+	[mURLHandle setUserAgent: @"Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6; en-US; rv:1.9.2) Gecko/20100115 Firefox/3.6 GTB6"];
+	//[mURLHandle setUserAgent: @"Mozilla/5.0 (iPhone; U; iPhone OS_3_1_3 like Mac OS X; en-US) Gecko/20100115 Firefox/3.6 GTB6"];
 	[mURLHandle setConnectionTimeout:secs];
 	
 	data = [[mURLHandle resourceData] retain]; // already autoreleased?

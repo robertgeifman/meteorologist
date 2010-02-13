@@ -8,6 +8,7 @@
 //	03 Sep 2003	Rich Martin	added spacesOnly arg to stringFromWebsite:
 //
 
+#import "MEPrefs.h"
 #import <Foundation/Foundation.h>
 //#import <AGRegex/AGRegex.h>
 

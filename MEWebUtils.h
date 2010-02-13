@@ -11,6 +11,8 @@
 //		  Currently, "fetching" is implemented using NSURLRequests.  The plan is to migrate to the CURLHandler
 //		  framework to download for the next version.
 //
+
+#import "MEPrefs.h"
 #import <Foundation/Foundation.h>
 
 @class CURLHandle;

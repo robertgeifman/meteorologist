@@ -1,6 +1,6 @@
-"CFBundleGetInfoString" = "Meteorologist version 1.4.8, Copyright 2007 Meteorologist Group.";
+"CFBundleGetInfoString" = "Meteorologist version 1.4.9, Copyright 2007 Meteorologist Group.";
 
 /* Localized versions of Info.plist keys */
 "CFBundleName" = "Meteorologist";
-"CFBundleShortVersionString" = "Meteorologist version 1.4.8";
+"CFBundleShortVersionString" = "Meteorologist version 1.4.9";
 "NSHumanReadableCopyright" = "Copyright 2007 Meteorologist Group.";

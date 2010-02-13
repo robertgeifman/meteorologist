@@ -18,7 +18,7 @@
 #define ARC(x)		([NSArchiver archivedDataWithRootObject:x])
 #define UNARC(x)	([NSUnarchiver unarchiveObjectWithData:x])
 
-#define VERSION	(@"1.4.0b2")
+#define VERSION	(@"1.4.9.beta10")
 
 - (void)moveOldDefaults
 {
@@ -235,7 +235,10 @@
 - (IBAction)checkNewVersionsNow:(id)sender
 {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init]; // make an autorelease pool for this thread
-	NSLog(@"Checking for new version of Meteo.");
+	if([[MEPrefs sharedInstance] logMessagesToConsole])
+	{
+		NSLog(@"Checking for new version of Meteo.");
+	}
 	// this is just so much easier
 	NSString *thisVersion = [[[NSBundle bundleForClass:[self class]] infoDictionary] objectForKey:@"CFBundleShortVersionString"]; // Get the application bundle version
 	NSDictionary *versionxml = [NSDictionary dictionaryWithContentsOfURL:
@@ -466,7 +469,7 @@
 //;
 }
 
-/*- (IBAction)chooseAlertSong:(id)sender
+- (IBAction)chooseAlertSong:(id)sender
 {
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     [panel setTitle:@"Select a music file"];
@@ -482,7 +485,7 @@
         [alertSong setStringValue:filename];
         [self outletAction:sender];
     }
-}*/
+}
 
 - (void)updateInterfaceFromDefaults
 {
@@ -497,6 +500,7 @@
         mfn += 8;
 
     [displayTodayInSubmenu setState:[self displayTodayInSubmenu]];
+    [logMessagesToConsole setState:[self logMessagesToConsole]];
     [displayDayImage setState:[self displayDayImage]];
     [viewForecastInSubmenu setState:[self viewForecastInSubmenu]];
     [forecastDaysNumber selectItemAtIndex:fdn-1];
@@ -551,14 +555,14 @@
     
     [embedControls setState:[self embedControls]];
     
-    //[alertEmail setStringValue:[self alertEmail]];
-//    [alertSong setStringValue:[self alertSong]];
-//    
-//    int theAlertOptions = [self alertOptions];
-//    [alertOptions setState:(theAlertOptions & 1) atRow:0 column:0];
-//    [alertOptions setState:(theAlertOptions & 2) atRow:1 column:0];
-//    [alertOptions setState:(theAlertOptions & 4) atRow:2 column:0];
-//    [alertOptions setState:(theAlertOptions & 8) atRow:3 column:0];
+    [alertEmail setStringValue:[self alertEmail]];
+    [alertSong setStringValue:[self alertSong]];
+    
+    int theAlertOptions = [self alertOptions];
+    [alertOptions setState:(theAlertOptions & 1) atRow:0 column:0];
+    [alertOptions setState:(theAlertOptions & 2) atRow:1 column:0];
+    [alertOptions setState:(theAlertOptions & 4) atRow:2 column:0];
+    [alertOptions setState:(theAlertOptions & 8) atRow:3 column:0];
     
     [killOtherMeteo setState:[self killOtherMeteo]];
 }
@@ -566,6 +570,7 @@
 - (void)updateDefaultsFromInterface
 {
     [defaults setObject:NUM([displayTodayInSubmenu state]) forKey:@"displayTodayInSubmenu"];
+    [defaults setObject:NUM([logMessagesToConsole state]) forKey:@"logMessagesToConsole"];
     [defaults setObject:NUM([displayDayImage state]) forKey:@"displayDayImage"];
     [defaults setObject:NUM([viewForecastInSubmenu state]) forKey:@"viewForecastInSubmenu"];
     [defaults setObject:NUM([forecastDaysNumber indexOfSelectedItem] + 1) forKey:@"forecastDaysNumber"];
@@ -620,12 +625,12 @@
     
     [defaults setObject:NUM([embedControls state]) forKey:@"embedControls"];
     
-//    [defaults setObject:[alertEmail stringValue] forKey:@"alertEmail"];
-//    [defaults setObject:[alertSong stringValue] forKey:@"alertSong"];
-//    [defaults setObject:[NSNumber numberWithInt:[[alertOptions cellAtRow:0 column:0] state]*1 +
-//                                                [[alertOptions cellAtRow:1 column:0] state]*2 +
-//                                                [[alertOptions cellAtRow:2 column:0] state]*4 +
-//                                                [[alertOptions cellAtRow:3 column:0] state]*8] forKey:@"alertOptions"];
+    [defaults setObject:[alertEmail stringValue] forKey:@"alertEmail"];
+    [defaults setObject:[alertSong stringValue] forKey:@"alertSong"];
+    [defaults setObject:[NSNumber numberWithInt:[[alertOptions cellAtRow:0 column:0] state]*1 +
+                                                [[alertOptions cellAtRow:1 column:0] state]*2 +
+                                                [[alertOptions cellAtRow:2 column:0] state]*4 +
+                                                [[alertOptions cellAtRow:3 column:0] state]*8] forKey:@"alertOptions"];
     
     [defaults setObject:[NSNumber numberWithBool:[killOtherMeteo state]] forKey:@"killOtherMeteo"];
     
@@ -642,6 +647,8 @@
     
     if(![[defaults objectForKey:@"displayTodayInSubmenu"] isKindOfClass:[NSNumber class]]) 
         [defaults setObject:NUM_YES forKey:@"displayTodayInSubmenu"];
+    if(![[defaults objectForKey:@"logMessagesToConsole"] isKindOfClass:[NSNumber class]]) 
+        [defaults setObject:NUM_YES forKey:@"logMessagesToConsole"];
     if(![[defaults objectForKey:@"displayDayImage"] isKindOfClass:[NSNumber class]]) 
         [defaults setObject:NUM_YES forKey:@"displayDayImage"];
     if(![[defaults objectForKey:@"viewForecastInSubmenu"] isKindOfClass:[NSNumber class]]) 
@@ -727,6 +734,7 @@
 
 - (void)resetDefaults
 {
+    [defaults setObject:NUM_YES forKey:@"logMessagesToConsole"];
     [defaults setObject:NUM_YES forKey:@"displayTodayInSubmenu"];
     [defaults setObject:NUM_YES forKey:@"displayDayImage"];
     [defaults setObject:NUM_YES forKey:@"viewForecastInSubmenu"];
@@ -833,6 +841,11 @@
     return [[defaults objectForKey:@"displayTodayInSubmenu"] boolValue];
 }
 
+ - (BOOL)logMessagesToConsole
+{
+	return [[defaults objectForKey:@"logMessagesToConsole"] boolValue];
+}
+ 
 - (BOOL)displayDayImage
 {
     return [[defaults objectForKey:@"displayDayImage"] boolValue];
@@ -1043,6 +1056,15 @@ NSArray *allFonts()
 	if ([[notification object] intValue] > 0)
 		[self outletAction:self];
 }
+
++ (MEPrefs *)sharedInstance
+{
+	static MEPrefs *sharedInstance = nil;
+	if (!sharedInstance)
+		sharedInstance = [[self alloc] init];
+	return sharedInstance;
+}
+
 @end
 
 

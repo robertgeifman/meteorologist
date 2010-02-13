@@ -192,9 +192,10 @@ MEWeatherModuleParser *sharedWeatherModuleParser = nil;
 	else 
 		searchQueryURL = searchTerm;
 	
-	#ifdef NSDEBUG
-	NSLog(@"search url: %@",searchQueryURL);
-	#endif
+	if([[MEPrefs sharedInstance] logMessagesToConsole])
+	{
+		NSLog(@"search url: %@",searchQueryURL);
+	}
     return [MEWebParser performSearchOnURL:[NSURL URLWithString:searchQueryURL] usingParseDict:searchDictionary];
 }
 

@@ -44,6 +44,7 @@ enum{kPeriodType,kNumberType,kStringType};
     IBOutlet NSPopUpButton *menuFontName;
     IBOutlet NSColorWell *menuColor;
     IBOutlet NSPopUpButton *menuFontSize;
+    IBOutlet NSButton *logMessagesToConsole;
     
     //Updating prefs
     IBOutlet NSMatrix *cycleMode;
@@ -62,9 +63,9 @@ enum{kPeriodType,kNumberType,kStringType};
     IBOutlet NSPopUpButton *degreeUnits, *distanceUnits, *speedUnits, *pressureUnits;
 
     //Weather Alerts
-    //IBOutlet NSMatrix *alertOptions;
-    //IBOutlet NSTextField *alertEmail;
-    //IBOutlet NSTextField *alertSong;
+    IBOutlet NSMatrix *alertOptions;
+    IBOutlet NSTextField *alertEmail;
+    IBOutlet NSTextField *alertSong;
     
     //threading
     BOOL updatingMenu;
@@ -75,6 +76,8 @@ enum{kPeriodType,kNumberType,kStringType};
     
     IBOutlet NSButton *killOtherMeteo;
 }
+
++ (MEPrefs *)sharedInstance;
 
 - (void)checkUnsavedPrefs;
 
@@ -93,7 +96,7 @@ enum{kPeriodType,kNumberType,kStringType};
 - (IBAction)openEmail:(id)sender;
 - (IBAction)openDonatation:(id)sender;
 
-//- (IBAction)chooseAlertSong:(id)sender;
+- (IBAction)chooseAlertSong:(id)sender;
 
 - (IBAction)displayLocationClicked:(id)sender;
 
@@ -101,8 +104,7 @@ enum{kPeriodType,kNumberType,kStringType};
 - (NSString *)checkForNewServerErrors;
 - (NSComparisonResult)compareVersion:(NSString *)versionA toVersion:(NSString *)versionB;
 - (NSArray *)splitVersion:(NSString *)version;
-- (int)getCharType:(NSString *)character
-;
+- (int)getCharType:(NSString *)character;
 
 
 - (void)updateInterfaceFromDefaults;
@@ -136,6 +138,11 @@ enum{kPeriodType,kNumberType,kStringType};
 - (NSString *)menuFontName;
 - (NSColor *)menuColor;
 - (int)menuFontSize;
+- (BOOL)logMessagesToConsole;
+
+- (int)alertOptions;
+- (NSString*)alertEmail;
+- (NSString*)alertSong;
 
 - (int)cycleMode;
 - (int)autoUpdateTime;
@@ -154,8 +161,6 @@ enum{kPeriodType,kNumberType,kStringType};
 - (NSString *)pressureUnits;
 
 - (int)alertOptions;
-- (NSString *)alertEmail;
-- (NSString *)alertSong;
 
 - (BOOL)killOtherMeteo;
 

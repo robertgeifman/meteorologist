@@ -6,6 +6,7 @@
 //  Copyright (c) 2004 The Meteorologist Group. All rights reserved.
 //
 
+#import "MEPrefs.h"
 #import <Foundation/Foundation.h>
 
 @interface MEWeatherModule : NSObject 
