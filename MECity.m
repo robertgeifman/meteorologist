@@ -350,7 +350,8 @@
                 NSArray *suppServers = [MEWeather moduleNamesSupportingProperty:propertyName];
                 //suppServers = [NSMutableArray arrayWithObject:[suppServers objectAtIndex:0]];
                     
-                BOOL enabled = !([propertyName isEqualToString:@"Forecast - Date"] ||[propertyName isEqualToString:@"Radar Image"]) ;
+                //BOOL enabled = !([propertyName isEqualToString:@"Forecast - Date"] ||[propertyName isEqualToString:@"Radar Image"]) ;
+                BOOL enabled = YES;
                     
                 [theArray addObject:
                             [NSMutableDictionary dictionaryWithObjects:

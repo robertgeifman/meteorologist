@@ -23,6 +23,7 @@
     
     BOOL isInDock;
     BOOL isInMenubar;
+	int radarImageSpace;
     
     IBOutlet MECityEditor *cityEditor;
     

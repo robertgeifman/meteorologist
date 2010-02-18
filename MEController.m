@@ -357,6 +357,7 @@ void catchException(NSException *exception)
 - (void)applicationDidFinishLaunching:(NSNotification *)not
 {
 	menuDrawLock = [[NSLock alloc] init];
+	radarImageSpace = 0;
 
     NSSetUncaughtExceptionHandler(catchException);
 
@@ -405,6 +406,10 @@ void catchException(NSException *exception)
         NSMenu *tempMenu = [[[NSMenu alloc] init] autorelease];
         [[tempMenu addItemWithTitle:@"Please wait while Meteo fetches the weather" action:@selector(dummy) keyEquivalent:@""] setTarget:self];
         [statusItem setMenu:tempMenu];
+		quitMI = (NSMenuItem *)[tempMenu addItemWithTitle:NSLocalizedString(@"Quit",@"") 
+												  action:@selector(terminate:) 
+										   keyEquivalent:@""];
+		[quitMI setTarget:NSApp];
     }
 
     cities = [[NSUserDefaults standardUserDefaults] objectForKey:@"cities"];
@@ -1287,7 +1292,63 @@ void catchException(NSException *exception)
                     if(dat)
                     {
                         NSImage *img = [[[NSImage alloc] initWithData:dat] autorelease];
-						[img setSize:NSMakeSize(400,300)];
+						NSImage *imgNew = [[[NSImage alloc] initWithData:dat] autorelease];
+						NSRect screenBounds = [[NSScreen mainScreen] visibleFrame];
+						NSSize newSize = [img size];
+						NSSize originalSize = [img size];
+						
+						if (radarImageSpace == 0)
+						{
+							//http://stackoverflow.com/questions/1301701/how-to-get-the-on-screen-location-of-an-nsstatusitem
+							//Create a new view so we can extract the origin.
+							NSView *V = [[NSView alloc] initWithFrame:NSMakeRect(0,0,0,0)];
+							NSView *V2 = [statusItem view];
+							[statusItem setView:V];
+							int leftAmount = [[[statusItem view] window] frame].origin.x - 400;
+							if (leftAmount == -400)
+							{
+								// No value returned. Go to the center of the screen.
+								leftAmount = (screenBounds.size.width/2) - 400;
+								if([[MEPrefs sharedInstance] logMessagesToConsole])
+								{
+									NSLog(@"NSStatusItem had no initial value - going to center of screen.");
+								}
+							}
+							//Restore the original view
+							[statusItem setView:V2];
+							int rightAmount = screenBounds.size.width - leftAmount - 400;
+							[V release];
+							if (rightAmount > leftAmount)
+							{
+								radarImageSpace = rightAmount;
+							}
+							else
+							{
+								radarImageSpace = leftAmount;
+							}
+							if([[MEPrefs sharedInstance] logMessagesToConsole])
+							{
+								NSLog(@"Screen size (%.0f, %.0f)", screenBounds.size.width, screenBounds.size.height);
+								NSLog(@"Original image size (%.0f, %.0f)", originalSize.width, originalSize.height);
+								NSLog(@"NSStatusItem location (%d)", leftAmount+400);
+							}
+						}
+						
+						if ((radarImageSpace) < originalSize.width)
+						{
+							newSize = NSMakeSize(radarImageSpace,(radarImageSpace)/originalSize.width*originalSize.height);
+						}
+						else
+						{
+							newSize = originalSize;
+						}
+                        
+						[img lockFocus];
+						[imgNew drawInRect: NSMakeRect(0, 0, newSize.width , newSize.height)
+							   fromRect: NSMakeRect(0, 0, originalSize.width, originalSize.height)
+							  operation: NSCompositeSourceOver fraction: 1.0];
+						[img unlockFocus];
+						
                         if(img)
                         {
                             nextProp = NSLocalizedString(nextProp,@"");
@@ -1297,7 +1358,7 @@ void catchException(NSException *exception)
                             
                             [nextItem setSubmenu:anotherSub];
                             nextItem = (NSMenuItem *)[anotherSub addItemWithTitle:@"" action:nil keyEquivalent:@""];
-                            [nextItem setImage:img];
+                            [nextItem setImage:imgNew];
                             [nextItem setTarget:self];
                             [nextItem setAction:@selector(dummy)];
                         }

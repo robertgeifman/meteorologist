@@ -18,7 +18,7 @@
 #define ARC(x)		([NSArchiver archivedDataWithRootObject:x])
 #define UNARC(x)	([NSUnarchiver unarchiveObjectWithData:x])
 
-#define VERSION	(@"1.4.9.beta10")
+#define VERSION	(@"1.4.9")
 
 - (void)moveOldDefaults
 {
@@ -194,10 +194,13 @@
 
 - (IBAction)displayLocationClicked:(id)sender
 {	
+	//This get selected when the preference option is changed.
+	//displayInDock must be written as LSUIElement in the internal plist file.
+	//Note: LSUIElement uses opposite whereToDisplay values
 	BOOL succesfulWrite;
 	NSString *plistPath = [NSString stringWithFormat:@"%@/%@",[[[NSBundle mainBundle] resourcePath] stringByDeletingLastPathComponent],@"Info.plist"];
     NSMutableDictionary *infoPlist = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
-    [infoPlist setObject:[NSString stringWithFormat:@"%d",([whereToDisplay selectedRow]==0)] forKey:@"LSUIElement"];
+    [infoPlist setObject:[NSString stringWithFormat:@"%d",([whereToDisplay selectedRow] == 0)] forKey:@"LSUIElement"];
     succesfulWrite = [infoPlist writeToFile:plistPath atomically:NO];
 	if (!succesfulWrite)
 	{
@@ -583,10 +586,14 @@
     [defaults setObject:NUM([displayTemp state]) forKey:@"displayTemp"];
     
     [defaults setObject:NUM([imageOpacity floatValue]) forKey:@"imageOpacity"];
-//    NSString *plistPath = [NSString stringWithFormat:@"%@/%@",[[[NSBundle mainBundle] resourcePath] stringByDeletingLastPathComponent],@"Info.plist"];
-//    NSMutableDictionary *infoPlist = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
-//    [infoPlist setObject:[NSString stringWithFormat:@"%d",([whereToDisplay selectedRow]==0)] forKey:@"LSUIElement"];
-//    [infoPlist writeToFile:plistPath atomically:NO];
+	
+	//displayInDock must be written as LSUIElement in the internal plist file.
+	//Note: LSUIElement uses opposite whereToDisplay values
+    NSString *plistPath = [NSString stringWithFormat:@"%@/%@",[[[NSBundle mainBundle] resourcePath] stringByDeletingLastPathComponent],@"Info.plist"];
+    NSMutableDictionary *infoPlist = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
+    [infoPlist setObject:[NSString stringWithFormat:@"%d",([whereToDisplay selectedRow] ==0 )] forKey:@"LSUIElement"];
+    [infoPlist writeToFile:plistPath atomically:NO];
+
     [defaults setObject:NUM([whereToDisplay selectedRow] != 1) forKey:@"displayInMenubar"];
     
     [defaults setObject:NUM([displayCityName state]) forKey:@"displayCityName"];
@@ -720,6 +727,9 @@
     if(![[defaults objectForKey:@"killOtherMeteo"] isKindOfClass:[NSNumber class]])
         [defaults setObject:NUM(0) forKey:@"killOtherMeteo"];
         
+    if(![[defaults objectForKey:@"displayInDock"] isKindOfClass:[NSNumber class]])
+        [defaults setObject:NUM(1) forKey:@"displayInDock"];
+
     if(![[defaults objectForKey:@"displayInMenubar"] isKindOfClass:[NSNumber class]])
         [defaults setObject:NUM(1) forKey:@"displayInMenubar"];
 		
@@ -748,6 +758,9 @@
     [defaults setObject:NUM_YES forKey:@"displayTemp"];
     
     [defaults setObject:NUM(1.0) forKey:@"imageOpacity"];
+	
+	//displayInDock must be written as LSUIElement in the internal plist file.
+	//Note: LSUIElement uses opposite whereToDisplay values
     NSString *plistPath = [NSString stringWithFormat:@"%@/%@",[[[NSBundle mainBundle] resourcePath] stringByDeletingLastPathComponent],@"Info.plist"];
     NSMutableDictionary *infoPlist = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
     [infoPlist setObject:[NSString stringWithFormat:@"%d",1] forKey:@"LSUIElement"];
@@ -898,6 +911,8 @@
 
 - (BOOL)displayInDock
 {
+	//displayInDock was written as LSUIElement in the internal plist file.
+	//Note: LSUIElement uses opposite whereToDisplay values
     NSString *plistPath = [NSString stringWithFormat:@"%@/%@",[[[NSBundle mainBundle] resourcePath] stringByDeletingLastPathComponent],@"Info.plist"];
     NSMutableDictionary *infoPlist = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
     
