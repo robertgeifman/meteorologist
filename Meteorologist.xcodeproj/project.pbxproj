@@ -142,8 +142,6 @@
 		5179D43E0897528900C4AE2D /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5179D43F0897529C00C4AE2D /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5179D440089752B500C4AE2D /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/MainMenu.nib; sourceTree = "<group>"; };
-		5184584006860481009833CB /* Readme.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Readme.rtf; sourceTree = "<group>"; };
-		5189342E0688F0C800462640 /* devnotes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = devnotes.txt; sourceTree = "<group>"; };
 		51AD04ED0682333800C876F0 /* MEWebUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEWebUtils.h; sourceTree = "<group>"; };
 		51AD04EE0682333800C876F0 /* MEWebUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEWebUtils.m; sourceTree = "<group>"; };
 		51D7CF770B13D79C006F376D /* MoonPhase-1.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "MoonPhase-1.tiff"; sourceTree = "<group>"; };
@@ -231,7 +229,7 @@
 		51F25A0A0C8B41E800A7B3F1 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Spanish; path = Spanish.lproj/Localizable.strings; sourceTree = "<group>"; };
 		51F25A0B0C8B41FE00A7B3F1 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Spanish; path = Spanish.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		51F25A0C0C8B421400A7B3F1 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		51F25A0D0C8B422500A7B3F1 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Spanish; path = Spanish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		51F25A0D0C8B422500A7B3F1 /* Spanish */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = Spanish; path = Spanish.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		51F25A0F0C8B656800A7B3F1 /* Meteo-Spanish.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "Meteo-Spanish.tiff"; sourceTree = "<group>"; };
 		8B0F8CB3047B1A3D0050035E /* MEWeatherModuleParser.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = MEWeatherModuleParser.m; sourceTree = "<group>"; };
 		8B0F8CB4047B1A3D0050035E /* MEWeatherModuleParser.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MEWeatherModuleParser.h; sourceTree = "<group>"; };
@@ -252,9 +250,6 @@
 		8BAD5E3403CF88A5007B47FA /* MEPrefs.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MEPrefs.h; sourceTree = "<group>"; };
 		8BAD5E3503CF88A5007B47FA /* MEPrefs.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = MEPrefs.m; sourceTree = "<group>"; };
 		8BE3F8770425778A001ED9CA /* Meteo-Logo.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "Meteo-Logo.tiff"; sourceTree = "<group>"; };
-		8BF0FD22044A606C00D1B4D2 /* Instructions.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Instructions.rtf; sourceTree = "<group>"; };
-		8BF0FD23044A606C00D1B4D2 /* meteo.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = meteo.rtf; sourceTree = "<group>"; };
-		8BF0FD24044A606C00D1B4D2 /* Problems.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = Problems.txt; sourceTree = "<group>"; };
 		8BF0FD26044A606C00D1B4D2 /* WhatsNew.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = WhatsNew.txt; sourceTree = "<group>"; };
 		9B5B980404FA501400A80102 /* MEStringSearcher.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MEStringSearcher.h; sourceTree = "<group>"; };
 		9B5B980504FA501400A80102 /* MEStringSearcher.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = MEStringSearcher.m; sourceTree = "<group>"; };
@@ -358,19 +353,14 @@
 			isa = PBXGroup;
 			children = (
 				51D7CF740B13D79C006F376D /* images */,
-				8BF0FD22044A606C00D1B4D2 /* Instructions.rtf */,
-				8BF0FD23044A606C00D1B4D2 /* meteo.rtf */,
-				8BF0FD24044A606C00D1B4D2 /* Problems.txt */,
 				8BF0FD26044A606C00D1B4D2 /* WhatsNew.txt */,
 				8BE3F8770425778A001ED9CA /* Meteo-Logo.tiff */,
 				51F25A0F0C8B656800A7B3F1 /* Meteo-Spanish.tiff */,
 				8B47F0400410469E00809258 /* meteo.icns */,
 				5127356D07BC718000ED0B3D /* Localizable.strings */,
 				510939BE0BFFCBB000202293 /* weather.xml */,
-				5184584006860481009833CB /* Readme.rtf */,
 				29B97318FDCFA39411CA2CEA /* MainMenu.nib */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
-				5189342E0688F0C800462640 /* devnotes.txt */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -558,7 +548,7 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Meteorologist */;
 			projectDirPath = "";
-			projectRoot = "";
+			projectRoot = "branches/Meteorologist-1.x";
 			targets = (
 				514F3E070A4E075B00378165 /* Meteorologist */,
 			);
