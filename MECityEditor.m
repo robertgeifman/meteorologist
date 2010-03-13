@@ -20,7 +20,7 @@
  //                                             name:NSApplicationDidFinishLaunchingNotification object:NSApp];
 		resultsTableData = [[MECitySearchResultsTable alloc] initWithRowCount: 10]; /* Weather.com returns 8 results */
 	}
-    return self;
+	return self;
 }
 
 - (void) dealloc
@@ -36,7 +36,42 @@
     NSButtonCell      *cell;
     NSPopUpButtonCell *pop;
 
-//    cell = [[[NSButtonCell alloc] init] retain]; /* retain might be unneccesary */
+	[window setTitle:NSLocalizedString(@"cityEditorWindowTitle",nil)];
+	
+	[[tabView tabViewItemAtIndex:0] setLabel:NSLocalizedString(@"serversTabTitle",@"")];
+	[[tabView tabViewItemAtIndex:1] setLabel:NSLocalizedString(@"weatherItemsTabTitle",@"")];
+	[[tabView tabViewItemAtIndex:2] setLabel:NSLocalizedString(@"forecastItemsTabTitle",@"")];
+	
+	[cityNameTitle setStringValue:NSLocalizedString(@"cityNameTitle",nil)];
+	[cityDescription setStringValue:NSLocalizedString(@"cityNameDescriptionLabel",nil)];
+	[weatherServersTitle setStringValue:NSLocalizedString(@"weatherServersTitle",nil)];
+	[weatherDescription setStringValue:NSLocalizedString(@"weatherServersDescriptionTItle",nil)];
+	[weatherModules setStringValue:NSLocalizedString(@"weatherModulesTabel",nil)];
+	[cityOrZipSearchTitle setStringValue:NSLocalizedString(@"cityOrZipSearchTitle",nil)];
+	[search setTitle:NSLocalizedString(@"searchButtonTitle",nil)];
+	
+	[[[cityTable tableColumns] objectAtIndex:0] setHeaderCell:[[NSTableHeaderCell alloc] initTextCell:NSLocalizedString(@"cityNameCellTitle",@"")]];
+	//[[cityTableHeaderView objectAtIndex:0] setHeaderCell:[[NSCell alloc] initTextCell:NSLocalizedString(@"cityNameCellTitle",@"")]];
+	[onlyTheFirstEightDescription setStringValue:NSLocalizedString(@"onlyTheFirstEightDescriptionTitle",nil)];
+
+	[cancelButton setTitle:NSLocalizedString(@"cancelButtonTitle",nil)];
+	[confirmButton setTitle:NSLocalizedString(@"confirmButtonTitle",nil)];
+
+	[currentWeatherItems setStringValue:NSLocalizedString(@"currentWeatherItemsTitle",nil)];
+	[[[weatherPropertyTable tableColumns] objectAtIndex:0] setHeaderCell:[[NSTableHeaderCell alloc] initTextCell:NSLocalizedString(@"currentWeatherItemsPropertyTitle",@"")]];
+	[[[weatherPropertyTable tableColumns] objectAtIndex:1] setHeaderCell:[[NSTableHeaderCell alloc] initTextCell:NSLocalizedString(@"currentWeatherItemsOnTitle",@"")]];
+	[[[weatherPropertyTable tableColumns] objectAtIndex:2] setHeaderCell:[[NSTableHeaderCell alloc] initTextCell:NSLocalizedString(@"currentWeatherItemsUnitTitle",@"")]];
+	[[[weatherPropertyTable tableColumns] objectAtIndex:3] setHeaderCell:[[NSTableHeaderCell alloc] initTextCell:NSLocalizedString(@"currentWeatherItemsServerTitle",@"")]];
+	[cityPopUpButton setStringValue:NSLocalizedString(@"citiesListTitle",nil)];
+	[applyCityPreferences setTitle:NSLocalizedString(@"ImportButtonTitle",nil)];
+	
+	[longTermForecastItems setStringValue:NSLocalizedString(@"longTermForecastItemsTitle",nil)];
+	[[[forecastPropertyTable tableColumns] objectAtIndex:0] setHeaderCell:[[NSTableHeaderCell alloc] initTextCell:NSLocalizedString(@"longTermForecastItemsOnTitle",@"")]];
+	[[[forecastPropertyTable tableColumns] objectAtIndex:1] setHeaderCell:[[NSTableHeaderCell alloc] initTextCell:NSLocalizedString(@"longTermForecastItemsPropertyTitle",@"")]];
+	[[[forecastPropertyTable tableColumns] objectAtIndex:2] setHeaderCell:[[NSTableHeaderCell alloc] initTextCell:NSLocalizedString(@"longTermForecastItemsUnitTitle",@"")]];
+	[[[forecastPropertyTable tableColumns] objectAtIndex:3] setHeaderCell:[[NSTableHeaderCell alloc] initTextCell:NSLocalizedString(@"longTermForecastItemsServerTitle",@"")]];
+	
+	//    cell = [[[NSButtonCell alloc] init] retain]; /* retain might be unneccesary */
 	cell = [[NSButtonCell alloc] init]; // got rid of retain based on TableViewDemo.m
     [cell setButtonType:NSSwitchButton];
     [cell setTitle:@""];

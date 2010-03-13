@@ -275,11 +275,11 @@ NSImage *imageForName(NSString *name, BOOL inDock)
 		@"Feels Like",
 		@"Dew Point",
 		@"Humidity",
-		//@"Visibility",
+		@"Visibility",
 		@"Pressure",
 		//@"Precipitation",
 		@"Wind",
-		//@"UV Index",
+		@"UV Index",
 		@"Last Update",
 		@"Hi",
 		@"Low",
@@ -297,6 +297,7 @@ NSImage *imageForName(NSString *name, BOOL inDock)
 		@"Forecast - Precipitation",
 		@"Radar Image",
 		@"Weather Alert",
+		@"Weather Alert Link",
 		nil];
 }
 
@@ -436,6 +437,7 @@ NSImage *imageForName(NSString *name, BOOL inDock)
 - (void)loadGlobalWeatherData
 {
     NSURL *url;
+	NSURL *linkUrl;
     //NSData *data;
     NSString *string;
     NSRange lastRange;
@@ -444,7 +446,8 @@ NSImage *imageForName(NSString *name, BOOL inDock)
     int itemCounter = 0;
     NSCalendarDate *d = [NSCalendarDate calendarDate];
     
-	//http://www.weather.com/weather/today/%@?from=hrly_topnav_undeclared
+	// Link for "Weather for"
+	NSString *linkUrlString = [NSString stringWithFormat:@"http://www.weather.com/weather/today/%@", code];
 	NSString *urlString = [NSString stringWithFormat:@"http://mw.weather.com/now/%@?family=webkit",code];
     
     Class class = [self class];
@@ -457,6 +460,8 @@ NSImage *imageForName(NSString *name, BOOL inDock)
 									  //JRC
     url = [NSURL URLWithString:(NSString*)CFURLCreateStringByAddingPercentEscapes(NULL,
 																				  (CFStringRef)urlString,NULL,NULL,kCFStringEncodingUTF8)];
+    linkUrl = [NSURL URLWithString:(NSString*)CFURLCreateStringByAddingPercentEscapes(NULL,
+																				  (CFStringRef)linkUrlString,NULL,NULL,kCFStringEncodingUTF8)];
 	
 	if(!url)
 	{
@@ -465,7 +470,7 @@ NSImage *imageForName(NSString *name, BOOL inDock)
 	}
 	
 	string = [[MEWebFetcher sharedInstance] fetchURLtoString:url];	// JRC
-	NSCharacterSet *set = [NSCharacterSet characterSetWithCharactersInString:@"\n\r\t\f\v"];
+	NSCharacterSet *set = [NSCharacterSet characterSetWithCharactersInString:@" \n\r\t\f\v"];
 	NSCharacterSet *setWithSpace = [NSCharacterSet characterSetWithCharactersInString:@" \n\r\t\f\v"];
 	string = [string stringByTrimmingCharactersInSet:set];
 	
@@ -489,7 +494,8 @@ NSImage *imageForName(NSString *name, BOOL inDock)
     weatherData = [[NSMutableDictionary alloc] initWithCapacity:0];
     [weatherData setObject:@"Today" forKey:@"Date"];                   
     
-    [weatherData setObject:[url absoluteString] forKey:@"Weather Link"];
+	// Link for "Weather for"
+    [weatherData setObject:[linkUrl absoluteString] forKey:@"Weather Link"];
     
 /* OHL 29 Aug 2007 1:18:01 -- Dead code. "Current Location" isn't used anywhere else.
     //get the location
@@ -528,6 +534,7 @@ NSImage *imageForName(NSString *name, BOOL inDock)
 		while(temp != nil)
 		{
 			NSString *alertString;
+			NSString *alertStringLink;
 			alertString = [class getStringWithLeftBound:@"<a href=\"http://mw.weather.com/wxalrt/"
 											  rightBound:@"?"
 											 string:temp
@@ -550,14 +557,16 @@ NSImage *imageForName(NSString *name, BOOL inDock)
 			if(alertString)
 			{
 				alertString = [NSString stringWithFormat:@"Weather.com: %@",alertString];
+				alertStringLink = [NSString stringWithFormat:@"http://mw.weather.com/wxalrt/%@?family=webkit", code];
 				
 				NSMutableDictionary *diction = [NSMutableDictionary dictionary];
 				[diction setObject:@"Weather Alert" forKey:@"title"];
 				[diction setObject:alertString forKey:@"description"];
+				[diction setObject:alertStringLink forKey:@"link"];
 				
 				[weatherAlerts addObject:diction];
 			}     
-    }
+		}
 		
 		if([weatherAlerts count])
 			[weatherData setObject:weatherAlerts forKey:@"Weather Alert"];
@@ -575,6 +584,7 @@ temp = [class getStringWithLeftBound:@"padding:0px 0px 10px 0px;"
     // better chance at lasting more than a few days...
 	// Looking for: wxicon32-01.png
 	// in particular the 32
+	//NSLog([NSString stringWithFormat:@"Weather string=%@", string]);
     temp = [class getStringWithLeftBound:@"AnimIcons/wxicon"
 			      rightBound:@"-"
 				  string:string
@@ -601,34 +611,54 @@ temp = [class getStringWithLeftBound:@"padding:0px 0px 10px 0px;"
 							  length:stringLength
 						   lastRange:&lastRange];
 		temp = [temp stringByTrimmingCharactersInSet:set];
-if(temp && ![temp hasPrefix:@"N/A"])
+		if(temp && ![temp hasPrefix:@"N/A"])
 		{
-    [weatherData setObject:temp forKey:@"Weather Image"];
+			[weatherData setObject:temp forKey:@"Weather Image"];
+		}
+		else
+		{
+			temp = [class getStringWithLeftBound:@"45x45/bigicon"
+									  rightBound:@"."
+										  string:string
+										  length:stringLength
+									   lastRange:&lastRange];
+		}
+		temp = [temp stringByTrimmingCharactersInSet:set];
+		if(temp && ![temp hasPrefix:@"N/A"])
+		{
+			[weatherData setObject:temp forKey:@"Weather Image"];
 		}
 	}
 
 //end weather icon checking
 
 //get the current temp
-	temp = [class getStringWithLeftBound:@"<div class=\"cc_temp\">"
+	temp = [class getStringWithLeftBound:@"<div id=\"cc_temp\">"
 						  rightBound:@"&"
 							  string:string
 							  length:stringLength
 						   lastRange:&lastRange];
 	temp = [temp stringByTrimmingCharactersInSet:set];
-if(temp && ![temp hasPrefix:@"N/A"])
-    [weatherData setObject:temp forKey:@"Temperature"];
+	if(temp && ![temp hasPrefix:@"N/A"])
+		[weatherData setObject:temp forKey:@"Temperature"];
 //end getting current temp
 
 //get the current feels-like
-    temp = [class getStringWithLeftBound:@"Feels Like: \n"
-						  rightBound:@"&"
-							  string:string
-							  length:stringLength
-						   lastRange:&lastRange];
+	//NSLog([NSString stringWithFormat:@"Weather string=%@", string]);
+    temp = [class getStringWithLeftBound:@"Feels like:"
+							  rightBound:@"div class"
+								  string:string
+								  length:stringLength
+							   lastRange:&lastRange];
 	temp = [temp stringByTrimmingCharactersInSet:set];
-if(temp && ![temp hasPrefix:@"N/A"])
-[weatherData setObject:temp forKey:@"Feels Like"];
+	temp = [class getStringWithLeftBound:@"cc_minordata\">"
+							  rightBound:@"&"
+								  string:string
+								  length:stringLength
+							   lastRange:&lastRange];
+	temp = [temp stringByTrimmingCharactersInSet:set];
+	if(temp && ![temp hasPrefix:@"N/A"])
+		[weatherData setObject:temp forKey:@"Feels Like"];
 //end getting current feels-like
 
 //    //get the current forecast
@@ -642,117 +672,105 @@ if(temp && ![temp hasPrefix:@"N/A"])
 //    //end getting current forecast
 
 //get the current uv index
-    temp = [class getStringWithLeftBound:@"UV Index:"
+	temp = [class getStringWithLeftBound:@"UV Index:"
+							  rightBound:@"<div"
+								  string:string
+								  length:stringLength
+							   lastRange:&lastRange];
+	temp = [temp stringByTrimmingCharactersInSet:set];
+	temp = [class getStringWithLeftBound:@"cc_minordata\">"
 							  rightBound:@"</div>"
 								  string:string
 								  length:stringLength
 							   lastRange:&lastRange];
-	if (temp)
-	{
-		temp = [class getStringWithLeftBound:@"<div class=\"cc_minordata\">"
-								  rightBound:@"</div>"
-									  string:string
-									  length:stringLength
-								   lastRange:&lastRange];
-		temp = [temp stringByTrimmingCharactersInSet:set];
-	}
+	temp = [temp stringByTrimmingCharactersInSet:set];
 	if(temp && ![temp hasPrefix:@"N/A"])
-        [weatherData setObject:[class replaceString:@"&nbsp;" withString:@" " forString:temp] forKey:@"UV Index"];
+		[weatherData setObject:temp forKey:@"UV Index"];
 //end getting current uv index
 
 //get the current wind
     temp = [class getStringWithLeftBound:@"Wind:"
-						  rightBound:@"</div>"
+						  rightBound:@"<div"
 							  string:string
 							  length:stringLength
 						   lastRange:&lastRange];
-	if (temp)
-	{
-		temp = [class getStringWithLeftBound:@"<div class=\"cc_minordata\"> "
-			      rightBound:@"</div>"
-							  string:string
-							  length:stringLength
-						   lastRange:&lastRange];
-		temp = [temp stringByTrimmingCharactersInSet:set];
-	}
-if(temp && ![temp hasPrefix:@"N/A"])
-[weatherData setObject:[class replaceString:@" <BR> " withString:@" " forString:[class replaceString:@"&nbsp;" withString:@" " forString:temp]] forKey:@"Wind"];
+	temp = [temp stringByTrimmingCharactersInSet:set];
+	temp = [class getStringWithLeftBound:@"cc_minordata\"> "
+							  rightBound:@"</div>"
+								  string:string
+								  length:stringLength
+							   lastRange:&lastRange];
+	temp = [temp stringByTrimmingCharactersInSet:set];
+	if(temp && ![temp hasPrefix:@"N/A"])
+		[weatherData setObject:[class replaceString:@" <BR> " withString:@" " forString:[class replaceString:@"&nbsp;" withString:@" " forString:temp]] forKey:@"Wind"];
 //end getting current pressure
 
 //get the current humidity
     temp = [class getStringWithLeftBound:@"Humidity:"
-						  rightBound:@"</div>"
+						  rightBound:@"<div"
 							  string:string
 							  length:stringLength
 						   lastRange:&lastRange];
-	if (temp)
-	{
-		temp = [class getStringWithLeftBound:@"<div class=\"cc_minordata\">"
-			      rightBound:@"</div>"
-							  string:string
-							  length:stringLength
-						   lastRange:&lastRange];
-		temp = [temp stringByTrimmingCharactersInSet:set];
-	}
-if(temp && ![temp hasPrefix:@"N/A"])
-[weatherData setObject:temp forKey:@"Humidity"];
+	temp = [temp stringByTrimmingCharactersInSet:set];
+	temp = [class getStringWithLeftBound:@"cc_minordata\">"
+							  rightBound:@"</div>"
+								  string:string
+								  length:stringLength
+							   lastRange:&lastRange];
+	temp = [temp stringByTrimmingCharactersInSet:set];
+	if(temp && ![temp hasPrefix:@"N/A"])
+		[weatherData setObject:temp forKey:@"Humidity"];
 //end getting current humidity
 
 //get the current pressure
     temp = [class getStringWithLeftBound:@"Pressure:"
-							  rightBound:@"</div>"
+							  rightBound:@"<div"
 							  string:string
 							  length:stringLength
 						   lastRange:&lastRange];
-	if (temp)
-	{
-		temp = [class getStringWithLeftBound:@"<div class=\"cc_minordata\">"
-								  rightBound:@" "
-							  string:string
-							  length:stringLength
-						   lastRange:&lastRange];
-		temp = [temp stringByTrimmingCharactersInSet:set];
-	}
-if(temp && ![temp hasPrefix:@"N/A"])
-[weatherData setObject:temp forKey:@"Pressure"];
+	temp = [class getStringWithLeftBound:@"cc_minordata\">"
+							  rightBound:@" in"
+								  string:string
+								  length:stringLength
+							   lastRange:&lastRange];
+	temp = [temp stringByTrimmingCharactersInSet:set];
+	if(temp && ![temp hasPrefix:@"N/A"])
+		[weatherData setObject:temp forKey:@"Pressure"];
 //end getting current pressure
 
 //get the current dew point
     temp = [class getStringWithLeftBound:@"Dew Point:"
-							  rightBound:@"</div>"
+							  rightBound:@"<div"
 							  string:string
 							  length:stringLength
 						   lastRange:&lastRange];
 	if (temp)
 	{
-		temp = [class getStringWithLeftBound:@"<div class=\"cc_minordata\">"
+		temp = [class getStringWithLeftBound:@"cc_minordata\">"
 								  rightBound:@"&"
 							  string:string
 							  length:stringLength
 						   lastRange:&lastRange];
 		temp = [temp stringByTrimmingCharactersInSet:set];
 	}
-if(temp && ![temp hasPrefix:@"N/A"])
-[weatherData setObject:temp forKey:@"Dew Point"];
+	if(temp && ![temp hasPrefix:@"N/A"])
+		[weatherData setObject:temp forKey:@"Dew Point"];
 //end getting current dew point
 
     //get the current visibility
-    temp = [class getStringWithLeftBound:@"Visibility:"
-						  rightBound:@"</div>"
-				  string:string
-				  length:stringLength
-			       lastRange:&lastRange];
-	if (temp)
-	{
-		temp = [class getStringWithLeftBound:@"<div class=\"cc_minordata\">"
-								  rightBound:@" "
-				  string:string
-				  length:stringLength
-			       lastRange:&lastRange];
-		temp = [temp stringByTrimmingCharactersInSet:set];
-	}
-    if(temp && ![temp hasPrefix:@"N/A"])
-	[weatherData setObject:temp forKey:@"Visibility"];
+	temp = [class getStringWithLeftBound:@"Visibility:"
+							  rightBound:@"<div"
+								  string:string
+								  length:stringLength
+							   lastRange:&lastRange];
+	temp = [class getStringWithLeftBound:@"cc_minordata\">"
+							  rightBound:@"</div"
+								  string:string
+								  length:stringLength
+							   lastRange:&lastRange];
+	temp = [temp stringByTrimmingCharactersInSet:set];
+	if(temp && ![temp hasPrefix:@"N/A"])
+		[weatherData setObject:temp forKey:@"Visibility"];
     //end getting current visibility
 
     //get the current sunrise
@@ -832,8 +850,8 @@ if(temp && ![temp hasPrefix:@"N/A"])
 						   lastRange:&lastRange];
 	temp = [temp stringByTrimmingCharactersInSet:set];
 	//NSLog(temp);
-if(temp)
-[weatherData setObject:temp forKey:@"Radar Image"];
+	if(temp)
+		[weatherData setObject:temp forKey:@"Radar Image"];
 //    }
 //end getting radar image
 
@@ -845,250 +863,263 @@ if(temp)
 // http://www.weather.com/outlook/travel/businesstraveler/tenday/%@?from=36hr_topnav_business
 
 
-url = [NSURL URLWithString:(NSString*)CFURLCreateStringByAddingPercentEscapes(NULL,
-		(CFStringRef)[NSString stringWithFormat:@"http://mw.weather.com/tenday/%@?family=webkit",code],NULL,NULL,kCFStringEncodingUTF8)];
-if(!url)
-{
-	NSLog(@"There was a problem creating the URL for code: %@.",code);
-	return;
-}
-
-string = [[MEWebFetcher sharedInstance] fetchURLtoString:url];	// JRC
-string = [string stringByTrimmingCharactersInSet:set];
-if(!string)
-{
-	NSLog(@"The string for the forecast data for URL %@ was empty.",url);
-	return;
-}
-
-stringLength = [string length];
-if(stringLength==0)
-{
-	NSLog(@"A zero-length string was downloaded for URL %@.",url);
-	return;
-}
-
-lastRange = NSMakeRange(0,stringLength);
-
-// setup
-NSArray *months = [NSArray arrayWithObjects:@"Jan",@"Feb",@"Mar",@"Apr",@"May",@"Jun",@"Jul",@"Aug",@"Sep",@"Oct",@"Nov",@"Dec",nil];
-//move down file
-	temp = [class getStringWithLeftBound:@"10 Day Forecast</div>"
-							  rightBound:@"</div>"
+	url = [NSURL URLWithString:(NSString*)CFURLCreateStringByAddingPercentEscapes(NULL,
+																				  (CFStringRef)[NSString stringWithFormat:@"http://mw.weather.com/tenday/%@?family=webkit",code],NULL,NULL,kCFStringEncodingUTF8)];
+	if(!url)
+	{
+		NSLog(@"There was a problem creating the URL for code: %@.",code);
+		return;
+	}
+	
+	string = [[MEWebFetcher sharedInstance] fetchURLtoString:url];	// JRC
+	string = [string stringByTrimmingCharactersInSet:set];
+	if(!string)
+	{
+		NSLog(@"The string for the forecast data for URL %@ was empty.",url);
+		return;
+	}
+	
+	stringLength = [string length];
+	if(stringLength==0)
+	{
+		NSLog(@"A zero-length string was downloaded for URL %@.",url);
+		return;
+	}
+	
+	lastRange = NSMakeRange(0,stringLength);
+	
+	// setup
+	NSArray *months = [NSArray arrayWithObjects:@"Jan",@"Feb",@"Mar",@"Apr",@"May",@"Jun",@"Jul",@"Aug",@"Sep",@"Oct",@"Nov",@"Dec",nil];
+	//move down file
+	
+	temp = [class getStringWithLeftBound:@"id=\"fcstTable\""
+							  rightBound:@"<tr>"
 							  string:string
 							  length:stringLength
 						   lastRange:&lastRange];
-
-//begin getting the forecast
-NSMutableArray *forecastArray = [NSMutableArray array]; 
-NSString *oneDay = [NSString string]; /* everything between <TR and </TR> */
-int numDaysSoFar=0;
-while((oneDay = [class getStringWithLeftBound:@"<tr style=\"display:none\">\n "
-								   rightBound:@"</tr>"
-									   string:string
-									   length:stringLength
-									lastRange:&lastRange]) && numDaysSoFar<=10)
-{
-	oneDay = [oneDay stringByTrimmingCharactersInSet:set];
-	NSMutableDictionary *forecastDictionary = [NSMutableDictionary dictionary];
-	int oneDayLength = [oneDay length];
-	NSRange oneDayRange = NSMakeRange(0,oneDayLength);
-	NSString *link,
+	
+	//begin getting the forecast
+	NSMutableArray *forecastArray = [NSMutableArray array]; 
+	NSString *oneDay = [NSString string]; /* everything between <TR and </TR> */
+	int numDaysSoFar=0;
+	//NSLog([NSString stringWithFormat:@"Extended weather string=\n%@", string]);
+	while((oneDay = [class getStringWithLeftBound:@"tendaytable"
+									   rightBound:@"</table>"
+										   string:string
+										   length:stringLength
+										lastRange:&lastRange]) && numDaysSoFar<=10)
+	{
+		oneDay = [oneDay stringByTrimmingCharactersInSet:set];
+		NSMutableDictionary *forecastDictionary = [NSMutableDictionary dictionary];
+		int oneDayLength = [oneDay length];
+		NSRange oneDayRange = NSMakeRange(0,oneDayLength);
+		NSString *link,
 		*day,
 		*date,
 		*iconURL,
 		*forecast,
 		*precip,
 		*uvindex,*windspeed,*longwinddir,*shortwinddir,*humidity;
-	numDaysSoFar++;
-//	link = [class getStringWithLeftBound:@"<A HREF=" /* URL for the days weather */
-//							  rightBound:@">"
-//								  string:oneDay
-//								  length:oneDayLength
-//							   lastRange:&oneDayRange];
-//	
-//	//lastRange.location-=2; /* I don't understand */
-//	oneDayRange.location--; /* Add back the > */
-//	oneDayRange.length++;   /* keep our the whole range*/
-
-	/* ------------- DATE -------------- */
-	date = [class getStringWithLeftBound:@"te_date\">" // dummy
-										 rightBound:@"<b"
-											 string:oneDay
-											 length:oneDayLength
-										  lastRange:&oneDayRange];
-	date = [date stringByTrimmingCharactersInSet:set];
-	
-	day = [class getStringWithLeftBound:@">"
-										 rightBound:@"<\td>"
-											 string:oneDay
-											 length:oneDayLength
-										  lastRange:&oneDayRange];
-	day = [day stringByTrimmingCharactersInSet:set];
-	
-	NSString *separatorString = @" ";
-	NSScanner *aScanner= [NSScanner scannerWithString:date];
-	[aScanner scanUpToString:separatorString intoString:&day];
-	[aScanner scanUpToString:separatorString intoString:&temp];
-	[aScanner scanUpToString:separatorString intoString:&date];
-	date = [NSString stringWithFormat:@"%@ %@", temp, date];
+		numDaysSoFar++;
+		//	link = [class getStringWithLeftBound:@"<A HREF=" /* URL for the days weather */
+		//							  rightBound:@">"
+		//								  string:oneDay
+		//								  length:oneDayLength
+		//							   lastRange:&oneDayRange];
+		//	
+		//	//lastRange.location-=2; /* I don't understand */
+		//	oneDayRange.location--; /* Add back the > */
+		//	oneDayRange.length++;   /* keep our the whole range*/
 		
-	NSRange range2 = NSMakeRange(oneDayRange.location, oneDayRange.length);
-	/* ------------- URL of icon (weather pic) ------------ */
-	iconURL = [class getStringWithLeftBound:@"<img src=\"/webkit/images/generic/big-wxicons/bigicon"
-								 rightBound:@".png"
-									 string:oneDay
-									 length:oneDayLength
-								  lastRange:&oneDayRange];
-	iconURL = [iconURL stringByTrimmingCharactersInSet:set];
-	if (iconURL == NULL)
-	{
-		iconURL = [class getStringWithLeftBound:@"<img src=\"/webkit/images/generic/big-wxicons/bigicon"
-									 rightBound:@".png"
-											 string:oneDay
-											 length:oneDayLength
-										  lastRange:&oneDayRange];
-		iconURL = [iconURL stringByTrimmingCharactersInSet:set];
-	}
-	
-	//          e.g. partly sunny, cloudy, etc.
-	forecast = [class getStringWithLeftBound:@"<br/>"
-								  rightBound:@"</td>"
-								 string:oneDay
-								 length:oneDayLength
-							  lastRange:&oneDayRange];
-	forecast = [forecast stringByTrimmingCharactersInSet:setWithSpace];
-
-	/* ------------- High ------------- */
-	NSString *high = [class getStringWithLeftBound:@"High: "
-							  rightBound:@"&"
-								  string:oneDay
-								  length:oneDayLength
-							   lastRange:&oneDayRange];
-	high = [high stringByTrimmingCharactersInSet:set];
-	
-	/* ------------- Low ------------- */
-	NSString *low = [class getStringWithLeftBound:@"Low: "
-							  rightBound:@"&"
-								  string:oneDay
-								  length:oneDayLength
-							   lastRange:&range2];
-	low = [low stringByTrimmingCharactersInSet:set];
-	
-	/* ------------- UVIndex ------------- */
-	/*
-	uvindex = [class getStringWithLeftBound:@"'"
-							  rightBound:@"',"
-								  string:oneDay
-								  length:oneDayLength
-							   lastRange:&oneDayRange];
-	 */
-	
-	/* ------------- wind speed (mph) ------------- */
-	/*
-	windspeed = [class getStringWithLeftBound:@"'"
-								   rightBound:@"',"
-									   string:oneDay
-									   length:oneDayLength
-									lastRange:&oneDayRange];
-	 */
-	
-	/* ------------- long wind direction ------------- */
-	/*
-	longwinddir = [class getStringWithLeftBound:@"'"
-									 rightBound:@"',"
-										 string:oneDay
-										 length:oneDayLength
-									  lastRange:&oneDayRange];
-	 */
-
-	/* ------------- short wind dir ------------- */
-	/*
-	shortwinddir = [class getStringWithLeftBound:@"'"
-								   rightBound:@"',"
-									   string:oneDay
-									   length:oneDayLength
-									lastRange:&oneDayRange];
-	 */
-	
-	/* -------------- CHANCE OF PRECIP -------------- */
-	precip = [class getStringWithLeftBound:@"Precip: "
-								rightBound:@"."
-									string:oneDay
-									length:oneDayLength
-								 lastRange:&oneDayRange];
-	precip = [precip stringByTrimmingCharactersInSet:set];
-	precip = [NSString stringWithFormat:@"%@%%",precip];
-	
-	/* -------------- Humidity -------------- */
-	/*
-	humidity = [class getStringWithLeftBound:@"'"
-								  rightBound:@"')"
+		/* ------------- DATE -------------- */
+		date = [class getStringWithLeftBound:@"te_date\">" // dummy
+								  rightBound:@"</td"
 									  string:oneDay
 									  length:oneDayLength
 								   lastRange:&oneDayRange];
-	humidity = [NSString stringWithFormat:@"%@%%",humidity];
-	 */
-	
-
-	// link is broken as of 1.4.1
-//	if(link)
-//		[forecastDictionary setObject:[NSString stringWithFormat:@"http://www.weather.com%@",link] /* JRC */
-//														  forKey:@"Forecast - Link"];		
-			if(date)
+		date = [date stringByTrimmingCharactersInSet:set];
+		
+		/*
+		day = [class getStringWithLeftBound:@">"
+								 rightBound:@"</td>"
+									 string:oneDay
+									 length:oneDayLength
+								  lastRange:&oneDayRange];
+		day = [day stringByTrimmingCharactersInSet:set];
+		 */
+		
+		NSString *separatorString = @" ";
+		NSScanner *aScanner= [NSScanner scannerWithString:date];
+		[aScanner scanUpToString:separatorString intoString:&day];
+		[aScanner scanUpToString:separatorString intoString:&temp];
+		[aScanner scanUpToString:separatorString intoString:&date];
+		date = [NSString stringWithFormat:@"%@ %@", temp, date];
+		
+		NSRange range2 = NSMakeRange(oneDayRange.location, oneDayRange.length);
+		/* ------------- URL of icon (weather pic) ------------ */
+		iconURL = [class getStringWithLeftBound:@"<img src=\"/webkit/images/generic/big-wxicons/bigicon"
+									 rightBound:@".png"
+										 string:oneDay
+										 length:oneDayLength
+									  lastRange:&oneDayRange];
+		iconURL = [iconURL stringByTrimmingCharactersInSet:set];
+		if (iconURL == NULL)
+		{
+			iconURL = [class getStringWithLeftBound:@"<img src=\"/webkit/images/generic/big-wxicons/bigicon"
+										 rightBound:@".png"
+											 string:oneDay
+											 length:oneDayLength
+										  lastRange:&oneDayRange];
+			iconURL = [iconURL stringByTrimmingCharactersInSet:set];
+		}
+		if (iconURL == NULL)
+		{
+			iconURL = [class getStringWithLeftBound:@"bigicon"
+										 rightBound:@".jpg"
+											 string:oneDay
+											 length:oneDayLength
+										  lastRange:&oneDayRange];
+			iconURL = [iconURL stringByTrimmingCharactersInSet:set];
+		}
+		
+		//          e.g. partly sunny, cloudy, etc.
+		forecast = [class getStringWithLeftBound:@"<br/>"
+									  rightBound:@"</td>"
+										  string:oneDay
+										  length:oneDayLength
+									   lastRange:&oneDayRange];
+		forecast = [forecast stringByTrimmingCharactersInSet:setWithSpace];
+		
+		/* ------------- High ------------- */
+		NSString *high = [class getStringWithLeftBound:@"High: "
+											rightBound:@"&"
+												string:oneDay
+												length:oneDayLength
+											 lastRange:&oneDayRange];
+		high = [high stringByTrimmingCharactersInSet:set];
+		
+		/* ------------- Low ------------- */
+		NSString *low = [class getStringWithLeftBound:@"Low: "
+										   rightBound:@"&"
+											   string:oneDay
+											   length:oneDayLength
+											lastRange:&range2];
+		low = [low stringByTrimmingCharactersInSet:set];
+		
+		/* ------------- UVIndex ------------- */
+		/*
+		 uvindex = [class getStringWithLeftBound:@"'"
+		 rightBound:@"',"
+		 string:oneDay
+		 length:oneDayLength
+		 lastRange:&oneDayRange];
+		 */
+		
+		/* ------------- wind speed (mph) ------------- */
+		/*
+		 windspeed = [class getStringWithLeftBound:@"'"
+		 rightBound:@"',"
+		 string:oneDay
+		 length:oneDayLength
+		 lastRange:&oneDayRange];
+		 */
+		
+		/* ------------- long wind direction ------------- */
+		/*
+		 longwinddir = [class getStringWithLeftBound:@"'"
+		 rightBound:@"',"
+		 string:oneDay
+		 length:oneDayLength
+		 lastRange:&oneDayRange];
+		 */
+		
+		/* ------------- short wind dir ------------- */
+		/*
+		 shortwinddir = [class getStringWithLeftBound:@"'"
+		 rightBound:@"',"
+		 string:oneDay
+		 length:oneDayLength
+		 lastRange:&oneDayRange];
+		 */
+		
+		/* -------------- CHANCE OF PRECIP -------------- */
+		precip = [class getStringWithLeftBound:@"Precip: "
+									rightBound:@"."
+										string:oneDay
+										length:oneDayLength
+									 lastRange:&oneDayRange];
+		precip = [precip stringByTrimmingCharactersInSet:set];
+		precip = [NSString stringWithFormat:@"%@%%",precip];
+		
+		/* -------------- Humidity -------------- */
+		/*
+		 humidity = [class getStringWithLeftBound:@"'"
+		 rightBound:@"')"
+		 string:oneDay
+		 length:oneDayLength
+		 lastRange:&oneDayRange];
+		 humidity = [NSString stringWithFormat:@"%@%%",humidity];
+		 */
+		
+		
+		// link is broken as of 1.4.1
+		//	if(link)
+		//		[forecastDictionary setObject:[NSString stringWithFormat:@"http://www.weather.com%@",link] /* JRC */
+		//														  forKey:@"Forecast - Link"];		
+		if(date)
 			[forecastDictionary setObject:date     forKey:@"Forecast - Date"];  
-			if(day)
+		if(day)
 			[forecastDictionary setObject:day      forKey:@"Forecast - Day"];   
-			if (high && ![high isEqualToString:@"N/A"])
+		if (high && ![high isEqualToString:@"N/A"])
 			[forecastDictionary setObject:high     forKey:@"Forecast - High"];
-			if (low && ![low isEqualToString:@"N/A"])
+		if (low && ![low isEqualToString:@"N/A"])
 			[forecastDictionary setObject:low     forKey:@"Forecast - Low"];
-			if(iconURL && ![iconURL hasPrefix:@"N/A"])
+		if(iconURL && ![iconURL hasPrefix:@"N/A"])
             [forecastDictionary setObject:iconURL  forKey:@"Forecast - Icon"];
-			if (forecast && ![forecast hasPrefix:@"N/A"])
-				[forecastDictionary setObject:forecast forKey:@"Forecast - Forecast"];
-	/*
-			if (uvindex && ![uvindex isEqualToString:@"N/A"])
-				[forecastDictionary setObject:uvindex     forKey:@"Forecast - UV Index"];
-			if(windspeed && ![windspeed hasPrefix:@"N/A"])
-            [forecastDictionary setObject:windspeed  forKey:@"Forecast - Wind Speed"];
-			if (longwinddir && ![longwinddir hasPrefix:@"N/A"])
-            [forecastDictionary setObject:longwinddir  forKey:@"Forecast - Wind Direction"];
-			if (humidity && ![humidity hasPrefix:@"N/A"])
-            [forecastDictionary setObject:humidity  forKey:@"Forecast - Humidity"];
-	 */
-			if (precip && ![precip hasPrefix:@"N/A"])
-			{
-				[forecastDictionary setObject:precip   forKey:@"Forecast - Precipitation"];
-				if(itemCounter == 1)
-					[weatherData setObject:precip forKey:@"Precipitation"];
-			}
-			
-			
-			[forecastDictionary setObject:self forKey:@"Weather Module"];
-			[forecastArray addObject:forecastDictionary];
-			//NSLog(@"Day Added.");
-}
-[weatherData setObject:forecastArray forKey:@"Forecast Array"];
-
-d = [NSCalendarDate calendarDate];
-[weatherData setObject:[class dateInfoForCalendarDate:d]  forKey:@"Last Update"];
-
-if([weatherData count] > 5)
-{
-	supplyingOldData = NO;
-	[lastWeather autorelease];
-}
-else
-{
-	supplyingOldData = YES;
-	[weatherData autorelease];
-	weatherData = lastWeather;
-}
-
-
-//[url release];
-//[string release];
+		if (forecast && ![forecast hasPrefix:@"N/A"])
+			[forecastDictionary setObject:forecast forKey:@"Forecast - Forecast"];
+		/*
+		 if (uvindex && ![uvindex isEqualToString:@"N/A"])
+		 [forecastDictionary setObject:uvindex     forKey:@"Forecast - UV Index"];
+		 if(windspeed && ![windspeed hasPrefix:@"N/A"])
+		 [forecastDictionary setObject:windspeed  forKey:@"Forecast - Wind Speed"];
+		 if (longwinddir && ![longwinddir hasPrefix:@"N/A"])
+		 [forecastDictionary setObject:longwinddir  forKey:@"Forecast - Wind Direction"];
+		 if (humidity && ![humidity hasPrefix:@"N/A"])
+		 [forecastDictionary setObject:humidity  forKey:@"Forecast - Humidity"];
+		 */
+		if (precip && ![precip hasPrefix:@"N/A"])
+		{
+			[forecastDictionary setObject:precip   forKey:@"Forecast - Precipitation"];
+			if(itemCounter == 1)
+				[weatherData setObject:precip forKey:@"Precipitation"];
+		}
+		
+		
+		[forecastDictionary setObject:self forKey:@"Weather Module"];
+		[forecastArray addObject:forecastDictionary];
+		//NSLog(@"Day Added.");
+	}
+	[weatherData setObject:forecastArray forKey:@"Forecast Array"];
+	
+	d = [NSCalendarDate calendarDate];
+	[weatherData setObject:[class dateInfoForCalendarDate:d]  forKey:@"Last Update"];
+	
+	if([weatherData count] > 5)
+	{
+		supplyingOldData = NO;
+		[lastWeather autorelease];
+	}
+	else
+	{
+		supplyingOldData = YES;
+		[weatherData autorelease];
+		weatherData = lastWeather;
+	}
+	
+	
+	//[url release];
+	//[string release];
 }
 
 @end
@@ -1140,6 +1171,7 @@ else
 		@"Radar Image",
 		@"Moon Phase",
 		@"Weather Alert",
+		@"Weather Alert Link",
 		nil];*/
 }
 
@@ -2567,6 +2599,7 @@ temp = [class getStringWithLeftBound:@">"
 		@"Low",
 		@"Radar Image",
 		@"Weather Alert",
+		@"Weather Alert Link",
 		nil];
 }
 
@@ -3239,7 +3272,7 @@ temp = [class getStringWithLeftBound:@">"
     if(temp)
         [weatherData setObject:[NSString stringWithFormat:@"http://www.crh.noaa.gov/radar/images/%@/SI.klot/latest.gif",temp] forKey:@"Radar Image"];
     
-    d = [NSCalendarDate calendarDate];
+
     //[weatherData setObject:[d descriptionWithCalendarFormat:@"%a, %b %d %I:%M %p"] forKey:@"Last Load"];
     [weatherData setObject:[class dateInfoForCalendarDate:d]  forKey:@"Last Update"];
     

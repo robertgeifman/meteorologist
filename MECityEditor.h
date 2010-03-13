@@ -41,6 +41,16 @@
     IBOutlet NSTabView *tabView;
     
     IBOutlet NSTextField *cityName;
+	IBOutlet NSTextField *cityNameTitle;
+	IBOutlet NSTextField *cityDescription;
+	IBOutlet NSTextField *weatherServersTitle;
+	IBOutlet NSTextField *weatherDescription;
+	IBOutlet NSTextField *cityOrZipSearchTitle;
+	IBOutlet NSTextField *onlyTheFirstEightDescription;
+	IBOutlet NSTableHeaderView *cityTableHeaderView;
+	
+	IBOutlet NSTextField *currentWeatherItems;
+	IBOutlet NSTableHeaderView *currentWeatherItemsTable;
     
     IBOutlet NSPopUpButton       *weatherModules;
     IBOutlet NSPopUpButton       *weatherInfos;
@@ -50,6 +60,8 @@
     
     IBOutlet NSTableView *cityTable;
     
+	IBOutlet NSTextField *longTermForecastItems;
+	IBOutlet NSTableHeaderView *longTermForecastItemsTable;
     
     IBOutlet NSOutlineView *weatherPropertyTable;
     IBOutlet NSTableView   *forecastPropertyTable;

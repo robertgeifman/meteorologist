@@ -14,12 +14,17 @@
 
 @interface MFAlertManager : NSObject 
 {
+	IBOutlet NSPanel *weatherAlertsPanel;
+	
     NSMutableArray *alertingCities;
     
     IBOutlet MFBeeper *beeper;
     IBOutlet MFSongPlayer *player;
     IBOutlet MFMessageDisplay *displayer;
     IBOutlet MFEmailer *emailer;
+	
+	IBOutlet NSButton *killSoundsButton;
+	IBOutlet NSButton *clearLogButton;
 }
 
 - (void)addCity:(NSArray *)array;

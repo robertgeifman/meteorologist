@@ -357,7 +357,28 @@ void catchException(NSException *exception)
 - (void)applicationDidFinishLaunching:(NSNotification *)not
 {
 	menuDrawLock = [[NSLock alloc] init];
-	radarImageSpace = 0;
+	radarImageWidth = 0;
+
+	[[prefTab tabViewItemAtIndex:0] setLabel:NSLocalizedString(@"weatherTabTitle",@"")];
+	[[prefTab tabViewItemAtIndex:1] setLabel:NSLocalizedString(@"citiesTabTitle",@"")];
+	[[prefTab tabViewItemAtIndex:2] setLabel:NSLocalizedString(@"updatingTabTitle",@"")];
+	[[prefTab tabViewItemAtIndex:3] setLabel:NSLocalizedString(@"alertsTabTitle",@"")];
+	[[prefTab tabViewItemAtIndex:4] setLabel:NSLocalizedString(@"aboutTabTitle",@"")];
+	
+	[[[cityTable tableColumns] objectAtIndex:0] setHeaderCell:[[NSTableHeaderCell alloc] initTextCell:NSLocalizedString(@"citiesTabHeaderActiveText",@"")]];
+	[[[cityTable tableColumns] objectAtIndex:1] setHeaderCell:[[NSTableHeaderCell alloc] initTextCell:NSLocalizedString(@"citiesTabHeaderNameText",@"")]];
+	[[[cityTable tableColumns] objectAtIndex:2] setHeaderCell:[[NSTableHeaderCell alloc] initTextCell:NSLocalizedString(@"citiesTabHeaderServersText",@"")]];
+	[cityTableDescriptorText setStringValue:NSLocalizedString(@"citiesTabDescriptonText",nil)];
+	[addCity setTitle:NSLocalizedString(@"addCityTitle",nil)];
+	[editCity setTitle:NSLocalizedString(@"editCityTitle",nil)];
+	[removeCity setTitle:NSLocalizedString(@"removeCityTitle",nil)];
+	[updateMenu setTitle:NSLocalizedString(@"updateMenuTitle",nil)];
+	
+	[downloadWindow setTitle:NSLocalizedString(@"downloadWindowTitle",nil)];
+	[downloadWindowText setStringValue:NSLocalizedString(@"downloadWindowTextText",nil)];
+	[downloadWindowName setStringValue:NSLocalizedString(@"downloadWindowNameText",nil)];
+	[downloadWindowSize setStringValue:NSLocalizedString(@"downloadWindowSizeText",nil)];
+	
 
     NSSetUncaughtExceptionHandler(catchException);
 
@@ -1153,7 +1174,7 @@ void catchException(NSException *exception)
 	[NSThread exit];
 }
 
-- (void)addString:(NSString *)string toMenu:(NSMenu *)theMenu withCharacterWidth:(int)width
+- (void)addString:(NSString *)string toMenu:(NSMenu *)theMenu withCharacterWidth:(int)width withLink:(NSString *)linkString
 {
     NSArray *components = [string componentsSeparatedByString:@" "];
     NSEnumerator *compEnum = [components objectEnumerator];
@@ -1208,7 +1229,13 @@ void catchException(NSException *exception)
         if(spaceStr)
                 subStr = [NSString stringWithFormat:@"%@%@",spaceStr,subStr];
     
-        [[theMenu addItemWithTitle:subStr action:@selector(dummy) keyEquivalent:@""] setTarget:self];
+		NSMenuItem *menuItem = [theMenu addItemWithTitle:subStr action:@selector(dummy) keyEquivalent:@""];
+        [menuItem setTarget:self];
+		if((linkString) && ([linkString length] > 0))
+		{
+			[menuItem setTarget:linkString];
+			[menuItem setAction:@selector(openLink:)];
+		}
     }
 }
 
@@ -1259,7 +1286,7 @@ void catchException(NSException *exception)
             {
                 if([nextProp isEqualToString:@"Weather Alert"])
                 {
-                    //nextVal is an array of dictionaries with @"title" and @"description" as keys
+                    //nextVal is an array of dictionaries with @"title", @"description" and @"link" as keys
                     NSMenuItem *nextItem = [theMenu addItemWithTitle:nextProp action:nil keyEquivalent:@""];
                     NSMenu *anotherSub = [[[NSMenu alloc] init] autorelease];
                     
@@ -1274,14 +1301,15 @@ void catchException(NSException *exception)
                     {
                         NSString *dictTitle = [nextDict objectForKey:@"title"];
                         NSString *dictDesc = [nextDict objectForKey:@"description"];
+                        NSString *dictLink = [nextDict objectForKey:@"link"];
                     
                         if((dictDesc!=nil || dictTitle!=nil) && i!=0)
-                            [self addString:@"" toMenu:anotherSub withCharacterWidth:75];
+                            [self addString:@"" toMenu:anotherSub withCharacterWidth:75 withLink:dictLink];
                     
-                        if(dictTitle)
-                            [self addString:dictTitle toMenu:anotherSub withCharacterWidth:75];
+                        //if(dictTitle)
+                        //    [self addString:dictTitle toMenu:anotherSub withCharacterWidth:75 withLink:dictLink];
                         if(dictDesc)
-                            [self addString:dictDesc toMenu:anotherSub withCharacterWidth:75];
+                            [self addString:dictDesc toMenu:anotherSub withCharacterWidth:75 withLink:dictLink];
                             
                         i++;
                     }
@@ -1291,76 +1319,56 @@ void catchException(NSException *exception)
                     NSData *dat = [[NSURL URLWithString:nextVal] resourceDataUsingCache:!newData];
                     if(dat)
                     {
-                        NSImage *img = [[[NSImage alloc] initWithData:dat] autorelease];
-						NSImage *imgNew = [[[NSImage alloc] initWithData:dat] autorelease];
+                        NSImage *sourceImage = [[[NSImage alloc] initWithData:dat] autorelease];
 						NSRect screenBounds = [[NSScreen mainScreen] visibleFrame];
-						NSSize newSize = [img size];
-						NSSize originalSize = [img size];
+						NSSize newSize = [sourceImage size];
+						NSSize originalSize = [sourceImage size];
 						
-						if (radarImageSpace == 0)
+						if (radarImageWidth == 0)
 						{
-							//http://stackoverflow.com/questions/1301701/how-to-get-the-on-screen-location-of-an-nsstatusitem
-							//Create a new view so we can extract the origin.
-							NSView *V = [[NSView alloc] initWithFrame:NSMakeRect(0,0,0,0)];
-							NSView *V2 = [statusItem view];
-							[statusItem setView:V];
-							int leftAmount = [[[statusItem view] window] frame].origin.x - 400;
-							if (leftAmount == -400)
-							{
-								// No value returned. Go to the center of the screen.
-								leftAmount = (screenBounds.size.width/2) - 400;
-								if([[MEPrefs sharedInstance] logMessagesToConsole])
-								{
-									NSLog(@"NSStatusItem had no initial value - going to center of screen.");
-								}
-							}
-							//Restore the original view
-							[statusItem setView:V2];
-							int rightAmount = screenBounds.size.width - leftAmount - 400;
-							[V release];
-							if (rightAmount > leftAmount)
-							{
-								radarImageSpace = rightAmount;
-							}
-							else
-							{
-								radarImageSpace = leftAmount;
-							}
+							radarImageWidth = screenBounds.size.width/2;
+
 							if([[MEPrefs sharedInstance] logMessagesToConsole])
 							{
 								NSLog(@"Screen size (%.0f, %.0f)", screenBounds.size.width, screenBounds.size.height);
 								NSLog(@"Original image size (%.0f, %.0f)", originalSize.width, originalSize.height);
-								NSLog(@"NSStatusItem location (%d)", leftAmount+400);
+							}
+							if (radarImageWidth > screenBounds.size.width/3)
+							{
+								radarImageWidth = screenBounds.size.width/3;
 							}
 						}
 						
-						if ((radarImageSpace) < originalSize.width)
+						if ((radarImageWidth) < originalSize.width)
 						{
-							newSize = NSMakeSize(radarImageSpace,(radarImageSpace)/originalSize.width*originalSize.height);
-						}
-						else
-						{
-							newSize = originalSize;
+							newSize = NSMakeSize(radarImageWidth,(radarImageWidth)/originalSize.width*originalSize.height);
 						}
                         
-						[img lockFocus];
-						[imgNew drawInRect: NSMakeRect(0, 0, newSize.width , newSize.height)
-							   fromRect: NSMakeRect(0, 0, originalSize.width, originalSize.height)
-							  operation: NSCompositeSourceOver fraction: 1.0];
-						[img unlockFocus];
 						
-                        if(img)
+                        if(sourceImage)
                         {
-                            nextProp = NSLocalizedString(nextProp,@"");
+							// http://weblog.scifihifi.com/2005/06/25/how-to-resize-an-nsimage/
+							NSImage *resizedImage = [[NSImage alloc] initWithSize:(NSMakeSize)(newSize.width, newSize.height)];
+							
+							[resizedImage lockFocus];
+							[sourceImage drawInRect: NSMakeRect(0, 0, newSize.width, newSize.height)
+										   fromRect: NSMakeRect(0, 0, originalSize.width, originalSize.height)
+										  operation: NSCompositeSourceOver fraction: 1.0];
+							[resizedImage unlockFocus];
+							
+							//NSData *resizedData = [resizedImage TIFFRepresentation];
+							
+							nextProp = NSLocalizedString(nextProp,@"");
                         
                             NSMenuItem *nextItem = [theMenu addItemWithTitle:nextProp action:nil keyEquivalent:@""];
                             NSMenu *anotherSub = [[[NSMenu alloc] init] autorelease];
                             
                             [nextItem setSubmenu:anotherSub];
                             nextItem = (NSMenuItem *)[anotherSub addItemWithTitle:@"" action:nil keyEquivalent:@""];
-                            [nextItem setImage:imgNew];
+                            [nextItem setImage:resizedImage];
                             [nextItem setTarget:self];
                             [nextItem setAction:@selector(dummy)];
+							[resizedImage release];
                         }
                     }
                 }
@@ -1383,7 +1391,7 @@ void catchException(NSException *exception)
   //                  NSMutableAttributedString *nextTitle = attrNextProp;
 					//[nextTitle
 					NSString *nextTitle = [NSString stringWithFormat:@"%@: %@",nextProp,nextVal];
-                    [self addString:nextTitle toMenu:theMenu withCharacterWidth:75];
+                    [self addString:nextTitle toMenu:theMenu withCharacterWidth:75 withLink:nil];
                 }
             }
 
@@ -1517,7 +1525,7 @@ void catchException(NSException *exception)
                             nextTitle = nextVal;
                         else
                             nextTitle = [NSString stringWithFormat:@"%@: %@",nextProp,nextVal];
-                        [self addString:nextTitle toMenu:attempt withCharacterWidth:75];
+                        [self addString:nextTitle toMenu:attempt withCharacterWidth:75 withLink:nil];
                     }
                         
                     NSMenuItem *linker = [tempMenu addItemWithTitle:@"Some Title" action:nil keyEquivalent:@""];

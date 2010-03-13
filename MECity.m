@@ -315,6 +315,7 @@
                                                      @"Forecast - Icon",
                                                      @"Weather Link",
                                                      @"Moon Phase",
+													 @"Weather Alert Link",
                                                      nil];
     
     while(class = [classEnum nextObject])

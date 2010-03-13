@@ -11,11 +11,19 @@
 
 @implementation MFAlertManager
 
+- (void)awakeFromNib
+{
+	[weatherAlertsPanel setTitle:NSLocalizedString(@"weatherAlertPanelTitle",nil)];
+	[killSoundsButton setTitle:NSLocalizedString(@"killSoundsButtonTitle",nil)];
+	[clearLogButton setTitle:NSLocalizedString(@"clearLogButtonTitle",nil)];
+}
+
 - (id)init
 {
     self = [super init];
     if(self)
         alertingCities = [[NSMutableArray array] retain];
+	
     return self;
 }
 
@@ -30,7 +38,7 @@
     {
         [alertingCities addObject:city];
         
-        NSString *warnMsg = @"False Alarm, no warning. Sorry for the interruption";	// Needs localization _RAM
+        NSString *warnMsg = NSLocalizedString(@"falseAlarm",nil);
 
         NSEnumerator *warnEnum = [warn objectEnumerator];
         NSDictionary *dict;
@@ -38,14 +46,17 @@
         while(dict = [warnEnum nextObject])
         {
             NSString *temp;
-            warnMsg = [NSString stringWithFormat:@"Warnings for %@:\n\n",[city cityName]];
+            warnMsg = [NSString stringWithFormat:NSLocalizedString(@"warningsFor",nil),[city cityName]];
             
             //if(temp = [dict objectForKey:@"title"])
                 //warnMsg = [NSString stringWithFormat:@"%@%@\n",warnMsg,temp];
                 
             if(temp = [dict objectForKey:@"description"])
                 warnMsg = [NSString stringWithFormat:@"%@%@\n",warnMsg,temp];
-                
+			
+            if(temp = [dict objectForKey:@"link"])
+                warnMsg = [NSString stringWithFormat:@"%@%@\n",warnMsg,temp];
+			
             warnMsg = [NSString stringWithFormat:@"%@\n",warnMsg];
         }
         
@@ -58,24 +69,27 @@
         if(options & 2)
         {
             [beeper beginBeeping];
+			options = (options | 16); //Force on a message
         }
         //song
         if(options & 4)
         {
             if(![player playSong:song])
                 [beeper beginBeeping];
+			options = options | 16; //Force on a message
         }
         //bounce
         if(options & 8)
         {
             [NSApp deactivate];
             [NSApp requestUserAttention:NSCriticalRequest];
+			options = options | 16; //Force on a message
         }
         
-        if(options)
+        if(options & 16)
         {
-            [displayer appendMessage:warnMsg];
             //display a text view with this info
+            [displayer appendMessage:warnMsg];
         }
     }
 }

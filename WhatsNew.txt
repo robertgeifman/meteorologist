@@ -1,5 +1,29 @@
 This file could also be called the changelog.
 
+v1.5.0
+- Latest weather.com site changes (3 Mar 10).
+- Added a hyperlink link to weather alert message.
+- Fixed some radar display bugs.
+- Fixed hyperlink for Web Support Group.
+- Update build version.
+- Restored full browser based "Weather For" URL, no longer the mobile version.
+- Major localization updates, now easier to add new localles.
+- Added Italian localization thanks to "asdesign", partially incomplete.
+- German localization is partially incomplete (always was).
+- Meteo will now auto quit when going to the web server to download a new version.
+- Re-added UV Index and Visibility, delete and re-add city if they are not in acceptable order.
+- Clicking on a weather alert in the menu will take you to a web page with details.
+- Radar will not take up more then 1/3 of the width of your display, if you have too many menu bar items on a smaller width display, radar may be clipped. Perhaps a future update to control actual size.
+- Corrected missing highlight bar on 10.3 and 10.4 systems.
+- Now only gets up to 5 days of forecast weather regardless of requested value.
+
+v1.4.9
+- Fixed weather.com server support
+- Re-implemented alerts
+- Larger radar images (mostly weather.com changes)
+- Add option to display or not display message to the console
+- Updated city parser
+
 v1.4.2
 - Fixed a bug where the rain icon was displayed during snow flurries
 - Fixed a bug where Meteo crashed after wakeup

@@ -27,6 +27,9 @@ enum{kPeriodType,kNumberType,kStringType};
     IBOutlet NSButton *forecastInline;
     
     IBOutlet NSButton *embedControls;
+	
+	IBOutlet NSTextField *generalSubMenu;
+	IBOutlet NSTextField *generalDuplicate;
     
     //Temp prefs
     IBOutlet NSColorWell *tempColor;
@@ -61,6 +64,8 @@ enum{kPeriodType,kNumberType,kStringType};
     //Global units
     IBOutlet NSButton *useGlobalUnits;
     IBOutlet NSPopUpButton *degreeUnits, *distanceUnits, *speedUnits, *pressureUnits;
+	IBOutlet NSTextField *explainGlobalUnits;
+	IBOutlet NSTextField *degreesName, *distanceName, *speedName, *pressureName;
 
     //Weather Alerts
     IBOutlet NSMatrix *alertOptions;
@@ -75,6 +80,37 @@ enum{kPeriodType,kNumberType,kStringType};
     IBOutlet NSProgressIndicator *updateProgress;
     
     IBOutlet NSButton *killOtherMeteo;
+	IBOutlet NSBox *temperatureBox;
+	
+	IBOutlet NSBox *menuBarBox;
+	IBOutlet NSTextField *menuBarFontName;
+	IBOutlet NSTextField *menuBarFontSizeName;
+	IBOutlet NSTextField *menuBarFontColorName;
+
+	IBOutlet NSBox *dockIconBox;
+	IBOutlet NSTextField *dockIconImageOpacityName;
+	IBOutlet NSTextField *dockIconFontName;
+	IBOutlet NSTextField *dockIconFontColorName;
+	
+	IBOutlet NSBox *currentWeatherBox;
+	IBOutlet NSBox *extendedForecastBox;
+    IBOutlet NSTextField *forecastDaysNumberLabel;
+	
+	IBOutlet NSBox *generalBox;
+	
+	IBOutlet NSBox *updateIntervalBox;
+	IBOutlet NSTextField *updateMinutesText;
+	IBOutlet NSTextField *cycleMinutesText;
+	IBOutlet NSTextField *changeLocationsMinutesText;
+	IBOutlet NSBox *updatesAndProblemsBox;
+	IBOutlet NSBox *displayLocationBox;
+	IBOutlet NSTextField *displayLocationText;
+	IBOutlet NSBox *weatherAlertsBox;
+	
+	IBOutlet NSScrollView *allAboutMeteo;
+	
+	IBOutlet NSButton *aboutHomepage;
+	IBOutlet NSButton *aboutWebSupport;
 }
 
 + (MEPrefs *)sharedInstance;

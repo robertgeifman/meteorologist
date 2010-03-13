@@ -23,11 +23,13 @@
     
     BOOL isInDock;
     BOOL isInMenubar;
-	int radarImageSpace;
+	int radarImageWidth;
     
     IBOutlet MECityEditor *cityEditor;
     
     IBOutlet NSTableView *cityTable;
+	IBOutlet NSTableHeaderView *CityTableHeader;
+	IBOutlet NSTextField *cityTableDescriptorText;
     IBOutlet NSButton *addCity;
     IBOutlet NSButton *removeCity;
     IBOutlet NSButton *editCity;
@@ -44,6 +46,7 @@
     
     IBOutlet NSProgressIndicator *downloadWindowProgress;
     IBOutlet NSWindow *downloadWindow;
+    IBOutlet NSTextField *downloadWindowText;
     IBOutlet NSTextField *downloadWindowName;
     IBOutlet NSTextField *downloadWindowSize;
     IBOutlet NSImageView *downloadWindowImage;

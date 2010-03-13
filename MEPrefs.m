@@ -18,7 +18,7 @@
 #define ARC(x)		([NSArchiver archivedDataWithRootObject:x])
 #define UNARC(x)	([NSUnarchiver unarchiveObjectWithData:x])
 
-#define VERSION	(@"1.4.9")
+#define VERSION	(@"1.5.0")
 
 - (void)moveOldDefaults
 {
@@ -52,14 +52,109 @@
         else
             [self validateDefaults];
     }
-    return self;
+	
+	return self;
 }
 
 - (void)awakeFromNib
 {
     NSArray *fonts = allFonts();
+	
+	[prefsWindow setTitle:NSLocalizedString(@"MeteorologistNameText",nil)];
     
-    [menuFontName addItemsWithTitles:fonts];
+	// Weather Tab
+	[temperatureBox setTitle:NSLocalizedString(@"temperatureBoxTitle",nil)];
+	[displayTemp setTitle:NSLocalizedString(@"displayTempTitle",nil)];
+	[hideCF setTitle:NSLocalizedString(@"hideCFTitle",nil)];
+	
+	[menuBarBox setTitle:NSLocalizedString(@"menuBarBoxTitle",nil)];
+	[displayMenuIcon setTitle:NSLocalizedString(@"displayMenuIconTitle",nil)];
+	[displayCityName setTitle:NSLocalizedString(@"displayCityNameTitle",nil)];
+	[menuBarFontName setStringValue:NSLocalizedString(@"fontNameTitle",nil)];
+	[menuBarFontSizeName setStringValue:NSLocalizedString(@"fontSizeTitle",nil)];
+	[menuBarFontColorName setStringValue:NSLocalizedString(@"fontColorTitle",nil)];
+	
+	[dockIconBox setTitle:NSLocalizedString(@"dockIconBoxTitle",nil)];
+	[dockIconImageOpacityName setStringValue:NSLocalizedString(@"imageOpacityTitle",nil)];
+	[dockIconFontName setStringValue:NSLocalizedString(@"fontNameTitle",nil)];
+	[dockIconFontColorName setStringValue:NSLocalizedString(@"fontColorTitle",nil)];
+	
+	[currentWeatherBox setTitle:NSLocalizedString(@"currentWeatherBoxTitle",nil)];
+	[displayTodayInSubmenu setTitle:NSLocalizedString(@"displayTodayInSubmenuTitle",nil)];
+	
+	[extendedForecastBox setTitle:NSLocalizedString(@"extendedForecastBoxTitle",nil)];
+	[forecastDaysOn setTitle:NSLocalizedString(@"forecastDaysOnTitle",nil)];
+	[viewForecastInSubmenu setTitle:NSLocalizedString(@"viewForecastInSubmenuTitle",nil)];
+	[displayDayImage setTitle:NSLocalizedString(@"displayDayImageTitle",nil)];
+	[forecastInline setTitle:NSLocalizedString(@"forecastInlineTitle",nil)];
+	[forecastDaysNumberLabel setStringValue:NSLocalizedString(@"forecastDaysNumberLabelTitle",nil)];
+	
+	[generalBox setTitle:NSLocalizedString(@"generalBoxTitle",nil)];
+	[generalSubMenu setStringValue:NSLocalizedString(@"embedControlsTitle",nil)];
+	[generalDuplicate setStringValue:NSLocalizedString(@"killOtherMeteoTitle",nil)];
+	
+	[resetButton setTitle:NSLocalizedString(@"resetButtonTitle",nil)];
+	[revertButton setTitle:NSLocalizedString(@"revertButtonTitle",nil)];
+	[applyButton setTitle:NSLocalizedString(@"applyButtonTitle",nil)];
+	
+	// Cities Tab
+	[useGlobalUnits setTitle:NSLocalizedString(@"useGlobalUnitsTitle",nil)];
+	[explainGlobalUnits setStringValue:NSLocalizedString(@"explainGlobalUnitsText",nil)];
+	[degreesName setStringValue:NSLocalizedString(@"degreesNameText",nil)];
+	[distanceName setStringValue:NSLocalizedString(@"distanceNameText",nil)];
+	[speedName setStringValue:NSLocalizedString(@"speedNameText",nil)];
+	[pressureName setStringValue:NSLocalizedString(@"pressureNameText",nil)];
+	[[degreeUnits itemAtIndex:0] setTitle:NSLocalizedString(@"fahrenheitText",@"")];
+	[[degreeUnits itemAtIndex:1] setTitle:NSLocalizedString(@"celsiusText",@"")];
+	[[distanceUnits itemAtIndex:0] setTitle:NSLocalizedString(@"milesText",@"")];
+	[[distanceUnits itemAtIndex:1] setTitle:NSLocalizedString(@"feetText",@"")];
+	[[distanceUnits itemAtIndex:2] setTitle:NSLocalizedString(@"kilometersText",@"")];
+	[[distanceUnits itemAtIndex:3] setTitle:NSLocalizedString(@"metersText",@"")];
+	[[speedUnits itemAtIndex:0] setTitle:NSLocalizedString(@"milesPerHourText",@"")];
+	[[speedUnits itemAtIndex:1] setTitle:NSLocalizedString(@"kilometersPerHourText",@"")];
+	[[speedUnits itemAtIndex:2] setTitle:NSLocalizedString(@"metersPerSecondText",@"")];
+	[[speedUnits itemAtIndex:3] setTitle:NSLocalizedString(@"knotsText",@"")];
+	[[pressureUnits itemAtIndex:0] setTitle:NSLocalizedString(@"inchesText",@"")];
+	[[pressureUnits itemAtIndex:1] setTitle:NSLocalizedString(@"millibarsText",@"")];
+	[[pressureUnits itemAtIndex:2] setTitle:NSLocalizedString(@"kilopascalsText",@"")];
+	[[pressureUnits itemAtIndex:3] setTitle:NSLocalizedString(@"hectopascalsText",@"")];
+    
+	// Updating Tab
+	[updateIntervalBox setTitle:NSLocalizedString(@"updateIntervalBoxTitle",nil)];
+	[updateMinutesText setStringValue:NSLocalizedString(@"minutesText",nil)];
+	[[cycleMode cellAtRow:0 column:0] setTitle:NSLocalizedString(@"updateXminutesTitle",@"")];
+	[cycleMinutesText setStringValue:NSLocalizedString(@"minutesText",nil)];
+	[[cycleMode cellAtRow:1 column:0] setTitle:NSLocalizedString(@"cycleXminutesTitle",@"")];
+	[changeLocationsMinutesText setStringValue:NSLocalizedString(@"minutesText",nil)];
+	[[cycleMode cellAtRow:2 column:0] setTitle:NSLocalizedString(@"changeLocationsXminutesTitle",@"")];
+	[updatesAndProblemsBox setTitle:NSLocalizedString(@"updatesAndProblemsBoxTitle",nil)];
+	[checkNewVersions setTitle:NSLocalizedString(@"checkForNewVersionsTitle",nil)];
+	[checkNewVersionsNow setTitle:NSLocalizedString(@"checkForNewVersionButtonTitle",nil)];
+	[checkNewServerErrors setTitle:NSLocalizedString(@"checkForServerProblemsTitle",nil)];
+	[checkNewServerErrorsNow setTitle:NSLocalizedString(@"checkForNewErrorsButtonTitle",nil)];
+	[logMessagesToConsole setTitle:NSLocalizedString(@"logMessagesTItle",nil)];
+	[displayLocationBox setTitle:NSLocalizedString(@"displayLocationBoxTitle",nil)];
+	[[whereToDisplay cellAtRow:0 column:0] setTitle:NSLocalizedString(@"menubarButtonTitle",@"")];
+	[[whereToDisplay cellAtRow:1 column:0] setTitle:NSLocalizedString(@"dockButtonTitle",@"")];
+	[[whereToDisplay cellAtRow:2 column:0] setTitle:NSLocalizedString(@"bothButtonTitle",@"")];
+	[displayLocationText setStringValue:NSLocalizedString(@"displayLocationTextData",nil)];
+    
+	// Alerts Tab
+	[weatherAlertsBox setTitle:NSLocalizedString(@"weatherAlertsBoxTitle",nil)];
+	[[alertOptions cellAtRow:0 column:0] setTitle:NSLocalizedString(@"weatherAlertEmailTitle",@"")];
+	[[alertOptions cellAtRow:1 column:0] setTitle:NSLocalizedString(@"weatherAlertBeepTitle",@"")];
+	[[alertOptions cellAtRow:2 column:0] setTitle:NSLocalizedString(@"weatherAlertSongTitle",@"")];
+	[[alertOptions cellAtRow:3 column:0] setTitle:NSLocalizedString(@"weatherAlertBounceTitle",@"")];
+	[[alertOptions cellAtRow:4 column:0] setTitle:NSLocalizedString(@"weatherAlertMessageTitle",@"")];
+	[alertSong setStringValue:NSLocalizedString(@"weatherAlertChooseSongTitle",nil)];
+    
+	// About Tab
+	[aboutHomepage setTitle:NSLocalizedString(@"aboutHomepageTitle",nil)];
+	[aboutWebSupport setTitle:NSLocalizedString(@"aboutWebSupportTitle",nil)];
+	//[allAboutMeteo setStringValue:NSLocalizedString(@"???",nil)];
+	
+	
+	[menuFontName addItemsWithTitles:fonts];
     [tempFont addItemsWithTitles:fonts];
     
     [self updateInterfaceFromDefaults];
@@ -268,8 +363,12 @@
                                                           NSLocalizedString(@"Visit Web Site",@""), 
                                                           NSLocalizedString(@"Cancel",@""),
                                                           nil);
-            if (returnCode == NSAlertDefaultReturn) // visit website
+            if (returnCode == NSAlertDefaultReturn)
+			{
+				// visit website
                 [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://heat-meteo.sourceforge.net/"]];
+				[NSApp terminate:nil];
+			}
         } else if (sender != nil)
         {
             NSRunInformationalAlertPanel(NSLocalizedString(@"No New Version",@""),
@@ -453,7 +552,7 @@
 
 - (IBAction)openGroupPage:(id)sender
 {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://sourceforge.net/forum/forum.php?forum_id=268087"]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://sourceforge.net/projects/heat-meteo/forums/forum/268087"]];
 }
 
 - (IBAction)openHomePage:(id)sender
@@ -566,6 +665,7 @@
     [alertOptions setState:(theAlertOptions & 2) atRow:1 column:0];
     [alertOptions setState:(theAlertOptions & 4) atRow:2 column:0];
     [alertOptions setState:(theAlertOptions & 8) atRow:3 column:0];
+    [alertOptions setState:(theAlertOptions & 16) atRow:4 column:0];
     
     [killOtherMeteo setState:[self killOtherMeteo]];
 }
@@ -637,7 +737,8 @@
     [defaults setObject:[NSNumber numberWithInt:[[alertOptions cellAtRow:0 column:0] state]*1 +
                                                 [[alertOptions cellAtRow:1 column:0] state]*2 +
                                                 [[alertOptions cellAtRow:2 column:0] state]*4 +
-                                                [[alertOptions cellAtRow:3 column:0] state]*8] forKey:@"alertOptions"];
+												[[alertOptions cellAtRow:3 column:0] state]*8 +
+												[[alertOptions cellAtRow:4 column:0] state]*16] forKey:@"alertOptions"];
     
     [defaults setObject:[NSNumber numberWithBool:[killOtherMeteo state]] forKey:@"killOtherMeteo"];
     
