@@ -711,7 +711,7 @@
             int i;
             
             for(i = 0; i<[tokens count]; i++)
-                if([[tokens objectAtIndex:i] hasPrefix:@"mile"] && i!=0)
+                if([[tokens objectAtIndex:i] hasPrefix:@"mi"] && i!=0)
                 {
                     if(![[tokens objectAtIndex:i-1] hasPrefix:@"Unlimited"])
                         [tokens replaceObjectAtIndex:i-1 withObject:
@@ -727,7 +727,7 @@
             int i;
             
             for(i = 0; i<[tokens count]; i++)
-                if([[tokens objectAtIndex:i] hasPrefix:@"mile"] && i!=0)
+                if([[tokens objectAtIndex:i] hasPrefix:@"mi"] && i!=0)
                 {
                     if(![[tokens objectAtIndex:i-1] hasPrefix:@"Unlimited"])
                         [tokens replaceObjectAtIndex:i-1 withObject:
@@ -743,7 +743,7 @@
             int i;
             
             for(i = 0; i<[tokens count]; i++)
-                if([[tokens objectAtIndex:i] hasPrefix:@"mile"] && i!=0)
+                if([[tokens objectAtIndex:i] hasPrefix:@"mi"] && i!=0)
                 {
                     if(![[tokens objectAtIndex:i-1] hasPrefix:@"Unlimited"])
                         [tokens replaceObjectAtIndex:i-1 withObject:
