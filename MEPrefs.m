@@ -312,9 +312,7 @@
 
 - (void)displayLocationHelper
 {
-	int oldIndex;
-	if ([self displayInMenubar])
-		oldIndex = 0;
+	int oldIndex=0;
 	if ([self displayInDock])
 		oldIndex = 1;
 	if ([self displayInDockAndMenuBar])
@@ -483,7 +481,7 @@
         // Nothing to do here
         return parts;
     }
-    s = [[[version substringToIndex:1] mutableCopy] autorelease];
+    s = [[version substringToIndex:1] mutableCopy];
     oldType = [self getCharType:s];
     n = [version length] - 1;
     for (i = 1; i <= n; ++i) {
@@ -491,7 +489,7 @@
         newType = [self getCharType:character];
         if (oldType != newType || oldType == kPeriodType) {
             // We've reached a new segment
-            [parts addObject:[s copy]];
+            [parts addObject:[[s copy] autorelease]];
             [s setString:character];
         } else {
             // Add character to string and continue
@@ -501,7 +499,9 @@
     }
     
     // Add the last part onto the array
-    [parts addObject:[s copy]];
+    [parts addObject:s];
+    [s release];
+    
     return parts;
 }
 

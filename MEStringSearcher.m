@@ -86,7 +86,7 @@
     if(![self isValidRange:newRange forLength:length])
         return nil;
     
-    newStr = [string substringWithRange:newRange];
+    newStr = [[string substringWithRange:newRange] retain];
     
     if(endOfRightStringIndex != 0)
         endOfRightStringIndex--;

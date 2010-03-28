@@ -83,7 +83,7 @@
     if(!dataIsLoaded && (code != nil))
         [self loadWeatherData];
 	
-    return [[weatherData objectForKey:key] copy];
+    return [[[weatherData objectForKey:key] copy] autorelease];
 }
 
 - (NSString *)stringForKey:(NSString *)key
@@ -91,7 +91,7 @@
     if(!dataIsLoaded && (code != nil))
         [self loadWeatherData];
 	
-    return [[weatherData objectForKey:key] copy];
+    return [[[weatherData objectForKey:key] copy] autorelease];
 }
 
 - (NSImage *)imageForKey:(NSString *)key inDock:(BOOL)dock
@@ -318,103 +318,91 @@ NSImage *imageForName(NSString *name, BOOL inDock)
     
     if([key isEqualToString:@"Moon Phase"])
     {
-        NSString *fileName = [[[NSBundle mainBundle] pathForImageResource:@"Moon"] retain];
-        img = [[NSImage alloc] initWithContentsOfFile:fileName];
+        NSString *fileName = [[NSBundle mainBundle] pathForImageResource:@"Moon"];
+        return [[[NSImage alloc] initWithContentsOfFile:fileName] autorelease];
     }
-    else {
-        switch(val)
-        {
-            case 1:
-            case 2:
-            case 5:
-            case 8:
-            case 9:
-            case 10:
-            case 11:
-            case 12:
-            case 39:
-            case 40:
-            case 45:
-                imageName = @"Rain";
-                break;
-            case 3:
-            case 4:
-            case 17:
-            case 35:
-            case 37:
-            case 38:
-            case 47:
-                imageName = @"Thunderstorm";
-                break;
-            case 6:
-            case 13:
-            case 14:
-            case 15:
-            case 16:
-            case 18:
-            case 41:
-            case 42:
-            case 43:
-            case 46:
-                imageName = @"Snow";
-                break;
-            case 7:
-                imageName = @"Sleet";
-                break;
-            case 19:
-            case 20:
-            case 21:
-            case 22:
-                imageName = @"Hazy";
-                break;
-            case 23:
-            case 24:
-            case 25:
-                imageName = @"Wind";
-                break;
-            case 26:
-                imageName = @"Cloudy";
-                break;
-            case 27:
-                imageName = @"Moon-Cloud-2";
-                break;
-            case 28:
-                imageName = @"Sun-Cloud-2";
-                break;
-            case 29:
-            case 33:
-                imageName = @"Moon-Cloud-1";
-                break;
-            case 30:
-            case 34:
-            case 44:
-                imageName = @"Sun-Cloud-1";
-                break;
-            case 31:
-                imageName = @"Moon";
-                break;
-            case 32:
-            case 36:
-                imageName = @"Sun";
-                break;
-            default:
-                imageName = @"Unknown";
-				NSLog([NSString stringWithFormat:@"Unknown graphic image, id=%d", val]);
-                break;
-        }
+    switch(val)
+    {
+        case 1:
+        case 2:
+        case 5:
+        case 8:
+        case 9:
+        case 10:
+        case 11:
+        case 12:
+        case 39:
+        case 40:
+        case 45:
+            imageName = @"Rain";
+            break;
+        case 3:
+        case 4:
+        case 17:
+        case 35:
+        case 37:
+        case 38:
+        case 47:
+            imageName = @"Thunderstorm";
+            break;
+        case 6:
+        case 13:
+        case 14:
+        case 15:
+        case 16:
+        case 18:
+        case 41:
+        case 42:
+        case 43:
+        case 46:
+            imageName = @"Snow";
+            break;
+        case 7:
+            imageName = @"Sleet";
+            break;
+        case 19:
+        case 20:
+        case 21:
+        case 22:
+            imageName = @"Hazy";
+            break;
+        case 23:
+        case 24:
+        case 25:
+            imageName = @"Wind";
+            break;
+        case 26:
+            imageName = @"Cloudy";
+            break;
+        case 27:
+            imageName = @"Moon-Cloud-2";
+            break;
+        case 28:
+            imageName = @"Sun-Cloud-2";
+            break;
+        case 29:
+        case 33:
+            imageName = @"Moon-Cloud-1";
+            break;
+        case 30:
+        case 34:
+        case 44:
+            imageName = @"Sun-Cloud-1";
+            break;
+        case 31:
+            imageName = @"Moon";
+            break;
+        case 32:
+        case 36:
+            imageName = @"Sun";
+            break;
+        default:
+            imageName = @"Unknown";
+            NSLog([NSString stringWithFormat:@"Unknown graphic image, id=%d", val]);
+            break;
+    }
 	
-        img = imageForName(imageName,dock);
-        /*if(string && !(img = imageForName(imageName,dock)))
-        {
-            if(dock)
-                return nil;
-            
-            NSData *dat = [[NSURL URLWithString:string] resourceDataUsingCache:YES];
-            if(dat)
-                img = [[[NSImage alloc] initWithData:dat] autorelease];
-        }*/
-    }
-    return img;
+    return imageForName(imageName,dock);
 }
 
 - (BOOL)loadWeatherData
@@ -438,13 +426,12 @@ NSImage *imageForName(NSString *name, BOOL inDock)
 {
     NSURL *url;
 	NSURL *linkUrl;
-    //NSData *data;
+    NSString *rawUrl;
     NSString *string;
     NSRange lastRange;
     int stringLength;
     NSString *temp;
     int itemCounter = 0;
-    NSCalendarDate *d = [NSCalendarDate calendarDate];
     
 	// Link for "Weather for"
 	NSString *linkUrlString = [NSString stringWithFormat:@"http://www.weather.com/weather/today/%@", code];
@@ -457,17 +444,9 @@ NSImage *imageForName(NSString *name, BOOL inDock)
 		NSLog(urlString);
 	}
 	
-									  //JRC
-    url = [NSURL URLWithString:(NSString*)CFURLCreateStringByAddingPercentEscapes(NULL,
-																				  (CFStringRef)urlString,NULL,NULL,kCFStringEncodingUTF8)];
-    linkUrl = [NSURL URLWithString:(NSString*)CFURLCreateStringByAddingPercentEscapes(NULL,
-																				  (CFStringRef)linkUrlString,NULL,NULL,kCFStringEncodingUTF8)];
-	
-	if(!url)
-	{
-		NSLog(@"There was a problem creating the URL for code: %@.",code);
-		return;
-	}
+	NSString *escapedUrl = (NSString*)CFURLCreateStringByAddingPercentEscapes(NULL,(CFStringRef)urlString,NULL,NULL,kCFStringEncodingUTF8);
+    url = [NSURL URLWithString:escapedUrl];
+    [escapedUrl release];
 	
 	string = [[MEWebFetcher sharedInstance] fetchURLtoString:url];	// JRC
 	NSCharacterSet *set = [NSCharacterSet characterSetWithCharactersInString:@" \n\r\t\f\v"];
@@ -495,7 +474,7 @@ NSImage *imageForName(NSString *name, BOOL inDock)
     [weatherData setObject:@"Today" forKey:@"Date"];                   
     
 	// Link for "Weather for"
-    [weatherData setObject:[linkUrl absoluteString] forKey:@"Weather Link"];
+    [weatherData setObject:linkUrlString forKey:@"Weather Link"];
     
 /* OHL 29 Aug 2007 1:18:01 -- Dead code. "Current Location" isn't used anywhere else.
     //get the location
@@ -815,9 +794,12 @@ temp = [class getStringWithLeftBound:@"padding:0px 0px 10px 0px;"
 //    {
 //    
 
-	
-	url = [NSURL URLWithString:(NSString*)CFURLCreateStringByAddingPercentEscapes(NULL,
-	(CFStringRef)[NSString stringWithFormat:@"http://www.weather.com/outlook/travel/businesstraveler/map/%@?bypassredirect=true",code],NULL,NULL,kCFStringEncodingUTF8)];
+    
+	rawUrl = [NSString stringWithFormat:@"http://www.weather.com/outlook/travel/businesstraveler/map/%@?bypassredirect=true",code];
+    escapedUrl = (NSString*)CFURLCreateStringByAddingPercentEscapes(NULL,(CFStringRef)rawUrl,NULL,NULL,kCFStringEncodingUTF8);
+	url = [NSURL URLWithString:escapedUrl];
+    [escapedUrl release];
+    
 	if(!url)
 	{
 		NSLog(@"There was a problem creating the URL for code: %@.",code);
@@ -860,16 +842,12 @@ temp = [class getStringWithLeftBound:@"padding:0px 0px 10px 0px;"
 //  EXTENDED FORECAST!!!
 
 // http://www.weather.com/activities/other/other/weather/tenday.html?locid=
-// http://www.weather.com/outlook/travel/businesstraveler/tenday/%@?from=36hr_topnav_business
-
-
-	url = [NSURL URLWithString:(NSString*)CFURLCreateStringByAddingPercentEscapes(NULL,
-																				  (CFStringRef)[NSString stringWithFormat:@"http://mw.weather.com/tenday/%@?family=webkit",code],NULL,NULL,kCFStringEncodingUTF8)];
-	if(!url)
-	{
-		NSLog(@"There was a problem creating the URL for code: %@.",code);
-		return;
-	}
+// http://www.weather.com/outlook/travel/businesstraveler/tenday/%@?from=36hr_topnav_busines
+    
+    rawUrl = [NSString stringWithFormat:@"http://mw.weather.com/tenday/%@?family=webkit",code];
+    escapedUrl = (NSString*)CFURLCreateStringByAddingPercentEscapes(NULL,(CFStringRef)rawUrl,NULL,NULL,kCFStringEncodingUTF8);
+	url = [NSURL URLWithString:escapedUrl];
+    [escapedUrl release];
 	
 	string = [[MEWebFetcher sharedInstance] fetchURLtoString:url];	// JRC
 	string = [string stringByTrimmingCharactersInSet:set];
@@ -888,8 +866,6 @@ temp = [class getStringWithLeftBound:@"padding:0px 0px 10px 0px;"
 	
 	lastRange = NSMakeRange(0,stringLength);
 	
-	// setup
-	NSArray *months = [NSArray arrayWithObjects:@"Jan",@"Feb",@"Mar",@"Apr",@"May",@"Jun",@"Jul",@"Aug",@"Sep",@"Oct",@"Nov",@"Dec",nil];
 	//move down file
 	
 	temp = [class getStringWithLeftBound:@"id=\"fcstTable\""
@@ -900,9 +876,9 @@ temp = [class getStringWithLeftBound:@"padding:0px 0px 10px 0px;"
 	
 	//begin getting the forecast
 	NSMutableArray *forecastArray = [NSMutableArray array]; 
-	NSString *oneDay = [NSString string]; /* everything between <TR and </TR> */
 	int numDaysSoFar=0;
-	//NSLog([NSString stringWithFormat:@"Extended weather string=\n%@", string]);
+	
+    NSString *oneDay;
 	while((oneDay = [class getStringWithLeftBound:@"tendaytable"
 									   rightBound:@"</table>"
 										   string:string
@@ -1102,8 +1078,7 @@ temp = [class getStringWithLeftBound:@"padding:0px 0px 10px 0px;"
 	}
 	[weatherData setObject:forecastArray forKey:@"Forecast Array"];
 	
-	d = [NSCalendarDate calendarDate];
-	[weatherData setObject:[class dateInfoForCalendarDate:d]  forKey:@"Last Update"];
+	[weatherData setObject:[class dateInfoForCalendarDate:[NSCalendarDate calendarDate]]  forKey:@"Last Update"];
 	
 	if([weatherData count] > 5)
 	{
@@ -1184,112 +1159,98 @@ temp = [class getStringWithLeftBound:@"padding:0px 0px 10px 0px;"
 {
     NSImage *img = nil;
     
-    NSString *name = [[[string lastPathComponent] stringByDeletingPathExtension] retain];
+    NSString *name = [[string lastPathComponent] stringByDeletingPathExtension];
     
     NSString *imageName;
     
     if([key isEqualToString:@"Moon Phase"])
     {
-        NSString *s = [[MEWeatherModule stripPrefix:@"moon" forString:name] retain];
-        NSString *imageFileName = [[[NSBundle mainBundle] pathForImageResource:[NSString stringWithFormat:@"MoonPhase-%@",s]] retain];
-        [s release];
+        NSString *s = [MEWeatherModule stripPrefix:@"moon" forString:name];
+        NSString *imageFileName = [[NSBundle mainBundle] pathForImageResource:[NSString stringWithFormat:@"MoonPhase-%@",s]];
         if (imageFileName == nil) {
-            imageFileName = [[[NSBundle mainBundle] pathForImageResource:@"Moon"] retain];
+            imageFileName = [[NSBundle mainBundle] pathForImageResource:@"Moon"];
         }
         
-        img = [[NSImage alloc] initWithContentsOfFile:imageFileName];
-        [imageFileName release];
+        return [[[NSImage alloc] initWithContentsOfFile:imageFileName] autorelease];
     }
-    else {
-        if([name hasSuffix:@"chanceflurries"])
-            imageName = @"Flurries.tiff";
-        else if([name hasSuffix:@"chancerain"])
-            imageName = @"Rain.tiff";
-        else if([name hasSuffix:@"chancesleat"])
-            imageName = @"Sleet.tiff";
-        else if([name hasSuffix:@"chancesnow"])
-            imageName = @"Snow.tiff";
-        else if([name hasSuffix:@"chancetstorms"])
-            imageName = @"Thunderstorm.tiff";
-        else if([name hasSuffix:@"clear"])
-        {
-            if([name hasPrefix:@"nt"])
-                imageName = @"Moon.tiff";
-            else
-                imageName = @"Sun.tiff";
-        }
-        else if([name hasSuffix:@"cloudy"])
-        {
-            if([name hasPrefix:@"nt"])
-                imageName = @"Cloudy.tiff";
-            else
-                imageName = @"Cloudy.tiff";
-        }
-        else if([name hasSuffix:@"flurries"])
-            imageName = @"Flurries.tiff";
-        else if([name hasSuffix:@"hazy"])
-            imageName = @"Hazy.tiff";
-        else if([name hasSuffix:@"mostlycloudy"])
-        {
-            if([name hasPrefix:@"nt"])
-                imageName = @"Moon-Cloud-2.tiff";
-            else
-                imageName = @"Sun-Cloud-2.tiff";
-        }
-        else if([name hasSuffix:@"mostlysunny"])
-        {
-            if([name hasPrefix:@"nt"])
-                imageName = @"Moon-Cloud-1.tiff";
-            else
-                imageName = @"Sun-Cloud-1.tiff";
-        }
-        else if([name hasSuffix:@"partlycloudy"])
-        {
-            if([name hasPrefix:@"nt"])
-                imageName = @"Moon-Cloud-1.tiff";
-            else
-                imageName = @"Sun-Cloud-1.tiff";
-        }
-        else if([name hasSuffix:@"partlysunny"])
-        {
-            if([name hasPrefix:@"nt"])
-                imageName = @"Moon-Cloud-2.tiff";
-            else
-                imageName = @"Sun-Cloud-2.tiff";
-        }
-        else if([name hasSuffix:@"rain"])
-            imageName = @"Rain.tiff";
-        else if([name hasSuffix:@"sleat"])
-            imageName = @"Sleet.tiff";
-        else if([name hasSuffix:@"snow"])
-            imageName = @"Snow.tiff";
-        else if([name hasSuffix:@"sunny"])
-        {
-            if([name hasPrefix:@"nt"])
-                imageName = @"Moon.tiff";
-            else
-                imageName = @"Sun.tiff";
-        }
-        else if([name hasSuffix:@"tstorms"])
-            imageName = @"Thunderstorm.tiff";
-        else if([name hasSuffix:@"unknown"])
-            imageName = @"Unknown.tiff";
+
+    if([name hasSuffix:@"chanceflurries"])
+        imageName = @"Flurries.tiff";
+    else if([name hasSuffix:@"chancerain"])
+        imageName = @"Rain.tiff";
+    else if([name hasSuffix:@"chancesleat"])
+        imageName = @"Sleet.tiff";
+    else if([name hasSuffix:@"chancesnow"])
+        imageName = @"Snow.tiff";
+    else if([name hasSuffix:@"chancetstorms"])
+        imageName = @"Thunderstorm.tiff";
+    else if([name hasSuffix:@"clear"])
+    {
+        if([name hasPrefix:@"nt"])
+            imageName = @"Moon.tiff";
         else
-            imageName = @"Unknown.tiff";
-        
-        img = imageForName(imageName,dock);
-        /*if(string && !(img = imageForName(imageName,dock)))
-        {
-            if(dock)
-                return nil;
-            
-            NSData *dat = [[NSURL URLWithString:string] resourceDataUsingCache:YES];
-            if(dat)
-                img = [[[NSImage alloc] initWithData:dat] autorelease];
-        }*/
+            imageName = @"Sun.tiff";
     }
-    [name release];
-    return img;
+    else if([name hasSuffix:@"cloudy"])
+    {
+        if([name hasPrefix:@"nt"])
+            imageName = @"Cloudy.tiff";
+        else
+            imageName = @"Cloudy.tiff";
+    }
+    else if([name hasSuffix:@"flurries"])
+        imageName = @"Flurries.tiff";
+    else if([name hasSuffix:@"hazy"])
+        imageName = @"Hazy.tiff";
+    else if([name hasSuffix:@"mostlycloudy"])
+    {
+        if([name hasPrefix:@"nt"])
+            imageName = @"Moon-Cloud-2.tiff";
+        else
+            imageName = @"Sun-Cloud-2.tiff";
+    }
+    else if([name hasSuffix:@"mostlysunny"])
+    {
+        if([name hasPrefix:@"nt"])
+            imageName = @"Moon-Cloud-1.tiff";
+        else
+            imageName = @"Sun-Cloud-1.tiff";
+    }
+    else if([name hasSuffix:@"partlycloudy"])
+    {
+        if([name hasPrefix:@"nt"])
+            imageName = @"Moon-Cloud-1.tiff";
+        else
+            imageName = @"Sun-Cloud-1.tiff";
+    }
+    else if([name hasSuffix:@"partlysunny"])
+    {
+        if([name hasPrefix:@"nt"])
+            imageName = @"Moon-Cloud-2.tiff";
+        else
+            imageName = @"Sun-Cloud-2.tiff";
+    }
+    else if([name hasSuffix:@"rain"])
+        imageName = @"Rain.tiff";
+    else if([name hasSuffix:@"sleat"])
+        imageName = @"Sleet.tiff";
+    else if([name hasSuffix:@"snow"])
+        imageName = @"Snow.tiff";
+    else if([name hasSuffix:@"sunny"])
+    {
+        if([name hasPrefix:@"nt"])
+            imageName = @"Moon.tiff";
+        else
+            imageName = @"Sun.tiff";
+    }
+    else if([name hasSuffix:@"tstorms"])
+        imageName = @"Thunderstorm.tiff";
+    else if([name hasSuffix:@"unknown"])
+        imageName = @"Unknown.tiff";
+    else
+        imageName = @"Unknown.tiff";
+    
+    return imageForName(imageName,dock);
 }
 
 + (BOOL)validDataInString:(NSString *)string stringLength:(int)stringLength withLastRange:(NSRange)range
@@ -1315,12 +1276,11 @@ temp = [class getStringWithLeftBound:@"padding:0px 0px 10px 0px;"
     }
 	
     NSURL *url;
-    //NSData *data;
     NSString *string;
     NSRange lastRange;
     int stringLength;
     NSString *temp;
-    NSCalendarDate *d = [NSCalendarDate calendarDate];
+    NSCalendarDate *d;
     
     Class class = [self class];
 	
@@ -1329,12 +1289,7 @@ temp = [class getStringWithLeftBound:@"padding:0px 0px 10px 0px;"
 	// Doing it here just means that a bad string gets corrected over and over again _RAM
 	NSString *weatherQueryURL = [NSString stringWithFormat:@"http://www.wunderground.com%s%@", (('/' == [code characterAtIndex:0]) ? "" : "/"), code];
     url = [NSURL URLWithString:weatherQueryURL];
-	
-    //string = [[[NSString alloc] initWithContentsOfURL:url] autorelease];
-    
-    //NSData *data = [[MEWeatherModuleParser sharedInstance] loadDataFromWebsite:[NSString stringWithFormat:@"http://www.wunderground.com%@",code]];
-	
-    //string = [[[NSString alloc] initWithData:data encoding:[NSString defaultCStringEncoding]] autorelease];
+
     string = [[MEWeatherModuleParser sharedInstance] stringFromWebsite: url spacesOnly: NO];	// v1.3.0a _RAM
 	
 	if(!string)
@@ -1373,7 +1328,7 @@ lastRange:&lastRange];
 	}
     
     //Weather Alert!  Weather Alert!
-    temp = [class getStringWithLeftBound:@"Active"
+    [class getStringWithLeftBound:@"Active"
 							  rightBound:@"Advisor"
 								  string:string
 								  length:stringLength
@@ -1461,7 +1416,7 @@ lastRange:&lastRange];
     } /* Weather alert */
     
     //just moving down the file
-    temp = [class getStringWithLeftBound:@"<img src=\"http://icons.wunderground.com/graphics/conds/"
+    [class getStringWithLeftBound:@"<img src=\"http://icons.wunderground.com/graphics/conds/"
 							  rightBound:@">"
 								  string:string
 								  length:stringLength
@@ -1500,7 +1455,7 @@ lastRange:&lastRange];
         
         
         //just moving down the file
-        temp = [class getStringWithLeftBound:@"<tr BGCOLOR="
+        [class getStringWithLeftBound:@"<tr BGCOLOR="
 								  rightBound:@"<"
 									  string:string
 									  length:stringLength
@@ -1537,7 +1492,7 @@ lastRange:&lastRange];
         //end getting current wind chill
         
         //just moving down the file
-        temp = [class getStringWithLeftBound:@"<tr BGCOLOR="
+        [class getStringWithLeftBound:@"<tr BGCOLOR="
 								  rightBound:@"<"
 									  string:string
 									  length:stringLength
@@ -1578,7 +1533,7 @@ lastRange:&lastRange];
         //end getting current heat index
 		
         //just moving down the file
-        temp = [class getStringWithLeftBound:@"<tr BGCOLOR="
+        [class getStringWithLeftBound:@"<tr BGCOLOR="
 								  rightBound:@"<"
 									  string:string
 									  length:stringLength
@@ -1616,7 +1571,7 @@ lastRange:&lastRange];
         
         
         //just moving down the file
-        temp = [class getStringWithLeftBound:@"<tr BGCOLOR="
+        [class getStringWithLeftBound:@"<tr BGCOLOR="
 								  rightBound:@"<"
 									  string:string
 									  length:stringLength
@@ -1653,7 +1608,7 @@ lastRange:&lastRange];
         
         
         //just moving down the file
-        temp = [class getStringWithLeftBound:@"<tr BGCOLOR="
+        [class getStringWithLeftBound:@"<tr BGCOLOR="
 								  rightBound:@"<"
 									  string:string
 									  length:stringLength
@@ -1705,7 +1660,7 @@ lastRange:&lastRange];
         //end getting current wind
         
         //just moving down the file
-        temp = [class getStringWithLeftBound:@"<tr BGCOLOR="
+        [class getStringWithLeftBound:@"<tr BGCOLOR="
 								  rightBound:@"<"
 									  string:string
 									  length:stringLength
@@ -1723,7 +1678,7 @@ lastRange:&lastRange];
         //wind gusts?
 		
         //just moving down the file
-        temp = [class getStringWithLeftBound:@"<tr BGCOLOR="
+        [class getStringWithLeftBound:@"<tr BGCOLOR="
 								  rightBound:@"<"
 									  string:string
 									  length:stringLength
@@ -1761,7 +1716,7 @@ lastRange:&lastRange];
         
         
         //just moving down the file
-        temp = [class getStringWithLeftBound:@"<tr BGCOLOR="
+        [class getStringWithLeftBound:@"<tr BGCOLOR="
 								  rightBound:@"<"
 									  string:string
 									  length:stringLength
@@ -1799,7 +1754,7 @@ lastRange:&lastRange];
         
         
         //just moving down the file
-        temp = [class getStringWithLeftBound:@"<tr BGCOLOR="
+        [class getStringWithLeftBound:@"<tr BGCOLOR="
 								  rightBound:@"<"
 									  string:string
 									  length:stringLength
@@ -1836,7 +1791,7 @@ lastRange:&lastRange];
         
         
         //just moving down the file
-        temp = [class getStringWithLeftBound:@"<tr BGCOLOR="
+        [class getStringWithLeftBound:@"<tr BGCOLOR="
 								  rightBound:@"<"
 									  string:string
 									  length:stringLength
@@ -1873,7 +1828,7 @@ lastRange:&lastRange];
         
         
         //just moving down the file
-        temp = [class getStringWithLeftBound:@"<tr BGCOLOR="
+        [class getStringWithLeftBound:@"<tr BGCOLOR="
 								  rightBound:@"<"
 									  string:string
 									  length:stringLength
@@ -1915,7 +1870,7 @@ lastRange:&lastRange];
         }
         //end getting current clouds
         
-        temp = [class getStringWithLeftBound:@"<tr BGCOLOR="
+        [class getStringWithLeftBound:@"<tr BGCOLOR="
 								  rightBound:@"<"
 									  string:string
 									  length:stringLength
@@ -1953,7 +1908,7 @@ lastRange:&lastRange];
         }
         //end getting max temp
         
-        temp = [class getStringWithLeftBound:@"<tr BGCOLOR="
+        [class getStringWithLeftBound:@"<tr BGCOLOR="
 								  rightBound:@"<"
 									  string:string
 									  length:stringLength
@@ -1990,39 +1945,14 @@ lastRange:&lastRange];
             }
         }
         //end getting min temp
-        
-        /*temp = [class getStringWithLeftBound:@"<tr BGCOLOR="
-rightBound:@">"
-string:string
-length:stringLength
-lastRange:&lastRange];
-temp = [class getStringWithLeftBound:@">"
-						  rightBound:@"<"
-							  string:string
-							  length:stringLength
-						   lastRange:&lastRange];*/
     }
     
-    /*while([temp isEqualToString:@"Yesterday's Maximum"] || [temp isEqualToString:@"Yesterday's Minimum"] || [temp isEqualToString:@"Yesterday's Heating Degree Days"] || [temp isEqualToString:@"Yesterday's Growing Degree Days"])
-    {
-        temp = [class getStringWithLeftBound:@"<tr BGCOLOR="
-								  rightBound:@">"
-									  string:string
-									  length:stringLength
-								   lastRange:&lastRange];
-        temp = [class getStringWithLeftBound:@">"
-								  rightBound:@"<"
-									  string:string
-									  length:stringLength
-								   lastRange:&lastRange];
-    }*/
-    
-    temp = [class getStringWithLeftBound:@"<b>Astronomy"
+    [class getStringWithLeftBound:@"<b>Astronomy"
 							  rightBound:@">"
 								  string:string
 								  length:stringLength
 							   lastRange:&lastRange];
-    temp = [class getStringWithLeftBound:@"<tr BGCOLOR="
+    [class getStringWithLeftBound:@"<tr BGCOLOR="
 							  rightBound:@"<"
 								  string:string
 								  length:stringLength
@@ -2050,7 +1980,7 @@ temp = [class getStringWithLeftBound:@">"
             //end getting length of day
         }
         
-        temp = [class getStringWithLeftBound:@"<tr BGCOLOR="
+        [class getStringWithLeftBound:@"<tr BGCOLOR="
 								  rightBound:@"<"
 									  string:string
 									  length:stringLength
@@ -2080,7 +2010,7 @@ temp = [class getStringWithLeftBound:@">"
             //end getting sunrise
         }
         
-        temp = [class getStringWithLeftBound:@"<tr BGCOLOR="
+        [class getStringWithLeftBound:@"<tr BGCOLOR="
 								  rightBound:@"<"
 									  string:string
 									  length:stringLength
@@ -2110,7 +2040,7 @@ temp = [class getStringWithLeftBound:@">"
             //end getting sunset
         }
         
-        temp = [class getStringWithLeftBound:@"<tr BGCOLOR="
+        [class getStringWithLeftBound:@"<tr BGCOLOR="
 								  rightBound:@"<"
 									  string:string
 									  length:stringLength
@@ -2142,7 +2072,7 @@ temp = [class getStringWithLeftBound:@">"
             //end getting moon rise
         }
 		
-        temp = [class getStringWithLeftBound:@"<tr BGCOLOR="
+        [class getStringWithLeftBound:@"<tr BGCOLOR="
 								  rightBound:@"<"
 									  string:string
 									  length:stringLength
@@ -2276,7 +2206,7 @@ temp = [class getStringWithLeftBound:@">"
 						NSString *percip = [NSString stringWithFormat:@"%@ %c", [words objectAtIndex:index-1], percent];
 						[forecastDict setObject:percip forKey:@"Forecast - Precipitation"];
 					}
-					else if((index = [words indexOfObject:@"winds"]) != NSNotFound)
+					else if([words indexOfObject:@"winds"] != NSNotFound)
 					{
 						if((index = [words indexOfObject:@"to"]) != NSNotFound)
 						{
@@ -2439,8 +2369,6 @@ temp = [class getStringWithLeftBound:@">"
         weatherData = lastWeather;
     }
     
-	[url release]; // JRC probably will crash things!
-	[weatherQueryURL release];
 	[string release];
 	return YES;
 }
@@ -2731,7 +2659,7 @@ temp = [class getStringWithLeftBound:@">"
     //begin getting forecast forecast and forecast image
     int i;
     
-    temp = [class getStringWithLeftBound:@"<tr valign=\"top\" align=\"center\">"
+    [class getStringWithLeftBound:@"<tr valign=\"top\" align=\"center\">"
 							  rightBound:@"<tr valign=\"top\" align=\"center\">"
 								  string:string
 								  length:stringLength
@@ -2886,13 +2814,11 @@ temp = [class getStringWithLeftBound:@">"
     }
     
     //moving down the file
-    temp = [class getStringWithLeftBound:@"Detailed Forecast"	// this won't be found _RAM
+    [class getStringWithLeftBound:@"Detailed Forecast"	// this won't be found _RAM
 							  rightBound:@"br>"
 								  string:string
 								  length:stringLength
 							   lastRange:&lastRange];
-	
-    i = 0;
     
     forecastEnumerator = [forecastArray objectEnumerator];
 	// why does he grab 9 items here? there are only 8 _RAM
@@ -2959,7 +2885,7 @@ temp = [class getStringWithLeftBound:@">"
 				
                 [forecastDict setObject:percip forKey:@"Forecast - Precipitation"];
             }
-            else if((index = [words indexOfObject:@"winds"]) != NSNotFound)
+            else if([words indexOfObject:@"winds"] != NSNotFound)
             {
                 if((index = [words indexOfObject:@"to"]) != NSNotFound)
                 {
@@ -3253,7 +3179,7 @@ temp = [class getStringWithLeftBound:@">"
             [weatherData setObject:[NSString stringWithFormat:@"%@ miles",temp] forKey:@"Visibility"];
         }
         
-        temp = [class getStringWithLeftBound:@"<td><b>"
+        [class getStringWithLeftBound:@"<td><b>"
 								  rightBound:@"</b>"
 									  string:string
 									  length:stringLength

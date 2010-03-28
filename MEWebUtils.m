@@ -99,6 +99,7 @@
 	if (NSURLHandleLoadFailed == [mURLHandle status])
 	{
 		NSLog([mURLHandle failureReason]);
+        [data release];
 		return nil;
 	}
 	return [data autorelease];
@@ -252,16 +253,12 @@
 				// and add them to citiesFound
 			} // if
 		} // while
-//		return [citiesFound autorelease];
 		return [citiesFound autorelease];
-	} // if
-	else {
-		NSLog(@"No multiple choices found option");
-	}
-
-	// We shouldn't get this far!
-	NSLog(@"The website: %@ has changed its format.  Please contact the developer.",[url absoluteString]);
-	return nil;
+	} // 
+    
+	NSLog(@"No multiple choices found option");
+    [citiesFound release];
+    return nil;
 }											  
 
 + (NSArray *)parseURL:(NSURL *)url usingParseDict:(NSDictionary *)parseDict
@@ -306,6 +303,7 @@
 									 rightBound:[foundDict objectForKey:[currKey stringByAppendingString:@"End"]]] retain];
 		if (substring) {
 			[cityInfoDict setObject:substring forKey:currKey]; // JRC - might cause a autorelease pool crash??
+            [substring release];
 		}
 		else {
 			//NSLog(@"Missing Key: \"%@\" in [MEWebParser parseSingleMatchWithString...]",currKey);
@@ -356,11 +354,10 @@
 										 rightBound:[foundDict objectForKey:[currKey stringByAppendingString:@"End"]]] retain];
 			if (substring) {
 				[cityInfoDict setObject:substring forKey:currKey];
+                [substring release];
 			} else {
 				NSLog(@"Missing Key: %@ in [MEWebParser parseMultipleMatchesWithString...]",currKey);
 				continue;
-                //[ss release];
-				//return; // should this be continue? is it maybe a bug?
 			}
 		} // while
 		[*cities addObject:cityInfoDict];

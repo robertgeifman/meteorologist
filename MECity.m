@@ -16,7 +16,7 @@
     MECity *city = [[MECity alloc] initWithCityAndInfoCodes:[NSMutableDictionary dictionary] forCity:@""];
     [city replaceMissingDefaults];
                                         
-    return city;
+    return [city autorelease];
 }
 
 /* @called-by:  MECity defaultCity
@@ -52,8 +52,8 @@
 
 - (MECity *)copy
 {
-    MECity *city = [[MECity alloc] initWithCityAndInfoCodes:[self->cityAndInfoCodes mutableCopy] 
-                                   forCity:[[self cityName] copy]];
+    MECity *city = [[MECity alloc] initWithCityAndInfoCodes:[[self->cityAndInfoCodes mutableCopy] autorelease]
+                                   forCity:[[[self cityName] copy] autorelease]];
     [city setWeatherAttributes:[[self weatherAttributes] duplicate]];
     [city setForecastAttributes:[[self forecastAttributes] duplicate]];
     city->isActive = self->isActive;
@@ -86,9 +86,6 @@
 */
 - (void)setCodeInfo:(NSMutableDictionary *)dict forServer:(NSString *)server
 {
-	if ([cityAndInfoCodes objectForKey:server])
-		[[cityAndInfoCodes objectForKey:server] autorelease];
-
     [cityAndInfoCodes setObject:[dict retain] forKey:server];
     
     [weather autorelease]; /* JRC - was autorelease */

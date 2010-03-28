@@ -229,7 +229,6 @@
         if(parentIndex == -1)
         {
             parent = self;
-            parentIndex = 0;
         }
         
         NSMutableArray *subArray;
@@ -365,9 +364,9 @@ void catchException(NSException *exception)
 	[[prefTab tabViewItemAtIndex:3] setLabel:NSLocalizedString(@"alertsTabTitle",@"")];
 	[[prefTab tabViewItemAtIndex:4] setLabel:NSLocalizedString(@"aboutTabTitle",@"")];
 	
-	[[[cityTable tableColumns] objectAtIndex:0] setHeaderCell:[[NSTableHeaderCell alloc] initTextCell:NSLocalizedString(@"citiesTabHeaderActiveText",@"")]];
-	[[[cityTable tableColumns] objectAtIndex:1] setHeaderCell:[[NSTableHeaderCell alloc] initTextCell:NSLocalizedString(@"citiesTabHeaderNameText",@"")]];
-	[[[cityTable tableColumns] objectAtIndex:2] setHeaderCell:[[NSTableHeaderCell alloc] initTextCell:NSLocalizedString(@"citiesTabHeaderServersText",@"")]];
+	[[[cityTable tableColumns] objectAtIndex:0] setHeaderCell:[[[NSTableHeaderCell alloc] initTextCell:NSLocalizedString(@"citiesTabHeaderActiveText",@"")] autorelease]];
+	[[[cityTable tableColumns] objectAtIndex:1] setHeaderCell:[[[NSTableHeaderCell alloc] initTextCell:NSLocalizedString(@"citiesTabHeaderNameText",@"")] autorelease]];
+	[[[cityTable tableColumns] objectAtIndex:2] setHeaderCell:[[[NSTableHeaderCell alloc] initTextCell:NSLocalizedString(@"citiesTabHeaderServersText",@"")] autorelease]];
 	[cityTableDescriptorText setStringValue:NSLocalizedString(@"citiesTabDescriptonText",nil)];
 	[addCity setTitle:NSLocalizedString(@"addCityTitle",nil)];
 	[editCity setTitle:NSLocalizedString(@"editCityTitle",nil)];
@@ -390,6 +389,7 @@ void catchException(NSException *exception)
     [pop setAutoenablesItems:NO];
     [pop setAltersStateOfSelectedItem:NO];
     [[cityTable tableColumnWithIdentifier:@"activeServers"] setDataCell:pop];
+    [pop release];
 
     NSButtonCell *cell = [[NSButtonCell alloc] init];
     [cell setButtonType:NSSwitchButton];
@@ -398,6 +398,7 @@ void catchException(NSException *exception)
     [[cityTable tableColumnWithIdentifier:@"active"] setDataCell:cell];
     [cell setTarget:self];
     [cell setAction:@selector(swicthCityEnabling)];
+    [cell release];
     
     [cityTable setAutosaveName:@"cityTable"];
     [cityTable registerForDraggedTypes:[NSArray arrayWithObjects:[cityTable autosaveName], nil]];
@@ -573,7 +574,7 @@ void catchException(NSException *exception)
         NSMutableArray *otherCities = [NSMutableArray arrayWithArray:cities];
         [otherCities removeObjectAtIndex:row];
         
-        MECity *newCity = [cityEditor editCity:[cityToEdit copy] otherCities:otherCities withPrefsWindow:prefsWindow];
+        MECity *newCity = [cityEditor editCity:[[cityToEdit copy] autorelease] otherCities:otherCities withPrefsWindow:prefsWindow];
     
         if(newCity)
         {
