@@ -360,3 +360,47 @@
     "Einheit";
 "longTermForecastItemsServerTitle" =
     "Server";
+
+/* Values in menu */
+"Temperature" =
+	"Temperatur";
+"Feels Like" =
+	"Gefühlte Temperatur";
+"Dew Point" =
+	"Taupunkt";
+"Humidity" =
+	"Feuchtigkeit";
+"Visibility" =
+	"Sicht";
+"Pressure" =
+	"Luftdruck";
+"Wind" =
+	"Wind";
+"UV Index" =
+	"UV Index";
+"Last Update" =
+	"Letzte Aktualisierung";
+"Date" =
+	"Datum";
+"Forecast" =
+	"Prognose";
+"High" =
+	"Maximum";
+"Low" =
+	"Minimum";
+"Precipitation" =
+	"Niederschlag";
+"Extended Forecast" =
+	"Weiterer Trend";
+"Weather Alert" =
+	"Wetterwarnung";
+"Radar Image" =
+	"Radarbild";
+"Controls" =
+	"Optionen";
+"Show City Editor" =
+	"Städte bearbeiten";
+"City Switcher" =
+	"Stadt wechseln";
+"Preferences" =
+	"Einstellungen";

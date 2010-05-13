@@ -7,7 +7,7 @@
 //
 
 #import "MEPrefs.h"
-#import <Carbon/Carbon.h>
+//#import <Carbon/Carbon.h>
 
 @implementation MEPrefs 
 
@@ -336,9 +336,15 @@
 		NSLog(@"Checking for new version of Meteo.");
 	}
 	// this is just so much easier
-	NSString *thisVersion = [[[NSBundle bundleForClass:[self class]] infoDictionary] objectForKey:@"CFBundleShortVersionString"]; // Get the application bundle version
-	NSDictionary *versionxml = [NSDictionary dictionaryWithContentsOfURL:
-		[NSURL URLWithString:@"http://heat-meteo.sourceforge.net/version.xml"]];
+	// Get the application bundle version
+	NSString *thisVersion = [[[NSBundle bundleForClass:[self class]] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+
+	NSString *versionXML = @"http://heat-meteo.sourceforge.net/version.xml";
+	NSString *escapedUrl = (NSString*)CFURLCreateStringByAddingPercentEscapes(NULL,(CFStringRef)versionXML,NULL,NULL,kCFStringEncodingUTF8);
+	NSURL *versionUrl = [NSURL URLWithString:escapedUrl];
+	[escapedUrl release];
+	
+	NSDictionary *versionxml = [NSDictionary dictionaryWithContentsOfURL:versionUrl];
 	
 	if (!versionxml)
 	{ // check to see that we had a successful download
@@ -364,7 +370,8 @@
             if (returnCode == NSAlertDefaultReturn)
 			{
 				// visit website
-                [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://heat-meteo.sourceforge.net/"]];
+                [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[@"http://heat-meteo.sourceforge.net"
+																			 stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
 				[NSApp terminate:nil];
 			}
         } else if (sender != nil)
@@ -552,23 +559,26 @@
 
 - (IBAction)openGroupPage:(id)sender
 {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://sourceforge.net/projects/heat-meteo/forums/forum/268087"]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[@"http://sourceforge.net/projects/heat-meteo/forums/forum/268087"
+																 stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
 }
 
 - (IBAction)openHomePage:(id)sender
 {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://heat-meteo.sourceforge.net/"]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[@"http://heat-meteo.sourceforge.net"
+																 stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
 }
 
 - (IBAction)openEmail:(id)sender
 {
-    //[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"mailto:fahrenba@mac.com"]];
+    //[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[@"mailto:fahrenba@mac.com"
+	//															 stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
 }
 
 - (IBAction)openDonatation:(id)sender
 {
-//    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://www.paypal.com/xclick/business=fahrenba%40mac.com&item_name=Buy+Matt+a+car+so+he+doesn%27t+have+to+be+driven+to+and+from+work+by+his+father+fund&no_note=1&tax=0&currency_code=USD"]]
-//;
+	//[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[@"https://www.paypal.com/xclick/business=fahrenba%40mac.com&item_name=Buy+Matt+a+car+so+he+doesn%27t+have+to+be+driven+to+and+from+work+by+his+father+fund&no_note=1&tax=0&currency_code=USD"
+	//															 stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
 }
 
 - (IBAction)chooseAlertSong:(id)sender

@@ -10,9 +10,9 @@
 			<array>
                 <dict>
 					<key>multipleMatchString</key>
-					<string>&gt;1.</string>
+					<string>A HREF="/outlook/travel/businesstraveler/local/</string>
 					<key>codeStart</key>
-					<string>. &lt;A HREF="/weather/local/</string>
+					<string>businesstraveler/local/</string>
                     <key>codeEnd</key>
 					<string>"</string>
 					<key>nameStart</key>
@@ -29,7 +29,7 @@
 					<key>codeEnd</key>
 					<string>?</string>
 					<key>codeStart</key>
-					<string>.&lt;/B&gt; &lt;A HREF="/weather/local/</string> 
+					<string>.&lt;/B&gt; &lt;A HREF="/businesstraveler/local/</string> 
 					<key>multipleMatchString</key>
 					<string>&gt;1.</string>
 					<key>nameEnd</key>
@@ -98,7 +98,7 @@
 			<key>sameAsSearchCityState</key>
 			<false/>
 			<key>searchURL</key>
-			<string>http://www.weather.com/weather/local/%@</string>
+			<string>http://www.weather.com/outlook/travel/businesstraveler/monthly/%@</string>
 		</dict>
 		<key>weather data</key>
 		<dict>

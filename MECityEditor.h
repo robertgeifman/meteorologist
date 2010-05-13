@@ -12,7 +12,9 @@
 /* Special Thanks to: Adam Vandenberg for this code.
 					  http://flangy.com/dev/osx/tableviewdemo/
 */
-@interface  MECitySearchResultsTable : NSObject {
+@interface  MECitySearchResultsTable : NSObject //<NSTableViewDataSource, NSTableViewDelegate,
+														// NSOutlineViewDataSource, NSOutlineViewDelegate>
+{
 	NSMutableArray *rowData;
 	BOOL _editable, _selectable;
 }
@@ -37,10 +39,10 @@
 
 @interface MECityEditor : NSObject 
 {
-    IBOutlet NSWindow  *window;
-    IBOutlet NSTabView *tabView;
+	IBOutlet NSWindow  *window;
+	IBOutlet NSTabView *tabView;
     
-    IBOutlet NSTextField *cityName;
+	IBOutlet NSTextField *cityName;
 	IBOutlet NSTextField *cityNameTitle;
 	IBOutlet NSTextField *cityDescription;
 	IBOutlet NSTextField *weatherServersTitle;
@@ -51,31 +53,30 @@
 	
 	IBOutlet NSTextField *currentWeatherItems;
 	IBOutlet NSTableHeaderView *currentWeatherItemsTable;
-    
-    IBOutlet NSPopUpButton       *weatherModules;
-    IBOutlet NSPopUpButton       *weatherInfos;
-    IBOutlet NSTextField         *searchTerm;
-    IBOutlet NSButton            *search;
-    IBOutlet NSProgressIndicator *progress;
-    
-    IBOutlet NSTableView *cityTable;
-    
+	
+	IBOutlet NSPopUpButton       *weatherModules;
+	IBOutlet NSPopUpButton       *weatherInfos;
+	IBOutlet NSTextField         *searchTerm;
+	IBOutlet NSButton            *search;
+	IBOutlet NSProgressIndicator *progress;
+	
+	IBOutlet NSTableView *cityTable;
+	
 	IBOutlet NSTextField *longTermForecastItems;
 	IBOutlet NSTableHeaderView *longTermForecastItemsTable;
-    
-    IBOutlet NSOutlineView *weatherPropertyTable;
-    IBOutlet NSTableView   *forecastPropertyTable;
-    IBOutlet NSPopUpButton *cityPopUpButton;
-    IBOutlet NSButton      *applyCityPreferences;
-    
-    
-    IBOutlet NSButton *confirmButton;
-    IBOutlet NSButton *cancelButton;
-    
-    MECity  *currentCity;
-    NSArray *otherCities;
-    
-    IBOutlet NSButton *serverIsActive;
+	
+	IBOutlet NSOutlineView *weatherPropertyTable;
+	IBOutlet NSTableView   *forecastPropertyTable;
+	IBOutlet NSPopUpButton *cityPopUpButton;
+	IBOutlet NSButton      *applyCityPreferences;
+	
+	IBOutlet NSButton *confirmButton;
+	IBOutlet NSButton *cancelButton;
+	
+	MECity  *currentCity;
+	NSArray *otherCities;
+	
+	IBOutlet NSButton *serverIsActive;
 	
 	/*JRC*/
 	MECitySearchResultsTable *resultsTableData;

@@ -1,5 +1,15 @@
 This file could also be called the changelog.
 
+v1.5.1
+- Fixed "Forecast - Link".
+- Radar Image is now a hyperlink.
+- Fixed distance to allow global units.
+- German localization updates
+- Japanese localization updates
+- Fixed memory leaks
+- Fixed crash on 10.3 systems
+- Restored 9 day forecasts
+
 v1.5.0
 - Latest weather.com site changes (3 Mar 10).
 - Added a hyperlink link to weather alert message.
@@ -15,14 +25,14 @@ v1.5.0
 - Clicking on a weather alert in the menu will take you to a web page with details.
 - Radar will not take up more then 1/3 of the width of your display, if you have too many menu bar items on a smaller width display, radar may be clipped. Perhaps a future update to control actual size.
 - Corrected missing highlight bar on 10.3 and 10.4 systems.
-- Now only gets up to 5 days of forecast weather regardless of requested value.
+- Now only gets up to 5 days of forecast weather regardless of requested value (weather.com split data onto two pages).
 
 v1.4.9
-- Fixed weather.com server support
-- Re-implemented alerts
-- Larger radar images (mostly weather.com changes)
-- Add option to display or not display message to the console
-- Updated city parser
+- Fixed weather.com server support.
+- Re-implemented alerts.
+- Larger radar images (mostly weather.com changes).
+- Add option to display or not display message to the console.
+- Updated city parser.
 
 v1.4.2
 - Fixed a bug where the rain icon was displayed during snow flurries
@@ -270,7 +280,7 @@ v1.1.5
 - Added new, spiffy image for Meteo, created by Flavio Andrade.  Thanks a ton!
 - Added preference validation routine which should make it unneccessary to ever trash your preferences again
 - Bug in "dock mode" that prevents active location from being represented with a check mark in the "Location Switcher" menu has been noted - it's an Apple thing, I have no control over this behavior.  This also prevents images from being displayed in the dock menu.
-- Added tool tip to menu bar - holding the mouse over Meto in the menu bar will now display a little yello box indicating the location of the currently active city
+- Added tool tip to menu bar - holding the mouse over Meto in the menu bar will now display a little yellow box indicating the location of the currently active city
 - Local images for the menu's and menu bar are of size 16 by 16, and for the dock icon are of size 128 by 128 (when local images become available)
 - Added better centering for different sizes and menu fonts (it's not perfect - some fonts will simply not look good)
 - Made LucidaGrande size 14 the default menu font

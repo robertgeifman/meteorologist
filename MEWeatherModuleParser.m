@@ -182,9 +182,6 @@ MEWeatherModuleParser *sharedWeatherModuleParser = nil;
 		searchDictionary = searchCityStateSpecs;
 	else
 		searchDictionary = searchZipSpecs;
-		
-	[searchTerm replaceOccurrencesOfString:@" " withString:@"%20"     // replace spaces with %20
-				options:NSLiteralSearch range:NSMakeRange(0,[searchTerm length])]; 
 	
 	// a searchDictionary must have found and notFound and could also have choicesFound
 	if (!isAURL)
@@ -196,7 +193,8 @@ MEWeatherModuleParser *sharedWeatherModuleParser = nil;
 	{
 		NSLog(@"search url: %@",searchQueryURL);
 	}
-    return [MEWebParser performSearchOnURL:[NSURL URLWithString:searchQueryURL] usingParseDict:searchDictionary];
+    return [MEWebParser performSearchOnURL:[NSURL URLWithString:[searchQueryURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]
+							usingParseDict:searchDictionary];
 }
 
 @end

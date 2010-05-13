@@ -51,10 +51,14 @@ NSImage *imageForName(NSString *name, BOOL inDock);
 
 @end
 
+@interface MEYahooWeatherCom : MEWeatherModule 
+{
+}
+@end
+
 
 @interface MEWeatherCom : MEWeatherModule 
 {
-
 }
 
 - (void)loadGlobalWeatherData;
