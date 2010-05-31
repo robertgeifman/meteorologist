@@ -26,7 +26,7 @@
 
 /* Controls MenuItem */
 "Controls" =
-    "Controls";
+    "Steuerung";
 
 /* No comment provided by engineer. */
 "Current Conditions" =
@@ -86,7 +86,7 @@
 
 /* No comment provided by engineer. */
 "Version %@ of Meteorologist is available (your version %@).  Would you like to visit the web site?" =
-    "Version %1$@ von Meteorologist ist verfügbar (ihre Version %2$@).  Möchten Sie die Website besuchen?";
+    "Version %1$@ von Meteorologist ist verfügbar (Ihre Version %2$@).  Möchten Sie die Website besuchen?";
 
 /* No comment provided by engineer. */
 "Visit Web Site" =
