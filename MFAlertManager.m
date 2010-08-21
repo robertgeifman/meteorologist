@@ -51,10 +51,10 @@
             //if(temp = [dict objectForKey:@"title"])
                 //warnMsg = [NSString stringWithFormat:@"%@%@\n",warnMsg,temp];
                 
-            if(temp = [dict objectForKey:@"description"])
+            if(temp = [dict objectForKey:@"link"])
                 warnMsg = [NSString stringWithFormat:@"%@%@\n",warnMsg,temp];
 			
-            if(temp = [dict objectForKey:@"link"])
+            if(temp = [dict objectForKey:@"description"])
                 warnMsg = [NSString stringWithFormat:@"%@%@\n",warnMsg,temp];
 			
             warnMsg = [NSString stringWithFormat:@"%@\n",warnMsg];

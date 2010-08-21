@@ -18,7 +18,7 @@
 	{
  //       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidFinishLaunching:) 
  //                                             name:NSApplicationDidFinishLaunchingNotification object:NSApp];
-		resultsTableData = [[MECitySearchResultsTable alloc] initWithRowCount: 10]; /* Weather.com returns 8 results */
+		resultsTableData = [[MECitySearchResultsTable alloc] initWithRowCount: 25]; /* Weather.com returns 8 results */
 	}
 	return self;
 }

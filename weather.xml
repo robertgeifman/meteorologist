@@ -25,17 +25,17 @@
 						<string>name</string>
 					</array>
 				</dict>
-				<dict>
-					<key>codeEnd</key>
-					<string>?</string>
-					<key>codeStart</key>
-					<string>.&lt;/B&gt; &lt;A HREF="/businesstraveler/local/</string> 
+                <dict>
 					<key>multipleMatchString</key>
-					<string>&gt;1.</string>
+					<string>TD VALIGN="TOP" ALIGN="LEFT" W</string>
+					<key>codeEnd</key>
+					<string>'</string>
+					<key>codeStart</key>
+					<string>search_city" onClick="setRecentSearch('</string> 
 					<key>nameEnd</key>
-					<string>&lt;/B&gt;&lt;/A&gt;</string> 
+					<string>',''</string>
 					<key>nameStart</key>
-					<string>)&lt;B&gt;</string> 
+					<string>,'1','</string>
 					<key>parseOrder</key>
 					<array>
 						<string>code</string>
@@ -43,16 +43,16 @@
 					</array>
 				</dict>
                 <dict>
+					<key>multipleMatchString</key>
+					<string>class="searchResultsBox"</string>
 					<key>codeEnd</key>
 					<string>'</string>
 					<key>codeStart</key>
-					<string>search_city" onClick="setRecentSearch('</string> 
-					<key>multipleMatchString</key>
-					<string>&gt;1.</string>
+					<string> onclick="setRecentSearchNew('</string> 
 					<key>nameEnd</key>
-					<string>&lt;/B&gt;&lt;/A&gt;</string> 
+					<string>',</string>
 					<key>nameStart</key>
-					<string>&lt;B&gt;</string> 
+					<string>, '1', '</string>
 					<key>parseOrder</key>
 					<array>
 						<string>code</string>
@@ -64,9 +64,9 @@
 			<array>
 				<string>No items found. Please check your spelling or try another term.</string>
 				<string>Sorry, the page you requested was not found on weather.com.</string>
-			</array>
+			</array>	
 			<key>searchURL</key>
-			<string>http://www.weather.com/search/enhanced?where=%@</string>
+			<string>http://www.weather.com/search/morelocations/?where=%@&amp;type=1&amp;baseurl=</string>
 		</dict>
 		<key>searchZip</key>
 		<dict>
@@ -74,17 +74,17 @@
 			<array>
 				<dict>
 					<key>codeEnd</key>
-					<string>?</string>
+					<string>?family=xhtmlmp"</string>
 					<key>codeStart</key>
-					<string>/wxdetail/</string>
+					<string>&lt;a href="http://mw.weather.com/now/</string>
 					<key>nameEnd</key>
-					<string>(</string>
+					<string>&lt;br&gt;</string>
 					<key>nameStart</key>
-					<string>Right Now for&lt;/B&gt;&lt;BR&gt;</string>
+					<string>&lt;div class="locator"&gt;</string>
 					<key>parseOrder</key>
 					<array>
-						<string>name</string>
 						<string>code</string>
+						<string>name</string>
 					</array>
 					<key>multipleMatchString</key>
 					<string>TODAY'S WEATHER for</string>
@@ -98,7 +98,7 @@
 			<key>sameAsSearchCityState</key>
 			<false/>
 			<key>searchURL</key>
-			<string>http://www.weather.com/outlook/travel/businesstraveler/monthly/%@</string>
+			<string>http://mw.weather.com/now/%@?family=webkit</string>
 		</dict>
 		<key>weather data</key>
 		<dict>

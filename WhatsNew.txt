@@ -1,4 +1,11 @@
-This file could also be called the changelog.
+This file could also be called the change log.
+
+v1.5.2
+- Fixed "Add City" name parsing.
+- Move weather link for alerts to beginning of message. If message was texted and city name was long, link was getting broken.
+- Fix ZIP for "Add City" search.
+- Corrected "Import this cities preferences" to read "Import this city's preferences" - bug 3015765
+- Add city name list now displays up to 25 cities (yes the text wrong)
 
 v1.5.1
 - Fixed "Forecast - Link".
