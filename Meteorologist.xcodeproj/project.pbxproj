@@ -111,6 +111,7 @@
 		DC651DB811723D1200D3CCFA /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC651DB711723D1200D3CCFA /* MainMenu.xib */; };
 		DC961C3E113AFA0700C50140 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165DFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		DC961D08113B052000C50140 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC961CDD113B03E900C50140 /* Localizable.strings */; };
+		DCB79547122023E500F3EE01 /* VERSION in Resources */ = {isa = PBXBuildFile; fileRef = DCB79546122023E500F3EE01 /* VERSION */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -252,6 +253,7 @@
 		DC961D29113B065C00C50140 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DC961D2A113B066300C50140 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DC961D2B113B066900C50140 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Spanish; path = Spanish.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DCB79546122023E500F3EE01 /* VERSION */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VERSION; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -349,6 +351,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DCB79546122023E500F3EE01 /* VERSION */,
 				514F3E0A0A4E075B00378165 /* Meteorologist-Info.plist */,
 				DC651DB711723D1200D3CCFA /* MainMenu.xib */,
 				8BF0FD26044A606C00D1B4D2 /* WhatsNew.txt */,
@@ -647,6 +650,7 @@
 				51F25A100C8B656800A7B3F1 /* Meteo-Spanish.tiff in Resources */,
 				DC961D08113B052000C50140 /* Localizable.strings in Resources */,
 				DC651DB811723D1200D3CCFA /* MainMenu.xib in Resources */,
+				DCB79547122023E500F3EE01 /* VERSION in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
