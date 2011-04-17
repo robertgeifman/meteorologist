@@ -575,7 +575,9 @@ void catchException(NSException *exception)
         NSMutableArray *otherCities = [NSMutableArray arrayWithArray:cities];
         [otherCities removeObjectAtIndex:row];
         
-        MECity *newCity = [cityEditor editCity:[[cityToEdit copy] autorelease] otherCities:otherCities withPrefsWindow:prefsWindow];
+        MECity *newCity = [cityEditor editCity:[[cityToEdit copy] autorelease]
+								   otherCities:otherCities
+							   withPrefsWindow:prefsWindow];
     
         if(newCity)
         {
@@ -1390,7 +1392,7 @@ void catchException(NSException *exception)
                 }
                 else if([nextProp isEqualToString:@"Radar Image"])
                 {
-                    NSData *dat = [[NSURL URLWithString:[nextVal stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]
+					NSData *dat = [[NSURL URLWithString:[nextVal stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]
 								   resourceDataUsingCache:!newData];
                     if(dat)
                     {
@@ -1448,7 +1450,6 @@ void catchException(NSException *exception)
 							[resizedImage release];
                         }
                     }
-
                 }
                 else
                 {
@@ -1656,7 +1657,7 @@ void catchException(NSException *exception)
 						[daItem setAction:@selector(dummy)];
 					}
                     
-					NSString *totalTitle = menuItemTitle;
+					NSString *totalTitle = [NSString stringWithFormat:@"%@  ",menuItemTitle];
                     
 					while((nextProp = [propEnum nextObject]) && (nextVal = [valueEnum nextObject]))
 					{
@@ -1667,12 +1668,26 @@ void catchException(NSException *exception)
                     
 						NSString *nextTitle;
                         
-						if([nextProp isEqualToString:@""])
-							nextTitle = nextVal;
-						else
-							nextTitle = [NSString stringWithFormat:@"\t%@: %@",nextProp,nextVal];
-                        
-						totalTitle = [NSString stringWithFormat:@"%@  %@",totalTitle,nextTitle];
+						if (![nextProp isEqualToString:NSLocalizedString(@"Date",@"")])
+						{
+							if([nextProp isEqualToString:@""])
+							{
+								if ([nextVal length] < 8)
+								{
+									nextTitle = [NSString stringWithFormat:@"%@\t\t",nextVal];
+								}
+								else
+								{
+									nextTitle = [NSString stringWithFormat:@"%@\t",nextVal];
+								}
+							}
+							else
+							{
+								nextTitle = [NSString stringWithFormat:@"%@: %@",nextProp,nextVal];
+							}
+							
+							totalTitle = [NSString stringWithFormat:@"%@  \t%@",totalTitle,nextTitle];
+						}
 					}
                     
 					[daItem setTitle:totalTitle];

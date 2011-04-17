@@ -343,18 +343,18 @@
 
 + (NSArray *)moduleNames
 {
-    return [NSArray arrayWithObjects:/*[MEWundergroundCom sourceName],*/
-                                     /*[MENWSCom sourceName], */
-                                     [MEWeatherCom sourceName],
+    return [NSArray arrayWithObjects:[MEWeatherCom sourceName],
+									 [MEWundergroundCom sourceName],
+									 [MENWSCom sourceName],
                                      nil];
 }
 
 + (NSArray *)moduleClasses
 {
-    return [NSArray arrayWithObjects://[MEWundergroundCom class],
-                                      //[MENWSCom class],
-                                      [MEWeatherCom class],
-                                      nil]; 
+    return [NSArray arrayWithObjects:[MEWeatherCom class],
+									 [MEWundergroundCom class],
+                                     [MENWSCom class],
+                                     nil]; 
 }
 
 - (NSArray *)loadedModuleInstances

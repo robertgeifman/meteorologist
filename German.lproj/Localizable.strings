@@ -262,6 +262,8 @@
     "Wetter-Warnungen";
 "weatherAlertEmailTitle" =
     "E-mail";
+"weatherAlertSMSTitle" =
+    "SMS";
 "weatherAlertBeepTitle" =
     "Signalton";
 "weatherAlertSongTitle" =
@@ -316,7 +318,7 @@
     "z. B. Zuhause, Urlaub, Arbeitsplatz, Oma & Opa, Berlin, etc.";
 "weatherServersTitle" =
     "Wetter-Server:";
-"weatherModulesTabel" =
+"weatherModulesTable" =
     "Weather Modules";
 "weatherServersDescriptionTItle" =
     "Für jeden neuen Server muß die Städte-Suche erneut erfolgen.";

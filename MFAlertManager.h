@@ -28,7 +28,12 @@
 }
 
 - (void)addCity:(NSArray *)array;
-- (void)addCity:(MECity *)city alertOptions:(int)options email:(NSString *)email song:(NSString *)song warning:(NSArray *)warn;
+- (void)addCity:(MECity *)city
+   alertOptions:(int)options
+		  email:(NSString *)email
+		    sms:(NSString *)sms
+		   song:(NSString *)song
+		warning:(NSArray *)warn;
 - (void)removeCity:(MECity *)city;
 
 - (IBAction)kill:(id)sender;
@@ -79,5 +84,6 @@
 }
 
 - (void)emailMessage:(NSString *)msg toAccount:(NSString *)email;
+- (void)smsMessage:(NSString *)msg toAccount:(NSString *)email;
 
 @end

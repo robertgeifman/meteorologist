@@ -46,7 +46,7 @@
 	[cityDescription setStringValue:NSLocalizedString(@"cityNameDescriptionLabel",nil)];
 	[weatherServersTitle setStringValue:NSLocalizedString(@"weatherServersTitle",nil)];
 	[weatherDescription setStringValue:NSLocalizedString(@"weatherServersDescriptionTItle",nil)];
-	[weatherModules setStringValue:NSLocalizedString(@"weatherModulesTabel",nil)];
+	[weatherModules setStringValue:NSLocalizedString(@"weatherModulesTable",nil)];
 	[cityOrZipSearchTitle setStringValue:NSLocalizedString(@"cityOrZipSearchTitle",nil)];
 	[search setTitle:NSLocalizedString(@"searchButtonTitle",nil)];
 	
@@ -520,7 +520,7 @@
 - (IBAction)weatherSourceChanged:(id)sender
 {
     //[[cityTable dataSource] autorelease];
-   // NSMutableDictionary *dict = [currentCity codeAndInfoForServer:[weatherModules titleOfSelectedItem]];
+    //NSMutableDictionary *dict = [currentCity codeAndInfoForServer:[weatherModules titleOfSelectedItem]];
     
     Class moduleClass = [MEWeather moduleClassForName:[weatherModules titleOfSelectedItem]];
     [weatherInfos removeAllItems];

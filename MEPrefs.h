@@ -70,6 +70,7 @@ enum{kPeriodType,kNumberType,kStringType};
     //Weather Alerts
     IBOutlet NSMatrix *alertOptions;
     IBOutlet NSTextField *alertEmail;
+    IBOutlet NSTextField *alertSMS;
     IBOutlet NSTextField *alertSong;
     
     //threading
@@ -130,6 +131,7 @@ enum{kPeriodType,kNumberType,kStringType};
 - (IBAction)openGroupPage:(id)sender;
 - (IBAction)openHomePage:(id)sender;
 - (IBAction)openEmail:(id)sender;
+- (IBAction)openSMS:(id)sender;
 - (IBAction)openDonatation:(id)sender;
 
 - (IBAction)chooseAlertSong:(id)sender;
@@ -178,6 +180,7 @@ enum{kPeriodType,kNumberType,kStringType};
 
 - (int)alertOptions;
 - (NSString*)alertEmail;
+- (NSString*)alertSMS;
 - (NSString*)alertSong;
 
 - (int)cycleMode;

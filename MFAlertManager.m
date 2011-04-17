@@ -29,16 +29,27 @@
 
 - (void)addCity:(NSArray *)array
 {
-    [self addCity:[array objectAtIndex:0] alertOptions:[[array objectAtIndex:2] alertOptions] email:[[array objectAtIndex:2] alertEmail] song:[[array objectAtIndex:2] alertSong] warning:[array objectAtIndex:1]];
+    [self addCity:[array objectAtIndex:0]
+	 alertOptions:[[array objectAtIndex:2] alertOptions]
+			email:[[array objectAtIndex:2] alertEmail]
+			  sms:[[array objectAtIndex:2] alertSMS]
+			 song:[[array objectAtIndex:2] alertSong]
+		  warning:[array objectAtIndex:1]];
 }
 
-- (void)addCity:(MECity *)city alertOptions:(int)options email:(NSString *)email song:(NSString *)song warning:(NSArray *)warn
+- (void)addCity:(MECity *)city
+   alertOptions:(int)options
+		  email:(NSString *)email
+		    sms:(NSString *)sms
+		   song:(NSString *)song
+		warning:(NSArray *)warn
 {
     if(![alertingCities containsObject:city])
     {
         [alertingCities addObject:city];
         
         NSString *warnMsg = NSLocalizedString(@"falseAlarm",nil);
+        NSString *smsMsg = NSLocalizedString(@"falseAlarm",nil);
 
         NSEnumerator *warnEnum = [warn objectEnumerator];
         NSDictionary *dict;
@@ -47,17 +58,27 @@
         {
             NSString *temp;
             warnMsg = [NSString stringWithFormat:NSLocalizedString(@"warningsFor",nil),[city cityName]];
+            smsMsg = [NSString stringWithFormat:NSLocalizedString(@"%@ ",nil),[city cityName]];
             
             //if(temp = [dict objectForKey:@"title"])
+			//{
                 //warnMsg = [NSString stringWithFormat:@"%@%@\n",warnMsg,temp];
+			//}
                 
             if(temp = [dict objectForKey:@"link"])
+			{
                 warnMsg = [NSString stringWithFormat:@"%@%@\n",warnMsg,temp];
+                smsMsg = [NSString stringWithFormat:@"%@%@ ",smsMsg,temp];
+			}
 			
             if(temp = [dict objectForKey:@"description"])
+			{
                 warnMsg = [NSString stringWithFormat:@"%@%@\n",warnMsg,temp];
+                smsMsg = [NSString stringWithFormat:@"%@%@ ",smsMsg,temp];
+			}
 			
             warnMsg = [NSString stringWithFormat:@"%@\n",warnMsg];
+            smsMsg = [NSString stringWithFormat:@"%@\n",smsMsg];
         }
         
         //email
@@ -90,6 +111,11 @@
         {
             //display a text view with this info
             [displayer appendMessage:warnMsg];
+        }
+        //sms
+        if(options & 32)
+        {
+            [emailer smsMessage:smsMsg toAccount:sms];
         }
     }
 }
@@ -227,7 +253,16 @@
 
 - (void)emailMessage:(NSString *)msg toAccount:(NSString *)email
 {
-    [NSMailDelivery deliverMessage:msg subject:@"Weather Alert" to:email];
+    [NSMailDelivery deliverMessage:msg
+						   subject:@"Weather Alert"
+								to:email];
+}
+
+- (void)smsMessage:(NSString *)msg toAccount:(NSString *)sms
+{
+    [NSMailDelivery deliverMessage:msg
+						   subject:@""
+								to:sms];
 }
 
 @end

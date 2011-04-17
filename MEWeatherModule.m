@@ -489,7 +489,9 @@ NSImage *imageForName(NSString *name, BOOL inDock)
 	
 } // checkForAlert
 
-- (void)loadRadar:(NSCharacterSet*)set lastRange:(NSRange*)lastRange class:(Class*)class
+- (void)loadRadar:(NSCharacterSet*)set
+		lastRange:(NSRange*)lastRange
+            class:(Class*)class
 {
 	NSURL *radarUrl;
     NSString *radarData;

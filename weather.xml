@@ -108,5 +108,210 @@
 			<array/>
 		</dict>
 	</dict>
+	<key>Wunderground.com</key>
+	<dict>
+		<key>searchCityState</key>
+		<dict>
+			<key>choicesFound</key>
+			<array>
+				<dict>
+					<key>left</key>
+					<string>&gt; &lt;td&gt;&lt;a href="/</string>
+					<key>name</key>
+					<string>code</string>
+					<key>right</key>
+					<string>"</string>
+				</dict>
+				<dict>
+					<key>left</key>
+					<string>&gt;</string>
+					<key>name</key>
+					<string>city</string>
+					<key>right</key>
+					<string>&lt;/a&gt;</string>
+				</dict>
+			</array>
+			<key>resolve check</key>
+			<dict>
+				<key>left</key>
+				<string>Weather Underground: </string>
+				<key>right</key>
+				<string> Forecast&lt;/title&gt;</string>
+			</dict>
+			<key>resolved</key>
+			<array>
+				<dict>
+					<key>name</key>
+					<string>city</string>
+				</dict>
+				<dict>
+					<key>left</key>
+					<string>/geo/BannerPromo</string>
+					<key>name</key>
+					<string>code</string>
+					<key>right</key>
+					<string>"</string>
+				</dict>
+			</array>
+            <key>notFound</key>
+			<array>
+				<string>No items found. Please check your spelling or try another term.</string>
+				<string>Sorry, the page you requested was not found on wunderground.com.</string>
+			</array>	
+			<key>searchURL</key>
+			<string>http://i.wund.com/cgi-bin/findweather/getForecast?brand=iphone&query=%@</string>
+		</dict>
+		<key>searchZip</key>
+		<dict>
+			<key>choicesFound</key>
+			<array>
+				<dict>
+					<key>codeEnd</key>
+					<string>?family=xhtmlmp"</string>
+					<key>codeStart</key>
+					<string>&lt;a href="http://i.wund.com/</string>
+					<key>nameEnd</key>
+					<string>&lt;br&gt;</string>
+					<key>nameStart</key>
+					<string>&lt;div class="locator"&gt;</string>
+					<key>parseOrder</key>
+					<array>
+						<string>code</string>
+						<string>name</string>
+					</array>
+					<key>multipleMatchString</key>
+					<string>TODAY'S WEATHER for</string>
+				</dict>
+			</array>
+			<key>notFound</key>
+			<array>
+				<string>No items found. Please check your spelling or try another term.</string>
+				<string>Sorry, the page you requested was not found on wunderground.com.</string>
+			</array>
+			<key>sameAsSearchCityState</key>
+			<false/>
+			<key>searchURL</key>
+			<string>http://i.wund.com/cgi-bin/findweather/getForecast?brand=iphone&query=%@</string>
+		</dict>
+		<key>weather data</key>
+		<dict>
+			<key>url</key>
+			<string>http://i.wund.com/cgi-bin/findweather/getForecast?brand=iphone&query=&amp;wuSelect=WEATHER</string>
+			<key>weather items</key>
+			<array/>
+		</dict>
+	</dict>
+	<key>National Weather Service</key>
+	<dict>
+		<key>searchCityState</key>
+		<dict>
+			<key>not resolved</key>
+			<array>
+				<dict>
+					<key>left</key>
+					<string>.noaa.gov/forecasts/</string>
+					<key>name</key>
+					<string>code</string>
+					<key>right</key>
+					<string>&gt;</string>
+				</dict>
+				<dict>
+					<key>left</key>
+					<string>&gt;</string>
+					<key>name</key>
+					<string>city</string>
+					<key>right</key>
+					<string>&lt;</string>
+				</dict>
+			</array>
+			<key>resolve check</key>
+			<dict>
+				<key>left</key>
+				<string>Location:</string>
+				<key>right</key>
+				<string>http:</string>
+			</dict>
+			<key>resolved</key>
+			<array>
+				<dict>
+					<key>left</key>
+					<string>.noaa.gov/forecasts/</string>
+					<key>name</key>
+					<string>code</string>
+					<key>right</key>
+					<string> </string>
+				</dict>
+				<dict>
+					<key>left</key>
+					<string>STARTMETEOCITY:</string>
+					<key>name</key>
+					<string>city</string>
+					<key>right</key>
+					<string>:ENDMETEOCITY</string>
+				</dict>
+			</array>
+			<key>url</key>
+			<string>http://www.crh.noaa.gov/zipcity.php?inputstring=%@</string>
+		</dict>
+		<key>searchZip</key>
+		<dict>
+			<key>not resolved</key>
+			<array>
+				<dict>
+					<key>left</key>
+					<string>.noaa.gov/forecasts/</string>
+					<key>name</key>
+					<string>code</string>
+					<key>right</key>
+					<string>&gt;</string>
+				</dict>
+				<dict>
+					<key>left</key>
+					<string>&gt;</string>
+					<key>name</key>
+					<string>city</string>
+					<key>right</key>
+					<string>&lt;</string>
+				</dict>
+			</array>
+			<key>resolve check</key>
+			<dict>
+				<key>left</key>
+				<string>Location:</string>
+				<key>right</key>
+				<string>http:</string>
+			</dict>
+			<key>resolved</key>
+			<array>
+				<dict>
+					<key>left</key>
+					<string>.noaa.gov/forecasts/</string>
+					<key>name</key>
+					<string>code</string>
+					<key>right</key>
+					<string> </string>
+				</dict>
+				<dict>
+					<key>left</key>
+					<string>STARTMETEOCITY:</string>
+					<key>name</key>
+					<string>city</string>
+					<key>right</key>
+					<string>:ENDMETEOCITY</string>
+				</dict>
+			</array>
+			<key>url</key>
+			<string>http://www.crh.noaa.gov/zipcity.php?inputstring=%@</string>
+		</dict>
+		<key>weather data</key>
+		<dict>
+			<key>url</key>
+			<string>http://www.crh.noaa.gov/data/forecasts/%@</string>
+			<key>weather items</key>
+			<array>
+				<string>Temperature</string>
+			</array>
+		</dict>
+	</dict>
 </dict>
 </plist>

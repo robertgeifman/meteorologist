@@ -108,6 +108,7 @@
 		51D7D1240B13E048006F376D /* MB-Hazy.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 51D7D1130B13E048006F376D /* MB-Hazy.tiff */; };
 		51D7D1250B13E048006F376D /* MB-Flurries.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 51D7D1140B13E048006F376D /* MB-Flurries.tiff */; };
 		51F25A100C8B656800A7B3F1 /* Meteo-Spanish.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 51F25A0F0C8B656800A7B3F1 /* Meteo-Spanish.tiff */; };
+		DC02DD62135B291B002C97A1 /* HowTo.txt in Resources */ = {isa = PBXBuildFile; fileRef = DC02DD61135B291B002C97A1 /* HowTo.txt */; };
 		DC651DB811723D1200D3CCFA /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC651DB711723D1200D3CCFA /* MainMenu.xib */; };
 		DC961C3E113AFA0700C50140 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165DFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		DC961D08113B052000C50140 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC961CDD113B03E900C50140 /* Localizable.strings */; };
@@ -246,6 +247,8 @@
 		9B5B980504FA501400A80102 /* MEStringSearcher.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = MEStringSearcher.m; sourceTree = "<group>"; };
 		9B5B980604FA501400A80102 /* NSString-Additions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "NSString-Additions.h"; sourceTree = "<group>"; };
 		9B5B980704FA501400A80102 /* NSString-Additions.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = "NSString-Additions.m"; sourceTree = "<group>"; };
+		DC02DD61135B291B002C97A1 /* HowTo.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HowTo.txt; sourceTree = "<group>"; };
+		DC03753D12E53FCD00ED8DD4 /* Portugal */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Portugal; path = Portugal.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DC32141211460533006DC8E4 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Italian; path = Italian.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DC651DB711723D1200D3CCFA /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		DC82001B115EE48F00474AFE /* Japanese */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Japanese; path = Japanese.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -351,6 +354,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DC02DD61135B291B002C97A1 /* HowTo.txt */,
 				DCB79546122023E500F3EE01 /* VERSION */,
 				514F3E0A0A4E075B00378165 /* Meteorologist-Info.plist */,
 				DC651DB711723D1200D3CCFA /* MainMenu.xib */,
@@ -539,6 +543,7 @@
 			isa = PBXProject;
 			buildConfigurationList = 513F63620A462EF60021F891 /* Build configuration list for PBXProject "Meteorologist" */;
 			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -547,6 +552,7 @@
 				German,
 				Spanish,
 				Italian,
+				Portugal,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* Meteorologist */;
 			projectDirPath = "";
@@ -651,6 +657,7 @@
 				DC961D08113B052000C50140 /* Localizable.strings in Resources */,
 				DC651DB811723D1200D3CCFA /* MainMenu.xib in Resources */,
 				DCB79547122023E500F3EE01 /* VERSION in Resources */,
+				DC02DD62135B291B002C97A1 /* HowTo.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -688,6 +695,7 @@
 				DC961D2B113B066900C50140 /* Spanish */,
 				DC32141211460533006DC8E4 /* Italian */,
 				DC82001B115EE48F00474AFE /* Japanese */,
+				DC03753D12E53FCD00ED8DD4 /* Portugal */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

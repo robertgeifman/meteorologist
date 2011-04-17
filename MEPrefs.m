@@ -147,6 +147,7 @@
 	[[alertOptions cellAtRow:3 column:0] setTitle:NSLocalizedString(@"weatherAlertBounceTitle",@"")];
 	[[alertOptions cellAtRow:4 column:0] setTitle:NSLocalizedString(@"weatherAlertMessageTitle",@"")];
 	[alertSong setStringValue:NSLocalizedString(@"weatherAlertChooseSongTitle",nil)];
+	[[alertOptions cellAtRow:5 column:0] setTitle:NSLocalizedString(@"weatherAlertSMSTitle",@"")];
     
 	// About Tab
 	[aboutHomepage setTitle:NSLocalizedString(@"aboutHomepageTitle",nil)];
@@ -575,6 +576,12 @@
 	//															 stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
 }
 
+- (IBAction)openSMS:(id)sender
+{
+    //[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[@"mailto:8005551212@txt.att.net"
+	//															 stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+}
+
 - (IBAction)openDonatation:(id)sender
 {
 	//[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[@"https://www.paypal.com/xclick/business=fahrenba%40mac.com&item_name=Buy+Matt+a+car+so+he+doesn%27t+have+to+be+driven+to+and+from+work+by+his+father+fund&no_note=1&tax=0&currency_code=USD"
@@ -668,6 +675,7 @@
     [embedControls setState:[self embedControls]];
     
     [alertEmail setStringValue:[self alertEmail]];
+    [alertSMS setStringValue:[self alertSMS]];
     [alertSong setStringValue:[self alertSong]];
     
     int theAlertOptions = [self alertOptions];
@@ -676,6 +684,7 @@
     [alertOptions setState:(theAlertOptions & 4) atRow:2 column:0];
     [alertOptions setState:(theAlertOptions & 8) atRow:3 column:0];
     [alertOptions setState:(theAlertOptions & 16) atRow:4 column:0];
+    [alertOptions setState:(theAlertOptions & 32) atRow:5 column:0];
     
     [killOtherMeteo setState:[self killOtherMeteo]];
 }
@@ -743,12 +752,15 @@
     [defaults setObject:NUM([embedControls state]) forKey:@"embedControls"];
     
     [defaults setObject:[alertEmail stringValue] forKey:@"alertEmail"];
+    [defaults setObject:[alertSMS stringValue] forKey:@"alertSMS"];
     [defaults setObject:[alertSong stringValue] forKey:@"alertSong"];
     [defaults setObject:[NSNumber numberWithInt:[[alertOptions cellAtRow:0 column:0] state]*1 +
                                                 [[alertOptions cellAtRow:1 column:0] state]*2 +
                                                 [[alertOptions cellAtRow:2 column:0] state]*4 +
 												[[alertOptions cellAtRow:3 column:0] state]*8 +
-												[[alertOptions cellAtRow:4 column:0] state]*16] forKey:@"alertOptions"];
+												[[alertOptions cellAtRow:4 column:0] state]*16 +
+												[[alertOptions cellAtRow:5 column:0] state]*32]
+				 forKey:@"alertOptions"];
     
     [defaults setObject:[NSNumber numberWithBool:[killOtherMeteo state]] forKey:@"killOtherMeteo"];
     
@@ -830,6 +842,8 @@
         
     if(![[defaults objectForKey:@"alertEmail"] isKindOfClass:[NSString class]]) 
         [defaults setObject:@"" forKey:@"alertEmail"];
+    if(![[defaults objectForKey:@"alertSMS"] isKindOfClass:[NSString class]]) 
+        [defaults setObject:@"" forKey:@"alertSMS"];
     if(![[defaults objectForKey:@"alertSong"] isKindOfClass:[NSString class]]) 
         [defaults setObject:@"" forKey:@"alertSong"];
     if(![[defaults objectForKey:@"alertOptions"] isKindOfClass:[NSNumber class]]) 
@@ -900,6 +914,7 @@
     [defaults setObject:NUM_YES forKey:@"embedControls"];
     
     [defaults setObject:@"" forKey:@"alertEmail"];
+    [defaults setObject:@"" forKey:@"alertSMS"];
     [defaults setObject:@"" forKey:@"alertSong"];
     [defaults setObject:NUM(0) forKey:@"alertOptions"];
     
@@ -941,6 +956,7 @@
     if(NSOrderedAscending == [ver compare:(@"01.02.05")])
     {
         [defaults setObject:@"" forKey:@"alertEmail"];
+        [defaults setObject:@"" forKey:@"alertSMS"];
     	[defaults setObject:@"" forKey:@"alertSong"];
     	[defaults setObject:NUM(0) forKey:@"alertOptions"];
     }
@@ -1133,6 +1149,11 @@
 - (NSString *)alertEmail
 {
     return [defaults objectForKey:@"alertEmail"];
+}
+
+- (NSString *)alertSMS
+{
+    return [defaults objectForKey:@"alertSMS"];
 }
 
 - (NSString *)alertSong

@@ -1,5 +1,11 @@
 This file could also be called the change log.
 
+v1.5.3
+- Add Portuguese localization.
+- Some attempt to fix formatting of "Forecasts on one line"
+- Add SMS Alert. Similar to email but less verbose.
+- Start to re-add Wunderground.com and NWS.
+
 v1.5.2
 - Fixed "Add City" name parsing.
 - Move weather link for alerts to beginning of message. If message was texted and city name was long, link was getting broken.
