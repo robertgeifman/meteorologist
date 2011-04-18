@@ -1,5 +1,7 @@
 To build a production release using Xcode 3:
 
+¥ Make sure you build with Xcode prior to 3.2.6 (3.2.6 dropped support for PPC)
+¥ÊMake sure the code generated is Universal.
 ¥ Make sure the VERSION file is updated to the new version.
 ¥ Make sure the info.plist is updated to the new version and the build number is reset to 1.
 ¥ Make sure WhatsNew.txt is updated.

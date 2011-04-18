@@ -1,5 +1,9 @@
 This file could also be called the change log.
 
+v1.5.3b
+- Remove Wunderground and NWS in weather.xml. It was causing crash when adding new city.
+- Use Xcode prior to 3.2.6 to regain PPC support.
+
 v1.5.3
 - Add Portuguese localization.
 - Some attempt to fix formatting of "Forecasts on one line"
