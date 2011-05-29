@@ -18,7 +18,7 @@
 #define ARC(x)		([NSArchiver archivedDataWithRootObject:x])
 #define UNARC(x)	([NSUnarchiver unarchiveObjectWithData:x])
 
-#define VERSION	(@"1.5.2")
+#define VERSION	(@"1.5.4")
 
 - (void)moveOldDefaults
 {
