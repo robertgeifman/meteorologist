@@ -18,7 +18,7 @@
 #define ARC(x)		([NSArchiver archivedDataWithRootObject:x])
 #define UNARC(x)	([NSUnarchiver unarchiveObjectWithData:x])
 
-#define VERSION	(@"1.5.4")
+#define VERSION	(@"1.5.5")
 
 - (void)moveOldDefaults
 {
@@ -674,9 +674,30 @@
     
     [embedControls setState:[self embedControls]];
     
-    [alertEmail setStringValue:[self alertEmail]];
-    [alertSMS setStringValue:[self alertSMS]];
-    [alertSong setStringValue:[self alertSong]];
+	if ([self alertEmail])
+	{
+		[alertEmail setStringValue:[self alertEmail]];
+	}
+	else
+	{
+		[alertEmail setStringValue:@""];
+	}
+	if ([self alertSMS])
+	{
+		[alertSMS setStringValue:[self alertSMS]];
+	}
+	else
+	{
+		[alertSMS setStringValue:@""];
+	}
+	if ([self alertSong])
+	{
+		[alertSong setStringValue:[self alertSong]];
+	}
+	else
+	{
+		[alertSong setStringValue:@""];
+	}
     
     int theAlertOptions = [self alertOptions];
     [alertOptions setState:(theAlertOptions & 1) atRow:0 column:0];

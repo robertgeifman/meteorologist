@@ -109,6 +109,7 @@
 		51D7D1250B13E048006F376D /* MB-Flurries.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 51D7D1140B13E048006F376D /* MB-Flurries.tiff */; };
 		51F25A100C8B656800A7B3F1 /* Meteo-Spanish.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 51F25A0F0C8B656800A7B3F1 /* Meteo-Spanish.tiff */; };
 		DC02DD62135B291B002C97A1 /* HowTo.txt in Resources */ = {isa = PBXBuildFile; fileRef = DC02DD61135B291B002C97A1 /* HowTo.txt */; };
+		DC606643139C7292000FD1D2 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = DC606642139C7292000FD1D2 /* README.txt */; };
 		DC651DB811723D1200D3CCFA /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC651DB711723D1200D3CCFA /* MainMenu.xib */; };
 		DC961C3E113AFA0700C50140 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165DFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		DC961D08113B052000C50140 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC961CDD113B03E900C50140 /* Localizable.strings */; };
@@ -242,7 +243,6 @@
 		8BAD5E3403CF88A5007B47FA /* MEPrefs.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MEPrefs.h; sourceTree = "<group>"; };
 		8BAD5E3503CF88A5007B47FA /* MEPrefs.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = MEPrefs.m; sourceTree = "<group>"; };
 		8BE3F8770425778A001ED9CA /* Meteo-Logo.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "Meteo-Logo.tiff"; sourceTree = "<group>"; };
-		8BF0FD26044A606C00D1B4D2 /* WhatsNew.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = WhatsNew.txt; sourceTree = "<group>"; };
 		9B5B980404FA501400A80102 /* MEStringSearcher.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MEStringSearcher.h; sourceTree = "<group>"; };
 		9B5B980504FA501400A80102 /* MEStringSearcher.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = MEStringSearcher.m; sourceTree = "<group>"; };
 		9B5B980604FA501400A80102 /* NSString-Additions.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = "NSString-Additions.h"; sourceTree = "<group>"; };
@@ -250,6 +250,7 @@
 		DC02DD61135B291B002C97A1 /* HowTo.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HowTo.txt; sourceTree = "<group>"; };
 		DC03753D12E53FCD00ED8DD4 /* Portugal */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Portugal; path = Portugal.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DC32141211460533006DC8E4 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Italian; path = Italian.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DC606642139C7292000FD1D2 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		DC651DB711723D1200D3CCFA /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		DC82001B115EE48F00474AFE /* Japanese */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Japanese; path = Japanese.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DC961C2E113AF7CC00C50140 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -354,11 +355,11 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DC606642139C7292000FD1D2 /* README.txt */,
 				DC02DD61135B291B002C97A1 /* HowTo.txt */,
 				DCB79546122023E500F3EE01 /* VERSION */,
 				514F3E0A0A4E075B00378165 /* Meteorologist-Info.plist */,
 				DC651DB711723D1200D3CCFA /* MainMenu.xib */,
-				8BF0FD26044A606C00D1B4D2 /* WhatsNew.txt */,
 				8BE3F8770425778A001ED9CA /* Meteo-Logo.tiff */,
 				51F25A0F0C8B656800A7B3F1 /* Meteo-Spanish.tiff */,
 				8B47F0400410469E00809258 /* meteo.icns */,
@@ -658,6 +659,7 @@
 				DC651DB811723D1200D3CCFA /* MainMenu.xib in Resources */,
 				DCB79547122023E500F3EE01 /* VERSION in Resources */,
 				DC02DD62135B291B002C97A1 /* HowTo.txt in Resources */,
+				DC606643139C7292000FD1D2 /* README.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -707,8 +709,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = (
-					i386,
 					ppc,
+					i386,
 				);
 				CURRENT_PROJECT_VERSION = 6;
 				GCC_VERSION = "";
@@ -724,8 +726,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = (
-					i386,
 					ppc,
+					i386,
 				);
 				CURRENT_PROJECT_VERSION = 6;
 				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/frameworks\"";
@@ -757,7 +759,6 @@
 				INSTALL_PATH = "$(HOME)/Applications";
 				PREBINDING = YES;
 				PRODUCT_NAME = Meteorologist;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
 			};
@@ -787,7 +788,6 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = Meteorologist;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
 			};

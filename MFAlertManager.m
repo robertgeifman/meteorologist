@@ -44,8 +44,11 @@
 		   song:(NSString *)song
 		warning:(NSArray *)warn
 {
-    if(![alertingCities containsObject:city])
-    {
+    if((![alertingCities containsObject:city]) ||
+	   ((alertCount != [warn count]) &&
+		([warn count])))
+	{
+		alertCount = [warn count];
         [alertingCities addObject:city];
         
         NSString *warnMsg = NSLocalizedString(@"falseAlarm",nil);
@@ -79,43 +82,43 @@
 			
             warnMsg = [NSString stringWithFormat:@"%@\n",warnMsg];
             smsMsg = [NSString stringWithFormat:@"%@\n",smsMsg];
-        }
         
-        //email
-        if(options & 1)
-        {
-            [emailer emailMessage:warnMsg toAccount:email];
-        }
-        //beep
-        if(options & 2)
-        {
-            [beeper beginBeeping];
-			options = (options | 16); //Force on a message
-        }
-        //song
-        if(options & 4)
-        {
-            if(![player playSong:song])
-                [beeper beginBeeping];
-			options = options | 16; //Force on a message
-        }
-        //bounce
-        if(options & 8)
-        {
-            [NSApp deactivate];
-            [NSApp requestUserAttention:NSCriticalRequest];
-			options = options | 16; //Force on a message
-        }
-        
-        if(options & 16)
-        {
-            //display a text view with this info
-            [displayer appendMessage:warnMsg];
-        }
-        //sms
-        if(options & 32)
-        {
-            [emailer smsMessage:smsMsg toAccount:sms];
+			//email
+			if(options & 1)
+			{
+				[emailer emailMessage:warnMsg toAccount:email];
+			}
+			//beep
+			if(options & 2)
+			{
+				[beeper beginBeeping];
+				options = (options | 16); //Force on a message
+			}
+			//song
+			if(options & 4)
+			{
+				if(![player playSong:song])
+					[beeper beginBeeping];
+				options = options | 16; //Force on a message
+			}
+			//bounce
+			if(options & 8)
+			{
+				[NSApp deactivate];
+				[NSApp requestUserAttention:NSCriticalRequest];
+				options = options | 16; //Force on a message
+			}
+			
+			if(options & 16)
+			{
+				//display a text view with this info
+				[displayer appendMessage:warnMsg];
+			}
+			//sms
+			if(options & 32)
+			{
+				[emailer smsMessage:smsMsg toAccount:sms];
+			}
         }
     }
 }

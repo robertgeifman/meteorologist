@@ -1,5 +1,10 @@
 This file could also be called the change log.
 
+v1.5.5
+- Correct French localization (thanks to xf75013).
+- Corrected a problem reading an older preference file.
+- Correct a problem where only the last of multiple weather alerts were being sent to the alert.
+
 v1.5.4
 - Remove Wunderground and NWS in weather.xml. It was causing crashes when adding new city.
 - Reset Xcode 3.2.6 architecures to regain PPC support.

@@ -25,6 +25,7 @@
 	
 	IBOutlet NSButton *killSoundsButton;
 	IBOutlet NSButton *clearLogButton;
+	int alertCount;
 }
 
 - (void)addCity:(NSArray *)array;
