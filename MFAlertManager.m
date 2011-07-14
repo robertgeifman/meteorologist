@@ -50,18 +50,21 @@
 	{
 		alertCount = [warn count];
         [alertingCities addObject:city];
+		BOOL bFirstTime = TRUE;
         
-        NSString *warnMsg = NSLocalizedString(@"falseAlarm",nil);
-        NSString *smsMsg = NSLocalizedString(@"falseAlarm",nil);
+        NSString *warnMsg = NSLocalizedString(@"",nil);
+        NSString *warnLink = NSLocalizedString(@"",nil);
 
         NSEnumerator *warnEnum = [warn objectEnumerator];
         NSDictionary *dict;
         
         while(dict = [warnEnum nextObject])
         {
+			if (bFirstTime)
+			{
+				bFirstTime = FALSE;
+			}
             NSString *temp;
-            warnMsg = [NSString stringWithFormat:NSLocalizedString(@"warningsFor",nil),[city cityName]];
-            smsMsg = [NSString stringWithFormat:NSLocalizedString(@"%@ ",nil),[city cityName]];
             
             //if(temp = [dict objectForKey:@"title"])
 			//{
@@ -70,56 +73,57 @@
                 
             if(temp = [dict objectForKey:@"link"])
 			{
-                warnMsg = [NSString stringWithFormat:@"%@%@\n",warnMsg,temp];
-                smsMsg = [NSString stringWithFormat:@"%@%@ ",smsMsg,temp];
+                warnLink = [NSString stringWithFormat:@"%@",temp];
 			}
 			
             if(temp = [dict objectForKey:@"description"])
 			{
                 warnMsg = [NSString stringWithFormat:@"%@%@\n",warnMsg,temp];
-                smsMsg = [NSString stringWithFormat:@"%@%@ ",smsMsg,temp];
 			}
 			
-            warnMsg = [NSString stringWithFormat:@"%@\n",warnMsg];
-            smsMsg = [NSString stringWithFormat:@"%@\n",smsMsg];
-        
-			//email
-			if(options & 1)
-			{
-				[emailer emailMessage:warnMsg toAccount:email];
-			}
-			//beep
-			if(options & 2)
-			{
-				[beeper beginBeeping];
-				options = (options | 16); //Force on a message
-			}
-			//song
-			if(options & 4)
-			{
-				if(![player playSong:song])
-					[beeper beginBeeping];
-				options = options | 16; //Force on a message
-			}
-			//bounce
-			if(options & 8)
-			{
-				[NSApp deactivate];
-				[NSApp requestUserAttention:NSCriticalRequest];
-				options = options | 16; //Force on a message
-			}
-			
-			if(options & 16)
-			{
-				//display a text view with this info
-				[displayer appendMessage:warnMsg];
-			}
-			//sms
-			if(options & 32)
-			{
-				[emailer smsMessage:smsMsg toAccount:sms];
-			}
         }
+
+		warnMsg = [NSString stringWithFormat:@"%@\n\n%@\n\n%@",
+				   warnLink,
+				   [city cityName],
+				   warnMsg];
+		
+		//email
+		if(options & 1)
+		{
+			[emailer emailMessage:warnMsg toAccount:email];
+		}
+		//beep
+		if(options & 2)
+		{
+			[beeper beginBeeping];
+			options = (options | 16); //Force on a message
+		}
+		//song
+		if(options & 4)
+		{
+			if(![player playSong:song])
+				[beeper beginBeeping];
+			options = options | 16; //Force on a message
+		}
+		//bounce
+		if(options & 8)
+		{
+			[NSApp deactivate];
+			[NSApp requestUserAttention:NSCriticalRequest];
+			options = options | 16; //Force on a message
+		}
+		
+		if(options & 16)
+		{
+			//display a text view with this info
+			[displayer appendMessage:warnMsg];
+		}
+		//sms
+		if(options & 32)
+		{
+			[emailer smsMessage:warnMsg toAccount:sms];
+		}
     }
 }
 
@@ -192,7 +196,7 @@
     if(self)
     {
         movieView = [[NSMovieView alloc] init];
-        [[[[NSWindow alloc] initWithContentRect:NSMakeRect(0,0,0,0) styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:YES] contentView] addSubview:movieView];
+        [[[[NSWindow alloc] initWithContentRect:NSMakeRect(0,0,1,1) styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:YES] contentView] addSubview:movieView];
         [[movieView window] orderFront:nil];
         
         killer = nil;
@@ -204,11 +208,14 @@
 {
     if(!movie)
     {
+#ifdef __x86_64__
+#else
         movie = [[[NSMovie alloc] initWithURL:[NSURL fileURLWithPath:path] byReference:YES] autorelease];
         [movieView setMovie:movie];
         
         [movieView start:nil];
         killer = [NSTimer scheduledTimerWithTimeInterval:300 target:self selector:@selector(kill) userInfo:nil repeats:NO];
+#endif
     }
     
     return (movie != nil);
@@ -216,6 +223,8 @@
 
 - (void)kill
 {
+#ifdef __x86_64__
+#else
     if(movie)
     {
         [movieView stop:nil];
@@ -227,6 +236,7 @@
         [killer invalidate];
     
     killer = nil;
+#endif
 }
 
 @end
@@ -256,16 +266,58 @@
 
 - (void)emailMessage:(NSString *)msg toAccount:(NSString *)email
 {
+#ifdef __x86_64__
+	NSURL *     url;
+	NSString *message;
+	
+    message = [NSString stringWithFormat:@"mailto:%@"
+			   "?subject=%@"
+			   "&body=%@",
+			   email,@"Weather Alert",msg];
+
+    // Create the URL.
+	
+    url = [NSURL URLWithString:[(NSString*)
+								CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef)message,
+																		NULL, NULL, kCFStringEncodingUTF8) autorelease]];
+    assert(url != nil);
+	
+    // Open the URL.
+	
+    (void) [[NSWorkspace sharedWorkspace] openURL:url];
+#else
     [NSMailDelivery deliverMessage:msg
 						   subject:@"Weather Alert"
 								to:email];
+#endif
 }
 
 - (void)smsMessage:(NSString *)msg toAccount:(NSString *)sms
 {
+#ifdef __x86_64__
+	NSURL *     url;
+	NSString *message;
+	
+    message = [NSString stringWithFormat:@"mailto:%@"
+			   "?body=%@",
+			   sms,msg];
+	
+    // Create the URL.
+	
+    url = [NSURL URLWithString:[(NSString*)
+								CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef)message,
+																		NULL, NULL, kCFStringEncodingUTF8) autorelease]];
+	//NSLog(@"Email URL: %@.",message);
+    assert(url != nil);
+	
+    // Open the URL.
+	
+    (void) [[NSWorkspace sharedWorkspace] openURL:url];
+#else
     [NSMailDelivery deliverMessage:msg
 						   subject:@""
 								to:sms];
+#endif
 }
 
 @end

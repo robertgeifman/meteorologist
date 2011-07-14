@@ -8,8 +8,13 @@
 
 #import "MEWebUtils.h"
 #import "MEStringSearcher.h"
+//#ifdef __x86_64__
+//#import <CURLHandle_64/CURLHandle.h>
+//#import <CURLHandle_64/CURLHandle+extras.h>
+//#else
 #import <CURLHandle/CURLHandle.h>
 #import <CURLHandle/CURLHandle+extras.h>
+//#endif
 
 #define DEFAULT_TIMEOUT 60
 

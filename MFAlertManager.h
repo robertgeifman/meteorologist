@@ -7,8 +7,15 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "MECity.h"
+#ifdef __x86_64__
+#import <QTKit/QTKit.h>
+#define NSMovieView QTMovieView
+#define NSMovie QTMovie
+#else
+#import <AppKit/AppKit.h>
+#endif
 #import <Message/NSMailDelivery.h>
+#import "MECity.h"
 
 @class MFBeeper, MFSongPlayer, MFMessageDisplay, MFEmailer;
 

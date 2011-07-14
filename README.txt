@@ -1,5 +1,10 @@
 This file could also be called the change log.
 
+v1.5.6
+- Condense multiple alert messages into a single message where possible.
+- Update find cities location.
+- Start Intel 64 bit version.
+
 v1.5.5
 - Correct French localization (thanks to xf75013).
 - Corrected a problem reading an older preference file.
