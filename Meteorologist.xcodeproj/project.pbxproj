@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01BF8C071492BE030069C397 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01BF8C061492BE030069C397 /* QTKit.framework */; };
+		01BF8C4D1492C4100069C397 /* CURLHandle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01BF8C4C1492C4100069C397 /* CURLHandle.framework */; };
+		01BF8C4F1492C4950069C397 /* CURLHandle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 01BF8C4E1492C4950069C397 /* CURLHandle.framework */; };
 		510939BF0BFFCBB000202293 /* weather.xml in Resources */ = {isa = PBXBuildFile; fileRef = 510939BE0BFFCBB000202293 /* weather.xml */; };
-		51093BAC0C06847600202293 /* CURLHandle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51093BAB0C06847600202293 /* CURLHandle.framework */; };
 		514F3E1F0A4E0A5D00378165 /* Meteo-Logo.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 8BE3F8770425778A001ED9CA /* Meteo-Logo.tiff */; };
 		514F3E200A4E0A5D00378165 /* meteo.icns in Resources */ = {isa = PBXBuildFile; fileRef = 8B47F0400410469E00809258 /* meteo.icns */; };
 		514F3E220A4E0A7C00378165 /* MEController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B85C08503CB8F74008FAC71 /* MEController.m */; };
@@ -25,7 +27,6 @@
 		514F3E750A4E0ECA00378165 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		514F3EDE0A4E281C00378165 /* Message.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B4B4ECE0422F083009A2FD0 /* Message.framework */; };
 		514F3EDF0A4E288800378165 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
-		519894300C83CA7500B0526F /* CURLHandle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 51093BAB0C06847600202293 /* CURLHandle.framework */; };
 		51D7CFCC0B13D79C006F376D /* MoonPhase-1.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 51D7CF770B13D79C006F376D /* MoonPhase-1.tiff */; };
 		51D7CFCD0B13D79C006F376D /* MoonPhase-10.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 51D7CF780B13D79C006F376D /* MoonPhase-10.tiff */; };
 		51D7CFCE0B13D79C006F376D /* MoonPhase-11.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 51D7CF790B13D79C006F376D /* MoonPhase-11.tiff */; };
@@ -123,13 +124,16 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				519894300C83CA7500B0526F /* CURLHandle.framework in CopyFiles */,
+				01BF8C4F1492C4950069C397 /* CURLHandle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		01BF8C061492BE030069C397 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = ../../../../System/Library/Frameworks/QTKit.framework; sourceTree = "<group>"; };
+		01BF8C4C1492C4100069C397 /* CURLHandle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CURLHandle.framework; path = frameworks/CURLHandle.framework; sourceTree = "<group>"; };
+		01BF8C4E1492C4950069C397 /* CURLHandle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CURLHandle.framework; path = frameworks/CURLHandle.framework; sourceTree = "<group>"; };
 		089C165DFE840E0CC02AAC07 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -137,7 +141,6 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32CA4F630368D1EE00C91783 /* Meteorologist_Prefix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Meteorologist_Prefix.h; sourceTree = "<group>"; };
 		510939BE0BFFCBB000202293 /* weather.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = weather.xml; sourceTree = "<group>"; };
-		51093BAB0C06847600202293 /* CURLHandle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CURLHandle.framework; path = frameworks/CURLHandle.framework; sourceTree = "<group>"; };
 		514F3E080A4E075B00378165 /* Meteorologist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Meteorologist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		514F3E0A0A4E075B00378165 /* Meteorologist-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Meteorologist-Info.plist"; sourceTree = "<group>"; };
 		51AD04ED0682333800C876F0 /* MEWebUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEWebUtils.h; sourceTree = "<group>"; };
@@ -267,7 +270,8 @@
 			files = (
 				514F3EDE0A4E281C00378165 /* Message.framework in Frameworks */,
 				514F3E750A4E0ECA00378165 /* Cocoa.framework in Frameworks */,
-				51093BAC0C06847600202293 /* CURLHandle.framework in Frameworks */,
+				01BF8C071492BE030069C397 /* QTKit.framework in Frameworks */,
+				01BF8C4D1492C4100069C397 /* CURLHandle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,7 +310,8 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				51093BAB0C06847600202293 /* CURLHandle.framework */,
+				01BF8C4C1492C4100069C397 /* CURLHandle.framework */,
+				01BF8C061492BE030069C397 /* QTKit.framework */,
 				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
 				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
 				8B4B4ECE0422F083009A2FD0 /* Message.framework */,
@@ -333,6 +338,7 @@
 		29B97314FDCFA39411CA2CEA /* Meteorologist */ = {
 			isa = PBXGroup;
 			children = (
+				01BF8C4E1492C4950069C397 /* CURLHandle.framework */,
 				51D7CF740B13D79C006F376D /* Images */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -743,22 +749,34 @@
 		514F3E0C0A4E075C00378165 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "x86_64 i386 ppc";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 6;
-				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/frameworks/";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/frameworks/",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../AGRegex/build/Release\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/frameworks\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_VERSION = 4.0;
+				GCC_VERSION = "";
 				INFOPLIST_FILE = "Meteorologist-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PREBINDING = YES;
 				PRODUCT_NAME = Meteorologist;
+				REZ_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(REZ_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				REZ_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/frameworks\"";
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
 			};
@@ -767,17 +785,25 @@
 		514F3E0D0A4E075C00378165 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "x86_64 i386 ppc";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 6;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../AGRegex/build/Release\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/frameworks\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/frameworks\"";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_MODEL_TUNING = G4;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				GCC_VERSION = 4.0;
+				GCC_VERSION = "";
 				INFOPLIST_FILE = "Meteorologist-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				OTHER_LDFLAGS = (
@@ -788,6 +814,12 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = Meteorologist;
+				REZ_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(REZ_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				REZ_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/frameworks\"";
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
 			};
