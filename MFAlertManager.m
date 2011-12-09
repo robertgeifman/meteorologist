@@ -198,7 +198,9 @@
         movieView = [[NSMovieView alloc] init];
         [[[[NSWindow alloc] initWithContentRect:NSMakeRect(0,0,1,1) styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:YES] contentView] addSubview:movieView];
         [[movieView window] orderFront:nil];
-        
+        [[movieView window] setOpaque:NO];
+        [[movieView window] setAlphaValue:0];
+
         killer = nil;
     }
     return self;
