@@ -66,7 +66,8 @@
 	[temperatureBox setTitle:NSLocalizedString(@"temperatureBoxTitle",nil)];
 	[displayTemp setTitle:NSLocalizedString(@"displayTempTitle",nil)];
 	[hideCF setTitle:NSLocalizedString(@"hideCFTitle",nil)];
-	
+	[showHumidity setTitle:NSLocalizedString(@"showHumidity",nil)];
+
 	[menuBarBox setTitle:NSLocalizedString(@"menuBarBoxTitle",nil)];
 	[displayMenuIcon setTitle:NSLocalizedString(@"displayMenuIconTitle",nil)];
 	[displayCityName setTitle:NSLocalizedString(@"displayCityNameTitle",nil)];
@@ -630,7 +631,8 @@
     [tempFont selectItemWithTitle:[self tempFont]];
     [hideCF setState:[self hideCF]];
     [displayTemp setState:[self displayTemp]];
-    
+	[showHumidity setState:[self showHumidity]];
+
     [imageOpacity setFloatValue:[self imageOpacity]];
     
     if([self displayInDockAndMenuBar])
@@ -724,6 +726,7 @@
     [defaults setObject:[tempFont titleOfSelectedItem] forKey:@"tempFont"];
     [defaults setObject:NUM([hideCF state]) forKey:@"hideCF"];
     [defaults setObject:NUM([displayTemp state]) forKey:@"displayTemp"];
+	[defaults setObject:NUM([showHumidity state]) forKey:@"showHumidity"];
     
     [defaults setObject:NUM([imageOpacity floatValue]) forKey:@"imageOpacity"];
 	
@@ -816,6 +819,8 @@
         [defaults setObject:NUM_YES forKey:@"hideCF"];
     if(![[defaults objectForKey:@"displayTemp"] isKindOfClass:[NSNumber class]]) 
         [defaults setObject:NUM_YES forKey:@"displayTemp"];
+	if(![[defaults objectForKey:@"showHumidity"] isKindOfClass:[NSNumber class]]) 
+        [defaults setObject:NUM_NO forKey:@"showHumidity"];
     if(![[defaults objectForKey:@"forecastInline"] isKindOfClass:[NSNumber class]])  
         [defaults setObject:NUM_NO forKey:@"forecastInline"];
     
@@ -902,7 +907,8 @@
     [defaults setObject:@"LucidaGrande" forKey:@"tempFont"];
     [defaults setObject:NUM_YES forKey:@"hideCF"];
     [defaults setObject:NUM_YES forKey:@"displayTemp"];
-    
+	[defaults setObject:NUM_NO forKey:@"showHumidity"];
+
     [defaults setObject:NUM(1.0) forKey:@"imageOpacity"];
 	
 	//displayInDock must be written as LSUIElement in the internal plist file.
@@ -1050,6 +1056,11 @@
 - (BOOL)displayTemp
 {
     return [[defaults objectForKey:@"displayTemp"] boolValue];
+}
+
+- (BOOL)showHumidity
+{
+    return [[defaults objectForKey:@"showHumidity"] boolValue];
 }
 
 - (float)imageOpacity

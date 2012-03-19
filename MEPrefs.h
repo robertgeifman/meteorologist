@@ -35,6 +35,7 @@ enum{kPeriodType,kNumberType,kStringType};
     IBOutlet NSColorWell *tempColor;
     IBOutlet NSPopUpButton *tempFont;
     IBOutlet NSButton *hideCF;
+	IBOutlet NSButton *showHumidity;
     IBOutlet NSButton *displayTemp;
     
     //Dock prefs
@@ -164,6 +165,7 @@ enum{kPeriodType,kNumberType,kStringType};
 - (NSString *)tempFont;
 - (BOOL)hideCF;
 - (BOOL)displayTemp;
+- (BOOL)showHumidity;
 
 - (float)imageOpacity;
 

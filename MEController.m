@@ -943,6 +943,29 @@ void catchException(NSException *exception)
 				}
 			}
 			
+			if([prefsController showHumidity])
+			{
+				NSDictionary *hDict = [city dictionaryForProperty:@"Humidity"];
+				
+				NSString *humidity = [[city weatherReport] stringForKey:@"Humidity"
+															  units:[hDict objectForKey:@"unit"]
+															  prefs:prefsController
+												  displayingDegrees:NO
+															modules:[hDict objectForKey:@"servers"]];
+				
+				humidity = NSLocalizedString(humidity,@"");
+				
+				if(humidity)
+				{
+					if(*statusTitle)
+						*statusTitle = [NSString stringWithFormat:@"%@%@%@",*statusTitle,
+										([prefsController displayTemp] == YES ? @"/" : @""), humidity];
+					else
+						*statusTitle = humidity;
+				}
+			}
+
+			
 			if([prefsController displayMenuIcon])
 			{
 				// JRC - here is where the menu icon is determined
@@ -1165,7 +1188,7 @@ void catchException(NSException *exception)
 			}
 		}
 	}
-    
+	
 	NSMutableDictionary *menuAttributes = [NSMutableDictionary dictionary];
 	[menuAttributes setObject:[NSFont fontWithName:[prefsController menuFontName] size:[prefsController menuFontSize]] forKey:NSFontAttributeName];
 	[menuAttributes setObject:[prefsController menuColor] forKey:NSForegroundColorAttributeName];
@@ -1320,7 +1343,7 @@ void catchException(NSException *exception)
 {
     NSEnumerator *itemEnum = [array objectEnumerator];
     NSDictionary *nextObj;
-    
+	
     while(nextObj = [itemEnum nextObject])
     {
         //we have a nest!
